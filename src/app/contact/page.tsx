@@ -30,7 +30,7 @@ export default function ContactPage() {
           <p className="mt-4 max-w-2xl text-ink-muted">
             Placeholder text describing the Forte Institute campus location.
           </p>
-          <div className="mt-8 flex h-80 w-full items-center justify-center rounded-2xl border border-ink-muted/15 bg-background text-ink-muted">
+          <div className="mt-8 flex h-80 w-full items-center justify-center rounded-2xl border border-border bg-background text-ink-muted">
             Map embed coming soon
           </div>
         </ScrollReveal>

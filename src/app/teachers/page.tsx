@@ -49,7 +49,7 @@ export default function TeachersPage() {
               {selected.subjects.map((subject) => (
                 <span
                   key={subject}
-                  className="rounded-full border border-accent-terracotta/30 px-3 py-1 text-xs font-medium text-accent-terracotta"
+                  className="rounded-full border border-accent-gold/40 px-3 py-1 text-xs font-medium text-accent-gold"
                 >
                   {subject}
                 </span>

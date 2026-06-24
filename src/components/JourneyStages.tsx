@@ -17,7 +17,7 @@ export default function JourneyStages({ stages }: JourneyStagesProps) {
       {stages.map((stage, index) => (
         <ScrollReveal key={stage.step} delay={index * 0.08}>
           <Card>
-            <p className="font-heading text-sm font-semibold text-accent-terracotta">
+            <p className="font-heading text-sm font-semibold text-accent-gold">
               {stage.step}
             </p>
             <h3 className="mt-3 font-heading text-xl font-bold text-ink">

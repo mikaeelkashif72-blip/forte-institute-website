@@ -109,7 +109,7 @@ export default function Home() {
             <ScrollReveal key={stat.label} delay={index * 0.08}>
               <CountUp
                 value={stat.value}
-                className="block font-heading text-3xl font-bold text-accent sm:text-4xl"
+                className="block font-heading text-3xl font-bold text-accent-gold sm:text-4xl"
               />
               <p className="mt-2 text-sm text-ink-muted">{stat.label}</p>
             </ScrollReveal>
@@ -147,7 +147,7 @@ export default function Home() {
                     {group.title}
                   </h3>
                   <p className="mt-2 text-sm text-ink-muted">{group.description}</p>
-                  <span className="mt-4 inline-block text-sm font-semibold text-accent-terracotta">
+                  <span className="mt-4 inline-block text-sm font-semibold text-accent">
                     View subjects &rarr;
                   </span>
                 </Card>
@@ -167,7 +167,7 @@ export default function Home() {
             <ScrollReveal key={stat.label} delay={index * 0.08}>
               <CountUp
                 value={stat.value}
-                className="block font-heading text-3xl font-bold text-accent sm:text-4xl"
+                className="block font-heading text-3xl font-bold text-accent-gold sm:text-4xl"
               />
               <p className="mt-2 text-sm text-ink-muted">{stat.label}</p>
             </ScrollReveal>
@@ -225,7 +225,7 @@ export default function Home() {
                     id="name"
                     type="text"
                     placeholder="Your name"
-                    className="mt-2 w-full rounded-lg border border-ink-muted/20 bg-background px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 focus:border-accent-terracotta focus:outline-none"
+                    className="mt-2 w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 focus:border-accent focus:outline-none"
                   />
                 </div>
                 <div>
@@ -236,7 +236,7 @@ export default function Home() {
                     id="email"
                     type="email"
                     placeholder="you@example.com"
-                    className="mt-2 w-full rounded-lg border border-ink-muted/20 bg-background px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 focus:border-accent-terracotta focus:outline-none"
+                    className="mt-2 w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 focus:border-accent focus:outline-none"
                   />
                 </div>
                 <div>
@@ -247,7 +247,7 @@ export default function Home() {
                     id="message"
                     rows={4}
                     placeholder="How can we help?"
-                    className="mt-2 w-full rounded-lg border border-ink-muted/20 bg-background px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 focus:border-accent-terracotta focus:outline-none"
+                    className="mt-2 w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 focus:border-accent focus:outline-none"
                   />
                 </div>
                 <Button type="submit" variant="primary" className="mt-2">

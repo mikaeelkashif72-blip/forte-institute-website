@@ -13,7 +13,7 @@ const links = [
 
 export default function Navbar() {
   return (
-    <header className="border-b border-ink-muted/15 bg-background">
+    <header className="border-b border-border bg-background">
       <Container className="flex items-center justify-between py-4">
         <Link href="/" className="font-heading text-lg font-bold text-ink">
           Forte <span className="text-accent">Institute</span>
@@ -23,7 +23,7 @@ export default function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="transition-colors duration-200 hover:text-accent-terracotta"
+                className="transition-colors duration-200 hover:text-accent"
               >
                 {link.label}
               </Link>

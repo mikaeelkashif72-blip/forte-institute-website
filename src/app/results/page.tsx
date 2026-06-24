@@ -18,7 +18,7 @@ export default function ResultsPage() {
             <ScrollReveal key={stat.label} delay={index * 0.08}>
               <CountUp
                 value={stat.value}
-                className="block font-heading text-3xl font-bold text-accent sm:text-4xl"
+                className="block font-heading text-3xl font-bold text-accent-gold sm:text-4xl"
               />
               <p className="mt-2 text-sm text-ink-muted">{stat.label}</p>
             </ScrollReveal>
@@ -68,8 +68,8 @@ export default function ResultsPage() {
                   <h3 className="font-heading text-lg font-bold text-ink">{story.name}</h3>
                   <div className="flex items-center gap-2 text-sm font-semibold">
                     <span className="text-ink-muted">{story.before}</span>
-                    <span className="text-accent-terracotta">&rarr;</span>
-                    <span className="text-accent">{story.after}</span>
+                    <span className="text-accent">&rarr;</span>
+                    <span className="text-accent-gold">{story.after}</span>
                   </div>
                 </div>
                 <p className="mt-1 text-xs text-ink-muted">{story.subject}</p>

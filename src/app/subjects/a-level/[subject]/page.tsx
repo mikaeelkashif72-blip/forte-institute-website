@@ -23,7 +23,7 @@ export default function ALevelSubjectDetailPage({
     <>
       <Section className="pt-24 sm:pt-32">
         <ScrollReveal>
-          <p className="font-heading text-sm font-semibold text-accent-terracotta">
+          <p className="font-heading text-sm font-semibold text-accent">
             {levelLabels["a-level"]}
           </p>
           <h1 className="mt-2 text-4xl font-bold text-ink sm:text-5xl">{subject.name}</h1>

@@ -13,7 +13,7 @@ const links = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-ink-muted/15 bg-background-surface">
+    <footer className="border-t border-border bg-background-subtle">
       <Container className="flex flex-col gap-6 py-10 sm:flex-row sm:items-center sm:justify-between">
         <p className="font-heading text-base font-semibold text-ink">
           Forte <span className="text-accent">Institute</span>
@@ -23,7 +23,7 @@ export default function Footer() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="transition-colors duration-200 hover:text-accent-terracotta"
+                className="transition-colors duration-200 hover:text-accent"
               >
                 {link.label}
               </Link>

@@ -14,9 +14,9 @@ export default function SubjectGrid({ level, subjects }: SubjectGridProps) {
       {subjects.map((subject, index) => (
         <ScrollReveal key={subject.slug} delay={(index % 6) * 0.06}>
           <Link href={`/subjects/${level}/${subject.slug}`} className="block">
-            <Card className="h-full hover:border-accent-terracotta/40">
+            <Card className="h-full hover:border-accent/40">
               <h3 className="font-heading text-xl font-bold text-ink">{subject.name}</h3>
-              <span className="mt-4 inline-block text-sm font-semibold text-accent-terracotta">
+              <span className="mt-4 inline-block text-sm font-semibold text-accent">
                 View details &rarr;
               </span>
             </Card>

@@ -35,7 +35,7 @@ export default function SubjectsPage() {
                   {level.title}
                 </h2>
                 <p className="mt-4 text-ink-muted">{level.description}</p>
-                <span className="mt-6 inline-block text-sm font-semibold text-accent-terracotta">
+                <span className="mt-6 inline-block text-sm font-semibold text-accent">
                   View subjects &rarr;
                 </span>
               </Card>

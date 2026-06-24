@@ -40,9 +40,9 @@ function Particles() {
       </bufferGeometry>
       <pointsMaterial
         size={0.05}
-        color="#2D6A4F"
+        color="#C9971F"
         transparent
-        opacity={0.5}
+        opacity={0.45}
         sizeAttenuation
         depthWrite={false}
         blending={THREE.NormalBlending}
@@ -59,7 +59,7 @@ export default function ParticleField() {
       dpr={[1, 1.5]}
       gl={{ antialias: true, alpha: true }}
     >
-      <fog attach="fog" args={["#FAF6EF", 5, 9]} />
+      <fog attach="fog" args={["#F2EFE7", 5, 9]} />
       <Particles />
     </Canvas>
   );

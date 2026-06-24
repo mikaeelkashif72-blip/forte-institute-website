@@ -13,7 +13,7 @@ export default function Section({
 }: SectionProps) {
   return (
     <section
-      className={`py-16 sm:py-24 ${surface ? "bg-background-surface" : ""} ${className}`}
+      className={`py-16 sm:py-24 ${surface ? "bg-background-subtle" : ""} ${className}`}
       {...props}
     >
       <Container>{children}</Container>

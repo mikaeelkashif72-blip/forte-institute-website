@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react";
 import Button from "./Button";
 
 const inputClasses =
-  "mt-2 w-full rounded-lg border border-ink-muted/20 bg-background px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 focus:border-accent-terracotta focus:outline-none";
+  "mt-2 w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 focus:border-accent focus:outline-none";
 
 interface FormValues {
   name: string;

@@ -18,7 +18,7 @@ export default function ProgramsPage() {
             <Card className="flex h-full flex-col">
               <h2 className="font-heading text-2xl font-bold text-ink">{program.title}</h2>
               <p className="mt-3 text-sm text-ink-muted">{program.description}</p>
-              <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-accent-terracotta">
+              <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-accent">
                 {program.format}
               </p>
               <div className="mt-6 flex flex-1 items-end justify-between gap-4">
