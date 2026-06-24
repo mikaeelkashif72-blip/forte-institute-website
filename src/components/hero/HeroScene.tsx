@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { Suspense, useEffect, useState } from "react";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import HeroFallback from "./HeroFallback";
 
 const GrowthScene = dynamic(() => import("./GrowthScene"), {
   ssr: false,
@@ -23,20 +22,13 @@ export default function HeroScene() {
     return () => mediaQuery.removeEventListener("change", onChange);
   }, []);
 
-  if (isMobile === null) return null;
+  if (isMobile) return null;
 
   return (
-    <>
-      <HeroFallback />
-      {!isMobile && (
-        <div className="pointer-events-none absolute inset-0 -z-10">
-          <ErrorBoundary>
-            <Suspense fallback={null}>
-              <GrowthScene />
-            </Suspense>
-          </ErrorBoundary>
-        </div>
-      )}
-    </>
+    <div className="relative z-0 hidden h-[320px] w-full pointer-events-none sm:h-[380px] md:block md:h-[440px]">
+      <ErrorBoundary>
+        <Suspense fallback={null}>{isMobile === null ? null : <GrowthScene />}</Suspense>
+      </ErrorBoundary>
+    </div>
   );
 }

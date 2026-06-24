@@ -4,6 +4,7 @@ import Button from "@/components/Button";
 import Card from "@/components/Card";
 import HeroScene from "@/components/hero/HeroScene";
 import CursorGlow from "@/components/hero/CursorGlow";
+import HeroFallback from "@/components/hero/HeroFallback";
 import JourneyStages from "@/components/JourneyStages";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
@@ -82,23 +83,26 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <Section className="relative overflow-hidden pt-24 sm:pt-32">
-        <HeroScene />
+      <Section className="relative isolate overflow-hidden pt-24 sm:pt-32">
+        <HeroFallback />
         <CursorGlow />
-        <div className="relative max-w-3xl">
-          <h1 className="text-4xl font-bold leading-tight text-ink sm:text-6xl">
-            Unlock Your Academic Potential at{" "}
-            <span className="text-accent">Forte Institute</span>
-          </h1>
-          <p className="mt-6 max-w-xl text-lg text-ink-muted">
-            Placeholder subheadline describing personalized O Level and A Level
-            tuition designed to help every student achieve their best results.
-          </p>
-          <div className="mt-10">
-            <Button href="/contact" variant="primary">
-              Start Your Journey
-            </Button>
+        <div className="relative z-10 grid grid-cols-1 items-center gap-12 md:grid-cols-[1.15fr_1fr]">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl font-bold leading-tight text-ink sm:text-6xl">
+              Unlock Your Academic Potential at{" "}
+              <span className="text-accent">Forte Institute</span>
+            </h1>
+            <p className="mt-6 max-w-xl text-lg text-ink-muted">
+              Placeholder subheadline describing personalized O Level and A Level
+              tuition designed to help every student achieve their best results.
+            </p>
+            <div className="mt-10">
+              <Button href="/contact" variant="primary">
+                Start Your Journey
+              </Button>
+            </div>
           </div>
+          <HeroScene />
         </div>
       </Section>
 
