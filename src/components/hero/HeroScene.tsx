@@ -5,7 +5,7 @@ import { Suspense, useEffect, useState } from "react";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import HeroFallback from "./HeroFallback";
 
-const ParticleField = dynamic(() => import("./ParticleField"), {
+const GrowthScene = dynamic(() => import("./GrowthScene"), {
   ssr: false,
 });
 
@@ -32,7 +32,7 @@ export default function HeroScene() {
         <div className="pointer-events-none absolute inset-0 -z-10">
           <ErrorBoundary>
             <Suspense fallback={null}>
-              <ParticleField />
+              <GrowthScene />
             </Suspense>
           </ErrorBoundary>
         </div>
