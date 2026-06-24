@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Section from "@/components/Section";
 import Card from "@/components/Card";
+import ScrollReveal from "@/components/ScrollReveal";
 
 const levels = [
   {
@@ -26,18 +27,20 @@ export default function SubjectsPage() {
         the subjects we teach.
       </p>
       <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
-        {levels.map((level) => (
-          <Link key={level.href} href={level.href} className="block">
-            <Card className="h-full p-10 hover:border-accent/40">
-              <h2 className="font-heading text-3xl font-bold text-ink">
-                {level.title}
-              </h2>
-              <p className="mt-4 text-ink-muted">{level.description}</p>
-              <span className="mt-6 inline-block text-sm font-semibold text-accent-teal">
-                View subjects &rarr;
-              </span>
-            </Card>
-          </Link>
+        {levels.map((level, index) => (
+          <ScrollReveal key={level.href} delay={index * 0.08}>
+            <Link href={level.href} className="block">
+              <Card className="h-full p-10 hover:border-accent/40">
+                <h2 className="font-heading text-3xl font-bold text-ink">
+                  {level.title}
+                </h2>
+                <p className="mt-4 text-ink-muted">{level.description}</p>
+                <span className="mt-6 inline-block text-sm font-semibold text-accent-terracotta">
+                  View subjects &rarr;
+                </span>
+              </Card>
+            </Link>
+          </ScrollReveal>
         ))}
       </div>
     </Section>

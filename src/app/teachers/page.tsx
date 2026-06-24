@@ -4,6 +4,7 @@ import { useState } from "react";
 import Section from "@/components/Section";
 import TeacherCard from "@/components/TeacherCard";
 import Modal from "@/components/Modal";
+import ScrollReveal from "@/components/ScrollReveal";
 import { teachers, type Teacher } from "@/lib/teachers";
 
 function getInitials(name: string) {
@@ -26,8 +27,10 @@ export default function TeachersPage() {
           Institute. Click on a teacher to read their full bio.
         </p>
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {teachers.map((teacher) => (
-            <TeacherCard key={teacher.slug} teacher={teacher} onSelect={setSelected} />
+          {teachers.map((teacher, index) => (
+            <ScrollReveal key={teacher.slug} delay={(index % 6) * 0.08}>
+              <TeacherCard teacher={teacher} onSelect={setSelected} />
+            </ScrollReveal>
           ))}
         </div>
       </Section>
@@ -46,7 +49,7 @@ export default function TeachersPage() {
               {selected.subjects.map((subject) => (
                 <span
                   key={subject}
-                  className="rounded-full border border-accent-teal/30 px-3 py-1 text-xs font-medium text-accent-teal"
+                  className="rounded-full border border-accent-terracotta/30 px-3 py-1 text-xs font-medium text-accent-terracotta"
                 >
                   {subject}
                 </span>
