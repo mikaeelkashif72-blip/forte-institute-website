@@ -3,6 +3,7 @@ import Section from "@/components/Section";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import HeroScene from "@/components/hero/HeroScene";
+import JourneyStages from "@/components/JourneyStages";
 
 const trustStats = [
   { value: "3", label: "Exam Boards Covered" },
@@ -118,19 +119,7 @@ export default function Home() {
           Placeholder text describing the four stages every student moves
           through on the way to academic success.
         </p>
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {journeyStages.map((stage) => (
-            <Card key={stage.step}>
-              <p className="font-heading text-sm font-semibold text-accent-teal">
-                {stage.step}
-              </p>
-              <h3 className="mt-3 font-heading text-xl font-bold text-ink">
-                {stage.title}
-              </h3>
-              <p className="mt-2 text-sm text-ink-muted">{stage.description}</p>
-            </Card>
-          ))}
-        </div>
+        <JourneyStages stages={journeyStages} />
       </Section>
 
       {/* Subjects preview */}
