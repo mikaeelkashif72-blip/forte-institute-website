@@ -3,7 +3,10 @@ import Section from "@/components/Section";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import HeroScene from "@/components/hero/HeroScene";
+import CursorGlow from "@/components/hero/CursorGlow";
 import JourneyStages from "@/components/JourneyStages";
+import ScrollReveal from "@/components/ScrollReveal";
+import CountUp from "@/components/CountUp";
 
 const trustStats = [
   { value: "3", label: "Exam Boards Covered" },
@@ -81,6 +84,7 @@ export default function Home() {
       {/* Hero */}
       <Section className="relative overflow-hidden pt-24 sm:pt-32">
         <HeroScene />
+        <CursorGlow />
         <div className="relative max-w-3xl">
           <h1 className="text-4xl font-bold leading-tight text-ink sm:text-6xl">
             Unlock Your Academic Potential at{" "}
@@ -101,62 +105,72 @@ export default function Home() {
       {/* Trust bar */}
       <Section surface>
         <div className="grid grid-cols-1 gap-8 text-center sm:grid-cols-3">
-          {trustStats.map((stat) => (
-            <div key={stat.label}>
-              <p className="font-heading text-3xl font-bold text-accent sm:text-4xl">
-                {stat.value}
-              </p>
+          {trustStats.map((stat, index) => (
+            <ScrollReveal key={stat.label} delay={index * 0.08}>
+              <CountUp
+                value={stat.value}
+                className="block font-heading text-3xl font-bold text-accent sm:text-4xl"
+              />
               <p className="mt-2 text-sm text-ink-muted">{stat.label}</p>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </Section>
 
       {/* Journey narrative */}
       <Section>
-        <h2 className="text-3xl font-bold text-ink sm:text-4xl">The Forte Journey</h2>
-        <p className="mt-4 max-w-2xl text-ink-muted">
-          Placeholder text describing the four stages every student moves
-          through on the way to academic success.
-        </p>
+        <ScrollReveal>
+          <h2 className="text-3xl font-bold text-ink sm:text-4xl">The Forte Journey</h2>
+          <p className="mt-4 max-w-2xl text-ink-muted">
+            Placeholder text describing the four stages every student moves
+            through on the way to academic success.
+          </p>
+        </ScrollReveal>
         <JourneyStages stages={journeyStages} />
       </Section>
 
       {/* Subjects preview */}
       <Section surface>
-        <h2 className="text-3xl font-bold text-ink sm:text-4xl">Explore Subjects</h2>
-        <p className="mt-4 max-w-2xl text-ink-muted">
-          Placeholder text inviting students to browse our O Level and A Level
-          subject offerings.
-        </p>
+        <ScrollReveal>
+          <h2 className="text-3xl font-bold text-ink sm:text-4xl">Explore Subjects</h2>
+          <p className="mt-4 max-w-2xl text-ink-muted">
+            Placeholder text inviting students to browse our O Level and A Level
+            subject offerings.
+          </p>
+        </ScrollReveal>
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          {subjectGroups.map((group) => (
-            <Link key={group.href} href={group.href} className="block">
-              <Card className="h-full hover:border-accent/40">
-                <h3 className="font-heading text-2xl font-bold text-ink">
-                  {group.title}
-                </h3>
-                <p className="mt-2 text-sm text-ink-muted">{group.description}</p>
-                <span className="mt-4 inline-block text-sm font-semibold text-accent-teal">
-                  View subjects &rarr;
-                </span>
-              </Card>
-            </Link>
+          {subjectGroups.map((group, index) => (
+            <ScrollReveal key={group.href} delay={index * 0.08}>
+              <Link href={group.href} className="block">
+                <Card className="h-full hover:border-accent/40">
+                  <h3 className="font-heading text-2xl font-bold text-ink">
+                    {group.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-ink-muted">{group.description}</p>
+                  <span className="mt-4 inline-block text-sm font-semibold text-accent-terracotta">
+                    View subjects &rarr;
+                  </span>
+                </Card>
+              </Link>
+            </ScrollReveal>
           ))}
         </div>
       </Section>
 
       {/* Results snapshot */}
       <Section>
-        <h2 className="text-3xl font-bold text-ink sm:text-4xl">Results Snapshot</h2>
+        <ScrollReveal>
+          <h2 className="text-3xl font-bold text-ink sm:text-4xl">Results Snapshot</h2>
+        </ScrollReveal>
         <div className="mt-12 grid grid-cols-1 gap-8 text-center sm:grid-cols-3">
-          {resultStats.map((stat) => (
-            <div key={stat.label}>
-              <p className="font-heading text-3xl font-bold text-accent sm:text-4xl">
-                {stat.value}
-              </p>
+          {resultStats.map((stat, index) => (
+            <ScrollReveal key={stat.label} delay={index * 0.08}>
+              <CountUp
+                value={stat.value}
+                className="block font-heading text-3xl font-bold text-accent sm:text-4xl"
+              />
               <p className="mt-2 text-sm text-ink-muted">{stat.label}</p>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
         <div className="mt-10">
@@ -168,18 +182,22 @@ export default function Home() {
 
       {/* Testimonials */}
       <Section surface>
-        <h2 className="text-3xl font-bold text-ink sm:text-4xl">
-          What Our Students Say
-        </h2>
+        <ScrollReveal>
+          <h2 className="text-3xl font-bold text-ink sm:text-4xl">
+            What Our Students Say
+          </h2>
+        </ScrollReveal>
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
-          {testimonials.map((testimonial) => (
-            <Card key={testimonial.name + testimonial.detail}>
-              <p className="text-sm text-ink-muted">&ldquo;{testimonial.quote}&rdquo;</p>
-              <p className="mt-4 font-heading text-sm font-semibold text-ink">
-                {testimonial.name}
-              </p>
-              <p className="text-xs text-ink-muted">{testimonial.detail}</p>
-            </Card>
+          {testimonials.map((testimonial, index) => (
+            <ScrollReveal key={testimonial.name + testimonial.detail} delay={index * 0.08}>
+              <Card>
+                <p className="text-sm text-ink-muted">&ldquo;{testimonial.quote}&rdquo;</p>
+                <p className="mt-4 font-heading text-sm font-semibold text-ink">
+                  {testimonial.name}
+                </p>
+                <p className="text-xs text-ink-muted">{testimonial.detail}</p>
+              </Card>
+            </ScrollReveal>
           ))}
         </div>
       </Section>
@@ -187,7 +205,7 @@ export default function Home() {
       {/* Final CTA + contact form */}
       <Section>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-          <div>
+          <ScrollReveal>
             <h2 className="text-3xl font-bold text-ink sm:text-4xl">
               Ready to Begin?
             </h2>
@@ -195,47 +213,49 @@ export default function Home() {
               Placeholder text encouraging students and parents to get in
               touch and start their journey with Forte Institute.
             </p>
-          </div>
-          <Card>
-            <form className="grid grid-cols-1 gap-4">
-              <div>
-                <label htmlFor="name" className="text-sm font-medium text-ink">
-                  Name
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  placeholder="Your name"
-                  className="mt-2 w-full rounded-lg border border-ink-muted/20 bg-background px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 focus:border-accent-teal focus:outline-none"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="text-sm font-medium text-ink">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  className="mt-2 w-full rounded-lg border border-ink-muted/20 bg-background px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 focus:border-accent-teal focus:outline-none"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="text-sm font-medium text-ink">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  rows={4}
-                  placeholder="How can we help?"
-                  className="mt-2 w-full rounded-lg border border-ink-muted/20 bg-background px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 focus:border-accent-teal focus:outline-none"
-                />
-              </div>
-              <Button type="submit" variant="primary" className="mt-2">
-                Send Message
-              </Button>
-            </form>
-          </Card>
+          </ScrollReveal>
+          <ScrollReveal delay={0.1}>
+            <Card>
+              <form className="grid grid-cols-1 gap-4">
+                <div>
+                  <label htmlFor="name" className="text-sm font-medium text-ink">
+                    Name
+                  </label>
+                  <input
+                    id="name"
+                    type="text"
+                    placeholder="Your name"
+                    className="mt-2 w-full rounded-lg border border-ink-muted/20 bg-background px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 focus:border-accent-terracotta focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="text-sm font-medium text-ink">
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="you@example.com"
+                    className="mt-2 w-full rounded-lg border border-ink-muted/20 bg-background px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 focus:border-accent-terracotta focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="message" className="text-sm font-medium text-ink">
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    rows={4}
+                    placeholder="How can we help?"
+                    className="mt-2 w-full rounded-lg border border-ink-muted/20 bg-background px-4 py-3 text-sm text-ink placeholder:text-ink-muted/60 focus:border-accent-terracotta focus:outline-none"
+                  />
+                </div>
+                <Button type="submit" variant="primary" className="mt-2">
+                  Send Message
+                </Button>
+              </form>
+            </Card>
+          </ScrollReveal>
         </div>
       </Section>
     </>
