@@ -8,6 +8,8 @@ import { STAGES, type GrowthBranch, type GrowthNode, type StageNumber } from "./
 const GREEN = "#1F4D3D";
 const GOLD = "#C9971F";
 
+const BRANCH_THICKNESS_SCALE = 2.4;
+
 function Branch({ from, to, radius }: GrowthBranch) {
   const { midpoint, quaternion, length } = useMemo(() => {
     const start = new THREE.Vector3(...from);
@@ -23,10 +25,12 @@ function Branch({ from, to, radius }: GrowthBranch) {
     };
   }, [from, to]);
 
+  const thickRadius = radius * BRANCH_THICKNESS_SCALE;
+
   return (
     <mesh position={midpoint} quaternion={quaternion} castShadow receiveShadow>
-      <cylinderGeometry args={[radius * 0.55, radius, length, 6]} />
-      <meshStandardMaterial color={GREEN} roughness={0.55} metalness={0.1} />
+      <cylinderGeometry args={[thickRadius * 0.6, thickRadius, length, 8]} />
+      <meshStandardMaterial color={GREEN} roughness={0.5} metalness={0.15} />
     </mesh>
   );
 }
