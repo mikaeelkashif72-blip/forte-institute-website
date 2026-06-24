@@ -27,7 +27,7 @@ export default function Modal({ open, onClose, children }: ModalProps) {
       onClick={onClose}
     >
       <div
-        className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-ink-muted/15 bg-background-surface p-8"
+        className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-ink-muted/15 bg-background-surface p-8 shadow-xl shadow-ink/10"
         onClick={(e) => e.stopPropagation()}
       >
         {children}

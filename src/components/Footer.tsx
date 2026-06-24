@@ -23,7 +23,7 @@ export default function Footer() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="transition-colors duration-200 hover:text-accent-teal"
+                className="transition-colors duration-200 hover:text-accent-terracotta"
               >
                 {link.label}
               </Link>

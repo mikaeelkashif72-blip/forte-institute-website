@@ -23,7 +23,7 @@ export default function TeacherCard({ teacher, onSelect }: TeacherCardProps) {
       onClick={() => onSelect(teacher)}
       className="block w-full text-left"
     >
-      <Card className="h-full hover:border-accent-teal/40">
+      <Card className="h-full hover:border-accent-terracotta/40">
         <div className="flex h-20 w-20 items-center justify-center rounded-full bg-background font-heading text-xl font-bold text-accent">
           {getInitials(teacher.name)}
         </div>
@@ -33,7 +33,7 @@ export default function TeacherCard({ teacher, onSelect }: TeacherCardProps) {
           {teacher.subjects.map((subject) => (
             <span
               key={subject}
-              className="rounded-full border border-accent-teal/30 px-3 py-1 text-xs font-medium text-accent-teal"
+              className="rounded-full border border-accent-terracotta/30 px-3 py-1 text-xs font-medium text-accent-terracotta"
             >
               {subject}
             </span>

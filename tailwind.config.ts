@@ -10,16 +10,16 @@ const config: Config = {
     extend: {
       colors: {
         background: {
-          DEFAULT: "#0B0E14",
-          surface: "#11151F",
+          DEFAULT: "#FAF6EF",
+          surface: "#FFFFFF",
         },
         accent: {
-          DEFAULT: "#F2B94B",
-          teal: "#2DD4BF",
+          DEFAULT: "#2D6A4F",
+          terracotta: "#C1693C",
         },
         ink: {
-          DEFAULT: "#F5F5F0",
-          muted: "#9CA3AF",
+          DEFAULT: "#1B1B18",
+          muted: "#6E6A62",
         },
       },
       fontFamily: {

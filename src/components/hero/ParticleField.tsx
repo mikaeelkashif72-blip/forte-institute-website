@@ -4,7 +4,7 @@ import { useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-const PARTICLE_COUNT = 600;
+const PARTICLE_COUNT = 500;
 
 function Particles() {
   const pointsRef = useRef<THREE.Points>(null);
@@ -12,7 +12,7 @@ function Particles() {
   const positions = useMemo(() => {
     const positions = new Float32Array(PARTICLE_COUNT * 3);
     for (let i = 0; i < PARTICLE_COUNT; i++) {
-      const radius = 4 + Math.random() * 2;
+      const radius = 4 + Math.random() * 2.5;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
       positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
@@ -24,8 +24,8 @@ function Particles() {
 
   useFrame((_, delta) => {
     if (!pointsRef.current) return;
-    pointsRef.current.rotation.y += delta * 0.06;
-    pointsRef.current.rotation.x += delta * 0.015;
+    pointsRef.current.rotation.y += delta * 0.05;
+    pointsRef.current.rotation.x += delta * 0.012;
   });
 
   return (
@@ -39,13 +39,14 @@ function Particles() {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.045}
-        color="#F2B94B"
+        size={0.05}
+        color="#2D6A4F"
         transparent
-        opacity={0.55}
+        opacity={0.5}
         sizeAttenuation
         depthWrite={false}
-        blending={THREE.AdditiveBlending}
+        blending={THREE.NormalBlending}
+        fog
       />
     </points>
   );
@@ -58,6 +59,7 @@ export default function ParticleField() {
       dpr={[1, 1.5]}
       gl={{ antialias: true, alpha: true }}
     >
+      <fog attach="fog" args={["#FAF6EF", 5, 9]} />
       <Particles />
     </Canvas>
   );

@@ -25,17 +25,18 @@ export default function HeroScene() {
 
   if (isMobile === null) return null;
 
-  if (isMobile) {
-    return <HeroFallback />;
-  }
-
   return (
-    <div className="pointer-events-none absolute inset-0 -z-10">
-      <ErrorBoundary fallback={<HeroFallback />}>
-        <Suspense fallback={null}>
-          <ParticleField />
-        </Suspense>
-      </ErrorBoundary>
-    </div>
+    <>
+      <HeroFallback />
+      {!isMobile && (
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <ErrorBoundary>
+            <Suspense fallback={null}>
+              <ParticleField />
+            </Suspense>
+          </ErrorBoundary>
+        </div>
+      )}
+    </>
   );
 }
