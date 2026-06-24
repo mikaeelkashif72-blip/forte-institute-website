@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Container from "./Container";
+import Button from "./Button";
 
 const links = [
   { href: "/", label: "Home" },
@@ -7,26 +9,31 @@ const links = [
   { href: "/results", label: "Results" },
   { href: "/programs", label: "Programs" },
   { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
   return (
-    <header className="border-b border-black/10 dark:border-white/10">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link href="/" className="text-lg font-bold">
-          Forte Institute
+    <header className="border-b border-ink-muted/15 bg-background">
+      <Container className="flex items-center justify-between py-4">
+        <Link href="/" className="font-heading text-lg font-bold text-ink">
+          Forte <span className="text-accent">Institute</span>
         </Link>
-        <ul className="flex flex-wrap gap-6 text-sm font-medium">
+        <ul className="hidden flex-wrap gap-6 text-sm font-medium text-ink-muted sm:flex">
           {links.map((link) => (
             <li key={link.href}>
-              <Link href={link.href} className="hover:underline">
+              <Link
+                href={link.href}
+                className="transition-colors duration-200 hover:text-accent-teal"
+              >
                 {link.label}
               </Link>
             </li>
           ))}
         </ul>
-      </nav>
+        <Button href="/contact" variant="primary" className="px-5 py-2 text-xs">
+          Contact
+        </Button>
+      </Container>
     </header>
   );
 }
