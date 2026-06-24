@@ -2,6 +2,7 @@ import Link from "next/link";
 import Section from "@/components/Section";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
+import HeroScene from "@/components/hero/HeroScene";
 
 const trustStats = [
   { value: "3", label: "Exam Boards Covered" },
@@ -77,8 +78,9 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <Section className="pt-24 sm:pt-32">
-        <div className="max-w-3xl">
+      <Section className="relative overflow-hidden pt-24 sm:pt-32">
+        <HeroScene />
+        <div className="relative max-w-3xl">
           <h1 className="text-4xl font-bold leading-tight text-ink sm:text-6xl">
             Unlock Your Academic Potential at{" "}
             <span className="text-accent">Forte Institute</span>
