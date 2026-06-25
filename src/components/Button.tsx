@@ -5,9 +5,9 @@ type Variant = "primary" | "secondary";
 
 const variantClasses: Record<Variant, string> = {
   primary:
-    "bg-accent text-white hover:bg-accent-hover hover:shadow-[0_0_24px_rgba(31,77,61,0.45)] focus-visible:outline-accent",
+    "bg-accent text-background hover:bg-accent-hover hover:text-background hover:shadow-[0_0_24px_rgba(242,185,75,0.45)] focus-visible:outline-accent",
   secondary:
-    "border border-border text-ink hover:border-accent hover:text-accent hover:shadow-[0_0_20px_rgba(31,77,61,0.2)] focus-visible:outline-accent",
+    "border border-border text-ink hover:border-accent-hover hover:text-accent-hover hover:shadow-[0_0_20px_rgba(45,212,191,0.25)] focus-visible:outline-accent",
 };
 
 const baseClasses =

@@ -19,8 +19,8 @@ export default function GrowthScene() {
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
       />
-      <directionalLight position={[-5, 3, -4]} intensity={1.2} color="#C9971F" />
-      <directionalLight position={[0, -2, 6]} intensity={0.5} color="#FAF8F3" />
+      <directionalLight position={[-5, 3, -4]} intensity={1.2} color="#2DD4BF" />
+      <directionalLight position={[0, -2, 6]} intensity={0.4} color="#FFFFFF" />
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.2, 0]} receiveShadow>
         <planeGeometry args={[14, 14]} />
         <shadowMaterial opacity={0.12} />

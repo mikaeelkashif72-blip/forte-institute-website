@@ -5,8 +5,8 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { STAGES, type GrowthBranch, type GrowthNode, type StageNumber } from "./growthStages";
 
-const GREEN = "#1F4D3D";
-const GOLD = "#C9971F";
+const NEUTRAL = "#3A4252";
+const GOLD = "#F2B94B";
 
 const BRANCH_THICKNESS_SCALE = 2.4;
 
@@ -30,7 +30,7 @@ function Branch({ from, to, radius }: GrowthBranch) {
   return (
     <mesh position={midpoint} quaternion={quaternion} castShadow receiveShadow>
       <cylinderGeometry args={[thickRadius * 0.6, thickRadius, length, 8]} />
-      <meshStandardMaterial color={GREEN} roughness={0.5} metalness={0.15} />
+      <meshStandardMaterial color={NEUTRAL} roughness={0.5} metalness={0.15} />
     </mesh>
   );
 }
@@ -40,7 +40,7 @@ function Node({ position, radius, gold }: GrowthNode) {
     <mesh position={position} castShadow receiveShadow>
       <icosahedronGeometry args={[radius, 0]} />
       <meshStandardMaterial
-        color={gold ? GOLD : GREEN}
+        color={gold ? GOLD : NEUTRAL}
         roughness={0.35}
         metalness={gold ? 0.4 : 0.15}
         flatShading
@@ -68,7 +68,7 @@ export default function GrowingStructure({ stage = 4 }: GrowingStructureProps) {
       <mesh castShadow receiveShadow>
         <icosahedronGeometry args={[config.core.radius, 0]} />
         <meshStandardMaterial
-          color={config.core.gold ? GOLD : GREEN}
+          color={config.core.gold ? GOLD : NEUTRAL}
           roughness={0.35}
           metalness={0.15}
           flatShading

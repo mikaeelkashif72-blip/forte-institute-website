@@ -10,20 +10,20 @@ const config: Config = {
     extend: {
       colors: {
         background: {
-          DEFAULT: "#FAF8F3",
-          surface: "#FFFFFF",
-          subtle: "#F2EFE7",
+          DEFAULT: "#0B0E14",
+          surface: "#11151F",
+          subtle: "#161B26",
         },
         accent: {
-          DEFAULT: "#1F4D3D",
-          hover: "#16382C",
-          gold: "#C9971F",
+          DEFAULT: "#F2B94B",
+          hover: "#2DD4BF",
+          gold: "#F2B94B",
         },
         ink: {
-          DEFAULT: "#1A1A1A",
-          muted: "#6B6B63",
+          DEFAULT: "#F5F5F0",
+          muted: "#9CA3AF",
         },
-        border: "#E5E1D8",
+        border: "#232838",
       },
       fontFamily: {
         heading: ["var(--font-heading)", "sans-serif"],
