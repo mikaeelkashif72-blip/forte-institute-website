@@ -2,6 +2,7 @@ import Link from "next/link";
 import Section from "@/components/Section";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
+import HeroScene from "@/components/hero/HeroScene";
 import CursorGlow from "@/components/hero/CursorGlow";
 import HeroFallback from "@/components/hero/HeroFallback";
 import JourneyStages from "@/components/JourneyStages";
@@ -84,6 +85,7 @@ export default function Home() {
       {/* Hero */}
       <Section className="relative isolate overflow-hidden pt-24 sm:pt-32">
         <HeroFallback />
+        <HeroScene />
         <CursorGlow />
         <div className="relative z-10 max-w-3xl">
           <h1 className="text-4xl font-bold leading-tight text-ink sm:text-6xl">
