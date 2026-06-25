@@ -5,13 +5,13 @@ type Variant = "primary" | "secondary";
 
 const variantClasses: Record<Variant, string> = {
   primary:
-    "bg-accent text-background hover:bg-accent-hover hover:text-background hover:shadow-[0_0_24px_rgba(242,185,75,0.45)] focus-visible:outline-accent",
+    "bg-accent text-white shadow-sm shadow-accent/20 hover:bg-accent-hover focus-visible:outline-accent",
   secondary:
-    "border border-border text-ink hover:border-accent-hover hover:text-accent-hover hover:shadow-[0_0_20px_rgba(45,212,191,0.25)] focus-visible:outline-accent",
+    "border border-border text-ink hover:border-accent hover:text-accent focus-visible:outline-accent",
 };
 
 const baseClasses =
-  "inline-flex items-center justify-center rounded-full px-6 py-3 font-heading text-sm font-semibold tracking-wide transition-all duration-200 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:hover:scale-100";
+  "inline-flex items-center justify-center rounded-lg px-6 py-3 font-heading text-sm font-semibold tracking-wide transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 disabled:pointer-events-none";
 
 interface CommonProps {
   variant?: Variant;
