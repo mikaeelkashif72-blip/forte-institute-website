@@ -5,7 +5,7 @@ import Card from "@/components/Card";
 import HeroScene from "@/components/hero/HeroScene";
 import CursorGlow from "@/components/hero/CursorGlow";
 import HeroFallback from "@/components/hero/HeroFallback";
-import JourneyStages from "@/components/JourneyStages";
+import JourneyTimeline from "@/components/JourneyTimeline";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
 
@@ -128,7 +128,7 @@ export default function Home() {
             through on the way to academic success.
           </p>
         </ScrollReveal>
-        <JourneyStages stages={journeyStages} />
+        <JourneyTimeline stages={journeyStages} />
       </Section>
 
       {/* Subjects preview */}
