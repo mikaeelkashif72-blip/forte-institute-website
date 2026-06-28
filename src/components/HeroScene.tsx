@@ -13,9 +13,9 @@ function prefersReducedMotion() {
 }
 
 const shapes = [
-  { geometry: "icosahedron", position: [0, 0.4, 0] as const, scale: 1.4, color: "#8B5CF6" },
-  { geometry: "torus", position: [-2.1, -0.6, -1] as const, scale: 0.9, color: "#22D3EE" },
-  { geometry: "octahedron", position: [2, -0.2, -0.5] as const, scale: 1, color: "#A78BFA" },
+  { geometry: "icosahedron", position: [-3.6, 1.6, -2] as const, scale: 1.5, color: "#8B5CF6" },
+  { geometry: "torus", position: [3.8, -1.4, -2.5] as const, scale: 1.2, color: "#22D3EE" },
+  { geometry: "octahedron", position: [4, 2, -3] as const, scale: 1.1, color: "#A78BFA" },
 ];
 
 function GlassShape({
@@ -79,7 +79,7 @@ function Cluster() {
 
 export default function HeroScene() {
   return (
-    <Canvas camera={{ position: [0, 0, 6], fov: 45 }} dpr={[1, 1.5]}>
+    <Canvas camera={{ position: [0, 0, 8], fov: 50 }} dpr={[1, 1.5]}>
       <ambientLight intensity={0.6} />
       <pointLight position={[4, 4, 4]} intensity={4} color="#22D3EE" />
       <pointLight position={[-4, -2, 2]} intensity={4} color="#8B5CF6" />
