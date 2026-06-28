@@ -1,11 +1,8 @@
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ErrorBoundary from "@/components/ErrorBoundary";
+import { InfiniteGrid } from "@/components/ui/the-infinite-grid";
 import { resultStats } from "@/lib/results";
-
-const HeroScene = dynamic(() => import("@/components/HeroScene"), { ssr: false });
 
 const levelChoices = [
   {
@@ -26,25 +23,9 @@ export default function Home() {
       <Header />
       <main className="bg-void">
         {/* Section 1: immersive hero — one idea, nothing competing for attention */}
-        <section className="relative flex min-h-[calc(100vh-73px)] items-center overflow-hidden">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,theme(colors.violet.DEFAULT/15%),transparent_60%)]"
-          />
-          <div aria-hidden="true" className="absolute inset-0">
-            <ErrorBoundary fallback={null}>
-              <HeroScene />
-            </ErrorBoundary>
-          </div>
-
-          <div className="relative mx-auto w-full max-w-4xl px-6 text-center">
-            <h1 className="text-balance font-heading text-5xl font-bold leading-tight tracking-[-0.01em] text-mist-bright md:text-7xl">
-              Cambridge tuition built for results.
-            </h1>
-            <p className="mx-auto mt-6 max-w-xl text-balance text-lg text-mist">
-              Notes, past papers, and structured teaching for every O Level and
-              A Level subject.
-            </p>
+        <section className="relative min-h-[calc(100vh-73px)]">
+          <div className="absolute inset-0">
+            <InfiniteGrid />
           </div>
 
           <div
