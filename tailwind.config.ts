@@ -34,6 +34,18 @@ const config: Config = {
           DEFAULT: "#22D3EE",
           bright: "#67E8F9",
         },
+        paper: {
+          DEFAULT: "#FFFFFF",
+        },
+        ink: {
+          DEFAULT: "#111111",
+          60: "rgba(17, 17, 17, 0.6)",
+          10: "rgba(17, 17, 17, 0.1)",
+        },
+        yellow: {
+          DEFAULT: "#F5C518",
+          deep: "#B98A00",
+        },
       },
       backgroundImage: {
         "aurora-gradient": "linear-gradient(135deg, #8B5CF6 0%, #22D3EE 100%)",
