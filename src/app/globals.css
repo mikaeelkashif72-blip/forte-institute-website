@@ -4,6 +4,8 @@
 
 body {
   font-family: var(--font-body), sans-serif;
+  background-color: #f8f4ec;
+  color: #16213e;
 }
 
 h1,
