@@ -108,9 +108,15 @@ function Cluster({ lowPower }: { lowPower: boolean }) {
 
 export default function HeroScene() {
   const lowPower = useLowPower();
+  const [ready, setReady] = useState(false);
 
   return (
-    <Canvas camera={{ position: [0, 0, 8], fov: 50 }} dpr={lowPower ? 1 : [1, 1.5]}>
+    <Canvas
+      camera={{ position: [0, 0, 8], fov: 50 }}
+      dpr={lowPower ? 1 : [1, 1.5]}
+      style={{ opacity: ready ? 1 : 0, transition: "opacity 600ms ease-out" }}
+      onCreated={() => setReady(true)}
+    >
       <ambientLight intensity={0.6} />
       <pointLight position={[4, 4, 4]} intensity={4} color="#22D3EE" />
       <pointLight position={[-4, -2, 2]} intensity={4} color="#8B5CF6" />

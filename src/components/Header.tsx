@@ -50,7 +50,7 @@ export default function Header() {
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             onClick={() => setMenuOpen((open) => !open)}
-            className="flex h-10 w-10 items-center justify-center rounded-md border border-glass-border text-mist-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-bright md:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-md border border-glass-border text-mist-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-bright md:hidden"
           >
             <span className="sr-only">{menuOpen ? "Close menu" : "Open menu"}</span>
             {menuOpen ? (
@@ -71,13 +71,13 @@ export default function Header() {
           id="mobile-nav"
           className="border-t border-glass-border bg-void/95 px-6 py-4 backdrop-blur-xl md:hidden"
         >
-          <ul className="flex flex-col gap-4 text-base font-medium text-mist">
+          <ul className="flex flex-col text-base font-medium text-mist">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="block rounded-sm transition-colors hover:text-mist-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-bright"
+                  className="block rounded-sm py-2.5 transition-colors hover:text-mist-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-bright"
                 >
                   {link.label}
                 </Link>
@@ -87,7 +87,7 @@ export default function Header() {
               <Link
                 href="/contact"
                 onClick={() => setMenuOpen(false)}
-                className="mt-2 block rounded-full bg-aurora-gradient px-4 py-2 text-center text-sm font-semibold text-void focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-bright"
+                className="mt-2 block rounded-full bg-aurora-gradient px-4 py-3 text-center text-sm font-semibold text-void focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-bright"
               >
                 Book Free Trial
               </Link>
