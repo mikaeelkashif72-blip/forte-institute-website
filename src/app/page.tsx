@@ -24,7 +24,7 @@ export default function Home() {
     <>
       <Header />
       <main className="relative overflow-hidden bg-cream">
-        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 opacity-70 lg:block">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-30 sm:right-0 sm:left-auto sm:h-full sm:w-1/2 sm:opacity-70">
           <ErrorBoundary fallback={null}>
             <HeroScene />
           </ErrorBoundary>
