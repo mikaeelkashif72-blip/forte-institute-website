@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { MeshTransmissionMaterial, Float, Environment } from "@react-three/drei";
 import type { Group } from "three";
@@ -10,6 +10,20 @@ function prefersReducedMotion() {
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
+}
+
+function useLowPower() {
+  const [lowPower, setLowPower] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 768px)");
+    const update = () => setLowPower(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  return lowPower;
 }
 
 const shapes = [
@@ -23,11 +37,13 @@ function GlassShape({
   position,
   scale,
   color,
+  lowPower,
 }: {
   geometry: string;
   position: readonly [number, number, number];
   scale: number;
   color: string;
+  lowPower: boolean;
 }) {
   const reducedMotion = prefersReducedMotion();
 
@@ -41,23 +57,36 @@ function GlassShape({
         {geometry === "icosahedron" && <icosahedronGeometry args={[1, 0]} />}
         {geometry === "torus" && <torusGeometry args={[0.9, 0.32, 32, 100]} />}
         {geometry === "octahedron" && <octahedronGeometry args={[1, 0]} />}
-        <MeshTransmissionMaterial
-          color={color}
-          thickness={0.6}
-          roughness={0.05}
-          transmission={1}
-          ior={1.3}
-          chromaticAberration={0.06}
-          samples={6}
-          resolution={512}
-          backside
-        />
+        {lowPower ? (
+          // Single-pass material: far cheaper than MeshTransmissionMaterial's
+          // multi-pass refraction render, needed on phones where this scene
+          // runs most often.
+          <meshPhysicalMaterial
+            color={color}
+            roughness={0.15}
+            transmission={0.9}
+            thickness={0.6}
+            ior={1.3}
+          />
+        ) : (
+          <MeshTransmissionMaterial
+            color={color}
+            thickness={0.6}
+            roughness={0.05}
+            transmission={1}
+            ior={1.3}
+            chromaticAberration={0.06}
+            samples={6}
+            resolution={512}
+            backside
+          />
+        )}
       </mesh>
     </Float>
   );
 }
 
-function Cluster() {
+function Cluster({ lowPower }: { lowPower: boolean }) {
   const groupRef = useRef<Group>(null);
   const reducedMotion = prefersReducedMotion();
 
@@ -71,20 +100,22 @@ function Cluster() {
   return (
     <group ref={groupRef}>
       {shapes.map((shape) => (
-        <GlassShape key={shape.geometry} {...shape} />
+        <GlassShape key={shape.geometry} {...shape} lowPower={lowPower} />
       ))}
     </group>
   );
 }
 
 export default function HeroScene() {
+  const lowPower = useLowPower();
+
   return (
-    <Canvas camera={{ position: [0, 0, 8], fov: 50 }} dpr={[1, 1.5]}>
+    <Canvas camera={{ position: [0, 0, 8], fov: 50 }} dpr={lowPower ? 1 : [1, 1.5]}>
       <ambientLight intensity={0.6} />
       <pointLight position={[4, 4, 4]} intensity={4} color="#22D3EE" />
       <pointLight position={[-4, -2, 2]} intensity={4} color="#8B5CF6" />
-      <Environment preset="night" />
-      <Cluster />
+      {!lowPower && <Environment preset="night" />}
+      <Cluster lowPower={lowPower} />
     </Canvas>
   );
 }

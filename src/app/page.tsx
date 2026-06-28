@@ -59,7 +59,7 @@ export default function Home() {
                 <Link
                   key={choice.href}
                   href={choice.href}
-                  className="group relative overflow-hidden rounded-2xl border border-glass-border bg-glass p-10 backdrop-blur-xl transition-all hover:border-violet-bright/60 hover:bg-white/[0.08]"
+                  className="group relative overflow-hidden rounded-2xl border border-glass-border bg-glass p-10 backdrop-blur-xl transition-all hover:border-violet-bright/60 hover:bg-white/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-bright"
                 >
                   <h3 className="font-heading text-4xl font-bold text-mist-bright">
                     {choice.title}
