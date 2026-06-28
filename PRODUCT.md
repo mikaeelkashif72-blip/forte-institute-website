@@ -16,13 +16,14 @@ Forte Institute is a Cambridge O Level / A Level tuition provider. The site exis
 
 ## Brand Personality
 
-Confident, modern, sharp. Not soft, not decorative, not cutesy. The site should read like a institute that backs its results with data, not one trying to look "friendly" or "fun" to compensate for thin credibility.
+Confident, modern, sharp — and, per explicit client direction, appealing to a young audience: glassy, futuristic, premium. Not soft, not decorative, not cutesy, but also not flat or safe. The site should feel closer to a premium tech product launch than a tutoring brochure, while still backing every claim with data rather than style alone.
 
 ## Anti-references
 
 - Generic EdTech SaaS: cream/pastel backgrounds, bright gradients, stock-photo smiling-students imagery, identical icon+heading+text card grids, hero-metric-with-gradient-accent clichés.
 - Traditional/stuffy institution: heavy serif typography, formal school-prospectus layouts, dated visual language.
-- No named reference site; direction is inferred from "confident, modern, sharp" rather than copying a specific product.
+- Flat/restrained/"safe" marketing site: the client explicitly rejected the first version's ink/cream/wireframe direction as not appealing to a young audience — a return to flat neutrals-plus-one-accent restraint is a regression, not a simplification.
+- No named reference site; direction is inferred from "glassy, futuristic, premium, young-audience-appealing" rather than copying a specific product.
 
 ## Design Principles
 

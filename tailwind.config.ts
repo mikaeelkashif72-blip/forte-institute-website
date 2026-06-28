@@ -13,21 +13,30 @@ const config: Config = {
         body: ["var(--font-body)", "sans-serif"],
       },
       colors: {
-        ink: {
-          DEFAULT: "#16213E",
-          50: "#EEF0F5",
-          100: "#D5DAE6",
-          400: "#4B5C82",
-          900: "#10182E",
+        void: {
+          DEFAULT: "#0A0B12",
+          100: "#10111C",
+          200: "#171928",
         },
-        cream: {
-          DEFAULT: "#F8F4EC",
-          100: "#FBF9F4",
+        glass: {
+          DEFAULT: "rgba(255, 255, 255, 0.06)",
+          border: "rgba(255, 255, 255, 0.12)",
         },
-        accent: {
-          DEFAULT: "#C8932A",
-          dark: "#A6781E",
+        mist: {
+          DEFAULT: "#A8AEC2",
+          bright: "#E7E9F2",
         },
+        violet: {
+          DEFAULT: "#8B5CF6",
+          bright: "#A78BFA",
+        },
+        cyan: {
+          DEFAULT: "#22D3EE",
+          bright: "#67E8F9",
+        },
+      },
+      backgroundImage: {
+        "aurora-gradient": "linear-gradient(135deg, #8B5CF6 0%, #22D3EE 100%)",
       },
     },
   },

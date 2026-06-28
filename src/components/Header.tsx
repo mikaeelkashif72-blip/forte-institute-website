@@ -16,15 +16,15 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-ink-100 bg-cream-100/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-glass-border bg-void/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link href="/" className="font-heading text-xl font-bold text-ink">
-          Forte<span className="text-accent">.</span>
+        <Link href="/" className="font-heading text-xl font-bold text-mist-bright">
+          Forte<span className="text-violet-bright">.</span>
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm font-medium text-ink-400 md:flex">
+        <nav className="hidden items-center gap-6 text-sm font-medium text-mist md:flex">
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="transition-colors hover:text-ink">
+            <Link key={link.href} href={link.href} className="transition-colors hover:text-mist-bright">
               {link.label}
             </Link>
           ))}
@@ -33,7 +33,7 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <Link
             href="/contact"
-            className="hidden rounded-md bg-ink px-4 py-2 text-sm font-semibold text-cream transition-colors hover:bg-ink-900 sm:block"
+            className="hidden rounded-full bg-aurora-gradient px-5 py-2 text-sm font-semibold text-void transition-opacity hover:opacity-90 sm:block"
           >
             Book Free Trial
           </Link>
@@ -43,7 +43,7 @@ export default function Header() {
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             onClick={() => setMenuOpen((open) => !open)}
-            className="flex h-10 w-10 items-center justify-center rounded-md border border-ink-100 text-ink md:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-md border border-glass-border text-mist-bright md:hidden"
           >
             <span className="sr-only">{menuOpen ? "Close menu" : "Open menu"}</span>
             {menuOpen ? (
@@ -62,15 +62,15 @@ export default function Header() {
       {menuOpen && (
         <nav
           id="mobile-nav"
-          className="border-t border-ink-100 bg-cream-100 px-6 py-4 md:hidden"
+          className="border-t border-glass-border bg-void/95 px-6 py-4 backdrop-blur-xl md:hidden"
         >
-          <ul className="flex flex-col gap-4 text-base font-medium text-ink-400">
+          <ul className="flex flex-col gap-4 text-base font-medium text-mist">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="block transition-colors hover:text-ink"
+                  className="block transition-colors hover:text-mist-bright"
                 >
                   {link.label}
                 </Link>
@@ -80,7 +80,7 @@ export default function Header() {
               <Link
                 href="/contact"
                 onClick={() => setMenuOpen(false)}
-                className="mt-2 block rounded-md bg-ink px-4 py-2 text-center text-sm font-semibold text-cream"
+                className="mt-2 block rounded-full bg-aurora-gradient px-4 py-2 text-center text-sm font-semibold text-void"
               >
                 Book Free Trial
               </Link>

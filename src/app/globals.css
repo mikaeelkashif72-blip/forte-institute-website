@@ -1,11 +1,13 @@
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  font-family: var(--font-body), sans-serif;
-  background-color: #f8f4ec;
-  color: #16213e;
+  font-family: var(--font-body), "General Sans", sans-serif;
+  background-color: #0a0b12;
+  color: #e7e9f2;
 }
 
 h1,
@@ -14,5 +16,16 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-heading), sans-serif;
+  font-family: var(--font-heading), "Clash Display", sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
