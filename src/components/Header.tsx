@@ -7,9 +7,9 @@ import Link from "next/link";
 const navLinks = [
   { href: "/subjects/o-level", label: "O Level" },
   { href: "/subjects/a-level", label: "A Level" },
+  { href: "/live-classes", label: "Live Classes" },
+  { href: "/recorded-classes", label: "Recorded Classes" },
   { href: "/results", label: "Results" },
-  { href: "/programs", label: "Programs" },
-  { href: "/teachers", label: "Teachers" },
   { href: "/about", label: "About" },
 ];
 
