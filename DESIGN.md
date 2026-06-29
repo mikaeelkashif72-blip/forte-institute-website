@@ -1,6 +1,6 @@
 ---
 name: Forte Institute
-description: Cambridge O Level / A Level tuition site — glassy, futuristic, premium
+description: Cambridge O Level / A Level tuition site — light header, dark immersive hero, single yellow accent
 colors:
   void: "#0A0B12"
   void-100: "#10111C"
@@ -9,14 +9,16 @@ colors:
   glass-border: "rgba(255, 255, 255, 0.12)"
   mist: "#A8AEC2"
   mist-bright: "#E7E9F2"
-  violet: "#8B5CF6"
-  violet-bright: "#A78BFA"
-  cyan: "#22D3EE"
-  cyan-bright: "#67E8F9"
+  paper: "#FFFFFF"
+  ink: "#111111"
+  ink-60: "rgba(17, 17, 17, 0.6)"
+  ink-10: "rgba(17, 17, 17, 0.1)"
+  yellow: "#F5C518"
+  yellow-deep: "#B98A00"
 typography:
   display:
     fontFamily: "Clash Display, sans-serif"
-    fontSize: "clamp(2.25rem, 5vw, 3rem)"
+    fontSize: "clamp(2.25rem, 5vw, 4.5rem)"
     fontWeight: 700
     lineHeight: 1.1
     letterSpacing: "-0.01em"
@@ -45,110 +47,105 @@ spacing:
   xl: "40px"
 components:
   button-primary:
-    backgroundColor: "{colors.violet}"
-    textColor: "{colors.void}"
+    backgroundColor: "{colors.yellow}"
+    textColor: "{colors.ink}"
     rounded: "{rounded.full}"
-    padding: "8px 20px"
-  card-choice:
-    backgroundColor: "{colors.glass}"
-    textColor: "{colors.mist-bright}"
-    rounded: "{rounded.lg}"
-    padding: "24px"
+    padding: "12px 28px"
+  button-primary-hover:
+    backgroundColor: "{colors.yellow-deep}"
+    textColor: "{colors.paper}"
 ---
 
 # Design System: Forte Institute
 
 ## 1. Overview
 
-**Creative North Star: "The Glass Observatory"**
+**Creative North Star: "One Signal in the Dark"**
 
-Forte Institute's site now reads like looking through the glass dome of an observatory at night: a near-black void, faceted glass forms catching colored light, precise but alive. This replaces the earlier "Exam Room Clock" restrained ink/cream system — the client explicitly asked for something different that speaks to a younger audience, and a flat, paper-toned marketing site wasn't doing that. The new system keeps the same underlying confidence (nothing decorative for its own sake — proof and action still drive the page) but trades restraint for a Committed/Full-palette glass-and-gradient language: a near-black base, translucent glass panels, and a violet→cyan gradient that carries energy without tipping into noise.
+The real Forte Institute logo (a black-and-yellow heraldic lion crest) arrived after the initial visual system was built, and it overrode the system rather than the other way around — per this project's own identity-preservation rule, a real brand asset always wins over a speculative palette. The site now runs on exactly one locked accent, yellow, carried by the logo, against two base surfaces: a light header (so the logo's black wordmark reads correctly on its native white background) and a near-black, immersive hero below it.
 
-This still rejects the generic EdTech SaaS look (no pastel gradients, no stock-photo smiling students, no identical icon+heading+text card grids) and the stuffy traditional-institution look (no serif display type, no formal prospectus layout). It adds a new rejection: flat, light, "safe" marketing-site default — the brief now explicitly wants something that feels closer to a premium tech product launch than a tutoring brochure.
+This still rejects the generic EdTech SaaS look (no pastel gradients, no stock-photo smiling students, no identical icon+heading+text card grids) and the stuffy traditional-institution look (no serif display type, no formal prospectus layout). The earlier violet/cyan "Glass Observatory" direction (3D glass cluster, aurora gradient) has been fully retired — every trace of that palette was removed from the active header/hero surfaces. (`Footer.tsx` still contains violet/cyan classes; it is currently unused and excluded from this lock until it's reintroduced.)
 
 **Key Characteristics:**
-- Near-black void base; light only where it's earned (glass panels, gradient accents, the 3D glass cluster)
-- A single named gradient (violet → cyan) carries the brand's energy — used on the primary CTA and as accent glow, never as body text (gradient text remains an absolute ban regardless of register)
-- Glassmorphism is intentional and central here, not decorative — the brief is explicitly "glassy, futuristic, premium," so panels use backdrop-blur + translucent fill + soft border rather than flat fills
-- The 3D hero is a cluster of faceted glass shapes (icosahedron, torus, octahedron) that drift and respond to cursor position — premium and alive, not a generic single spinning wireframe
+- One locked accent (yellow) across header and hero — no second accent color competing for attention
+- Light header, dark hero: a deliberate two-surface composition, not a mistake, but the boundary itself is an open question — see Section 6
+- Motion is now real and motivated: word-level text reveal on first paint (`TextEffect`), tactile press feedback on the primary CTA, a custom smooth easing scroll cue (never `animate-bounce` — see Section 6's Named Rule)
+- `framer-motion` has been fully migrated to `motion/react`; no legacy import path remains in the codebase
 
 ## 2. Colors
 
-A Committed strategy: near-black void carries the surface, glass panels lift content, and a violet→cyan gradient is the one named energy signature.
+A Restrained-to-Committed strategy: two neutral bases (paper for the header, void for the hero) carry the surface, and yellow is the single signal spent on identity, action, and proof.
 
 ### Primary
-- **Void** (#0A0B12): page background, header background. The dark stage everything else sits on.
-- **Void 100 / Void 200** (#10111C / #171928): subtle background layering where a section needs to read one step "up" from the page without a hard edge.
+- **Yellow** (#F5C518): the one locked accent. Logo color, eyebrow text, primary CTA fill, focus rings. Used identically in both the light header and the dark hero — this is what visually stitches the two surfaces together despite their different backgrounds.
+- **Yellow Deep** (#B98A00): hover/pressed state for yellow-filled elements, and the darker member of the hero's two glow orbs (for depth without introducing a second hue).
 
-### Secondary
-- **Violet** (#8B5CF6) / **Violet Bright** (#A78BFA): primary gradient stop, used for CTA fills (via the gradient), hover-state glow on glass cards, and one of the 3D cluster's glass shapes.
-- **Cyan** (#22D3EE) / **Cyan Bright** (#67E8F9): secondary gradient stop, used for link-style text ("Browse subjects →"), the other glass shapes' glow.
-- **Aurora Gradient** (`linear-gradient(135deg, #8B5CF6 0%, #22D3EE 100%)`): the named gradient. Reserved for the primary CTA fill only — not for text, not for backgrounds, not repeated elsewhere on the same screen.
+### Neutral — Light Surface (Header)
+- **Paper** (#FFFFFF): header background. Chosen specifically so the logo's black wordmark and white card render as designed, not because it's a "safe default" — see the project's own anti-cream-default principle, which this satisfies by being a deliberate, identity-driven choice, not a reflex.
+- **Ink** (#111111) / **Ink 60** / **Ink 10**: header text, hairline borders, nav links at rest.
 
-### Neutral
-- **Mist** (#A8AEC2): secondary text — card descriptions, nav labels at rest. ~8.9:1 contrast against Void; comfortably exceeds WCAG AA.
-- **Mist Bright** (#E7E9F2): primary text — headlines, card titles, nav active state.
-- **Glass / Glass Border** (rgba(255,255,255,0.06) / rgba(255,255,255,0.12)): the translucent panel fill and hairline border for every glass card, the header, and the mobile nav drawer.
+### Neutral — Dark Surface (Hero)
+- **Void** (#0A0B12): hero background.
+- **Mist** (#A8AEC2) / **Mist Bright** (#E7E9F2): hero body text and headline. ~8.9:1 contrast against Void.
+- **Glass / Glass Border**: reserved for any future translucent panel on the dark surface (currently unused on the hero now that the level-picker cards have been removed from this page).
 
 ### Named Rules
-**The One Gradient Rule.** The aurora violet→cyan gradient appears as a fill exactly once per view (the primary CTA). Everywhere else, violet and cyan are used as flat solid accents, never repeated as a second gradient on the same screen.
-**The No-Gradient-Text Rule.** Never apply the aurora gradient (or any gradient) via `background-clip: text`. This is an absolute ban regardless of how "futuristic" the brief is — emphasis comes from the gradient CTA fill and the glass cluster's color, not from gradient typography.
+**The One Accent Rule.** Yellow is the only color carrying meaning (identity, action, focus) anywhere on the header or hero. If a future component wants a second accent, that is a deliberate decision requiring a documented reason, not a default reach.
 
 ## 3. Typography
 
 **Display Font:** Clash Display (Fontshare, with sans-serif fallback)
 **Body Font:** General Sans (Fontshare, with sans-serif fallback)
 
-**Character:** Clash Display's sharp, slightly futuristic geometric cuts carry the "premium tech" half of the brand for headings; General Sans is a clean, warm-neutral grotesque for body copy that doesn't compete with the headline. Neither family is on the reflex-reject list (replacing the previous Space Grotesk/Inter pairing, both of which were named reflex defaults).
+Both chosen specifically to avoid the reflex-reject font list (no Space Grotesk, no Inter). Unchanged from the prior system — the palette change didn't require a type change.
 
 ### Hierarchy
-- **Display** (700, `clamp(2.25rem, 5vw, 3rem)`, 1.1 line-height, -0.01em tracking): hero headline only.
-- **Headline** (600, 1.5rem, 1.2 line-height): card and section headings — "O Level", "A Level", subject names.
+- **Display** (700, `clamp(2.25rem, 5vw, 4.5rem)`, 1.1 line-height, -0.01em tracking): hero headline only. Ceiling raised slightly from the previous spec (was 3rem max) since the current headline is short enough (5 words) to afford it at `md:text-7xl`.
+- **Headline** (600, 1.5rem, 1.2 line-height): reserved for any section heading reintroduced below the hero.
 - **Body** (400, 1rem, 1.6 line-height): supporting copy. Cap prose blocks at 65–75ch.
-- **Label** (600, 0.875rem): nav links, stat labels, button text.
+- **Label** (600, 0.875rem): nav links, eyebrow text, button labels.
 
 ### Named Rules
-**The No-Serif Rule (carried forward).** No serif typeface anywhere — still true under the new direction; serif would pull toward the rejected "stuffy institution" anti-reference.
+**The No-Serif Rule (carried forward).** No serif typeface anywhere.
 
 ## 4. Elevation
 
-Depth comes from glass, not shadow: translucent panels with `backdrop-blur` and a soft 1px border read as "lifted" against the void without an ambient drop shadow. The header and mobile nav drawer use a stronger blur (`backdrop-blur-xl`) since they sit above scrolling content; cards use the same glass treatment at rest, with the border brightening toward violet on hover instead of a shadow appearing.
+The header is the only "lifted" surface currently in use: `bg-paper/90` with `backdrop-blur-xl` and a 1px `ink-10` bottom border, reading as a thin glass bar above the hero without a drop shadow. The hero itself is flat — no cards, no panels, just type and the animated grid background.
 
 ### Named Rules
-**The Glass-Not-Shadow Rule.** Every "lifted" surface (header, cards, nav drawer) is glass (translucent fill + blur + hairline border), never a flat opaque panel with a drop shadow. If a new component needs to read as elevated, reach for glass first.
+**The Glass-Not-Shadow Rule (carried forward).** Any future "lifted" surface (a reintroduced card, a modal, a dropdown) uses translucency + blur + hairline border, never an opaque panel with a drop shadow.
 
 ## 5. Components
 
 ### Buttons
 - **Shape:** fully rounded (`rounded-full`)
-- **Primary:** aurora gradient fill, void text, 8px/20px padding (header and mobile-nav "Book Free Trial")
-- **Hover / Focus:** opacity softens slightly (90%) rather than a color swap — the gradient itself is already the maximum-energy state
-- **Secondary / Ghost:** cyan-bright text link for low-emphasis actions ("Browse subjects →"), hover shifts to violet-bright
+- **Primary:** yellow fill, ink text, hover shifts to yellow-deep fill with paper text, `active:scale-[0.97]` for tactile press feedback (header "Register Now", hero "Book a Free Session")
+- **Focus:** `focus-visible:ring-2 ring-yellow` with an offset matched to the button's own background (`ring-offset-paper` in the header, `ring-offset-void` in the hero)
 
-### Cards (Choice Cards)
-- **Corner Style:** 16px radius (`rounded-2xl`)
-- **Background:** Glass fill with `backdrop-blur-xl`
-- **Border:** Glass Border at rest, brightens toward violet-bright/60 on hover
-- **Internal Padding:** 24px (`p-6`)
+### Navigation (Header)
+- **Style:** sticky, `bg-paper/90` + `backdrop-blur-xl`, `ink-10` bottom border, height well under the 80px cap
+- **Mobile:** hamburger (44px touch target) opens a full-width `bg-paper/95` drawer with all nav links plus the CTA, each link sized for a 44px+ touch target
 
-### Navigation
-- **Style:** sticky header, Void at 80% opacity with `backdrop-blur-xl`, Glass Border bottom edge
-- **Mobile:** hamburger button (Glass Border outline) opens a full-width glass drawer with all nav links plus the gradient CTA — built specifically so the primary (mobile, student) audience never loses access to navigation
+### Signature Component: Hero Text Reveal
+The eyebrow, headline, and subhead each mount via `TextEffect` (`per="word"`, `preset="fade-in-blur"`), staggered by an increasing `delay` and `speedReveal` per element so the eyebrow finishes before the headline starts and the subhead before the button. The CTA itself fades up on a plain `motion.div` rather than `TextEffect` (it's not text being revealed, it's an element arriving). Every animated element respects `prefers-reduced-motion` — `TextEffect` degrades gracefully since its animation is opacity/blur only, and the CTA's entrance explicitly checks the media query before applying `initial`.
 
-### Signature Component: Glass Cluster (3D Hero)
-A cluster of three faceted glass shapes (icosahedron, torus, octahedron) rendered with `MeshTransmissionMaterial`, lit by a violet and a cyan point light plus a `night` environment map for realistic refraction. The cluster drifts gently (via `Float`) and eases toward the cursor position — cursor-reactive only, no scroll choreography, per the brief. Every animated property (the float drift and the cursor-ease rotation) is disabled under `prefers-reduced-motion: reduce`, leaving the cluster static but still visible.
+### Signature Component: Infinite Grid (Hero Background)
+A mouse-reactive SVG grid (`the-infinite-grid.tsx`) with a radial mask that brightens the grid near the cursor, plus two static yellow glow orbs (yellow/25 and yellow-deep/20) for depth. Grid scroll animation is disabled under `prefers-reduced-motion`.
 
 ## 6. Do's and Don'ts
 
 ### Do:
-- **Do** use the aurora gradient exactly once per view, as a fill, on the primary CTA only.
-- **Do** build every "lifted" surface as glass (blur + translucent fill + hairline border), never a flat panel with a drop shadow.
-- **Do** keep Clash Display for headings and General Sans for body — both were chosen specifically to avoid the reflex-reject font list.
-- **Do** disable all hero-scene motion (float drift, cursor-ease) under `prefers-reduced-motion: reduce`.
+- **Do** use yellow as the only accent color on the header and hero. If glow, focus rings, or any future accent is needed, reach for yellow or a neutral first.
+- **Do** give every primary CTA a tactile `active:scale` press state, not just a hover color change.
+- **Do** use smooth easing (`cubic-bezier` ease-in-out or ease-out-quart/quint, see the `scroll-cue` keyframe) for any looping/ambient animation. Never Tailwind's `animate-bounce` or `animate-ping` defaults — they read as bounce/elastic easing, which is explicitly banned.
+- **Do** keep Clash Display for headings and General Sans for body.
 
 ### Don't:
-- **Don't** apply the aurora gradient (or any gradient) via `background-clip: text` — this is an absolute ban, not a register-specific judgment call.
-- **Don't** use pastel gradients, stock-photo smiling-student imagery, or identical icon+heading+text card grids — the generic EdTech SaaS look this system has always rejected.
+- **Don't** reintroduce violet, cyan, or the aurora gradient anywhere on the header or hero — that system is retired. (`Footer.tsx` is the one exception, currently dormant and out of scope until it's brought back.)
+- **Don't** use pastel gradients, stock-photo smiling-student imagery, or identical icon+heading+text card grids.
 - **Don't** introduce heavy serif typography or a formal-prospectus layout.
-- **Don't** default back to a flat, safe, restrained palette — the client explicitly asked for something different from the original ink/cream system; if a future surface drifts back toward beige-and-muted-slate, that's a regression, not a simplification.
-- **Don't** add a second gradient or a second glow color to the same screen — one aurora gradient, one glass system, no competing accents.
+- **Don't** add a second hue as an accent without a documented reason — see the One Accent Rule.
+
+## Open Question (not yet resolved)
+
+The header is light and the hero is dark — a real visual seam at the boundary, called out explicitly when the header was redesigned and still unresolved. Either the rest of the page should move toward one unified surface (extend light down, or darken the header), or the light/dark split should be embraced as a deliberate two-surface composition with its own transition treatment. Don't "fix" this silently in a future pass — it needs an explicit decision first.

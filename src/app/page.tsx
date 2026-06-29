@@ -14,7 +14,7 @@ export default function Home() {
 
           <div
             aria-hidden="true"
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-xs uppercase tracking-widest text-mist motion-reduce:animate-none"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-scroll-cue text-xs uppercase tracking-widest text-mist motion-reduce:animate-none"
           >
             Scroll
           </div>

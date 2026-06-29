@@ -8,7 +8,8 @@ import {
   useMotionValue,
   useMotionTemplate,
   useAnimationFrame,
-} from "framer-motion";
+} from "motion/react";
+import { TextEffect } from "@/components/ui/text-effect";
 
 function prefersReducedMotion() {
   return (
@@ -65,30 +66,54 @@ export const InfiniteGrid = () => {
       </motion.div>
 
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
-        <div className="absolute right-[-10%] top-[-20%] h-[40%] w-[40%] rounded-full bg-violet/30 blur-[120px]" />
-        <div className="absolute left-[-10%] bottom-[-20%] h-[40%] w-[40%] rounded-full bg-cyan/25 blur-[120px]" />
+        <div className="absolute right-[-10%] top-[-20%] h-[40%] w-[40%] rounded-full bg-yellow/25 blur-[120px]" />
+        <div className="absolute left-[-10%] bottom-[-20%] h-[40%] w-[40%] rounded-full bg-yellow-deep/20 blur-[120px]" />
       </div>
 
       <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-6 text-center">
-        <p className="font-heading text-sm font-semibold tracking-wide text-yellow md:text-base">
+        <TextEffect
+          as="p"
+          per="word"
+          preset="fade-in-blur"
+          className="font-heading text-sm font-semibold tracking-wide text-yellow md:text-base"
+        >
           Empowering Minds. Shaping Futures.
-        </p>
-        <h1 className="mt-4 text-balance font-heading text-5xl font-bold leading-tight tracking-[-0.01em] text-mist-bright md:text-7xl">
+        </TextEffect>
+        <TextEffect
+          as="h1"
+          per="word"
+          preset="fade-in-blur"
+          delay={0.15}
+          speedReveal={1.4}
+          className="mt-4 text-balance font-heading text-5xl font-bold leading-tight tracking-[-0.01em] text-mist-bright md:text-7xl"
+        >
           Results that speak for themselves.
-        </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-balance text-lg text-mist">
+        </TextEffect>
+        <TextEffect
+          as="p"
+          per="word"
+          preset="fade"
+          delay={0.5}
+          speedReveal={2}
+          className="mx-auto mt-6 max-w-2xl text-balance text-lg text-mist"
+        >
           Forte Institute prepares students for O and A Level examinations
           through focused, expert-led instruction, built on rigor, not
           shortcuts.
-        </p>
-        <div className="mt-9">
+        </TextEffect>
+        <motion.div
+          className="mt-9"
+          initial={prefersReducedMotion() ? false : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        >
           <Link
             href="/contact"
-            className="inline-block rounded-full bg-yellow px-7 py-3 text-sm font-bold text-ink transition-colors hover:bg-yellow-deep hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
+            className="inline-block rounded-full bg-yellow px-7 py-3 text-sm font-bold text-ink transition-all hover:bg-yellow-deep hover:text-paper active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
           >
             Book a Free Session
           </Link>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
