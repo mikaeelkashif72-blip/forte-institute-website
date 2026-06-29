@@ -51,23 +51,23 @@ export const InfiniteGrid = () => {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       className={cn(
-        "relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-void"
+        "relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-paper"
       )}
     >
-      <div aria-hidden="true" className="absolute inset-0 z-0 opacity-[0.05]">
+      <div aria-hidden="true" className="absolute inset-0 z-0 opacity-[0.07]">
         <GridPattern offsetX={gridOffsetX} offsetY={gridOffsetY} />
       </div>
       <motion.div
         aria-hidden="true"
-        className="absolute inset-0 z-0 opacity-40"
+        className="absolute inset-0 z-0 opacity-60"
         style={{ maskImage, WebkitMaskImage: maskImage }}
       >
         <GridPattern offsetX={gridOffsetX} offsetY={gridOffsetY} />
       </motion.div>
 
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
-        <div className="absolute right-[-10%] top-[-20%] h-[40%] w-[40%] rounded-full bg-yellow/25 blur-[120px]" />
-        <div className="absolute left-[-10%] bottom-[-20%] h-[40%] w-[40%] rounded-full bg-yellow-deep/20 blur-[120px]" />
+        <div className="absolute right-[-10%] top-[-20%] h-[40%] w-[40%] rounded-full bg-yellow/35 blur-[120px]" />
+        <div className="absolute left-[-10%] bottom-[-20%] h-[40%] w-[40%] rounded-full bg-yellow-deep/25 blur-[120px]" />
       </div>
 
       <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-6 text-center">
@@ -75,7 +75,7 @@ export const InfiniteGrid = () => {
           as="p"
           per="word"
           preset="fade-in-blur"
-          className="font-heading text-sm font-semibold tracking-wide text-yellow md:text-base"
+          className="font-heading text-sm font-bold tracking-wide text-yellow-deep md:text-base"
         >
           Empowering Minds. Shaping Futures.
         </TextEffect>
@@ -85,7 +85,7 @@ export const InfiniteGrid = () => {
           preset="fade-in-blur"
           delay={0.15}
           speedReveal={1.4}
-          className="mt-4 text-balance font-heading text-5xl font-bold leading-tight tracking-[-0.01em] text-mist-bright md:text-7xl"
+          className="mt-4 text-balance font-heading text-5xl font-bold leading-tight tracking-[-0.01em] text-ink md:text-7xl"
         >
           Results that speak for themselves.
         </TextEffect>
@@ -95,7 +95,7 @@ export const InfiniteGrid = () => {
           preset="fade"
           delay={0.5}
           speedReveal={2}
-          className="mx-auto mt-6 max-w-2xl text-balance text-lg text-mist"
+          className="mx-auto mt-6 max-w-2xl text-balance text-lg text-ink-60"
         >
           Forte Institute prepares students for O and A Level examinations
           through focused, expert-led instruction, built on rigor, not
@@ -109,7 +109,7 @@ export const InfiniteGrid = () => {
         >
           <Link
             href="/contact"
-            className="inline-block rounded-full bg-yellow px-7 py-3 text-sm font-bold text-ink transition-all hover:bg-yellow-deep hover:text-paper active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
+            className="inline-block rounded-full bg-yellow px-7 py-3 text-sm font-bold text-ink transition-all hover:bg-yellow-deep hover:text-paper active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-deep focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
           >
             Book a Free Session
           </Link>
@@ -142,7 +142,7 @@ const GridPattern = ({
             fill="none"
             stroke="currentColor"
             strokeWidth="1"
-            className="text-mist"
+            className="text-ink"
           />
         </motion.pattern>
       </defs>
