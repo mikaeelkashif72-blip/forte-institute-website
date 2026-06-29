@@ -1,6 +1,6 @@
 ---
 name: Forte Institute
-description: Cambridge O Level / A Level tuition site — light header, dark immersive hero, single yellow accent
+description: Cambridge O Level / A Level tuition site — unified dark surface, single yellow accent
 colors:
   void: "#0A0B12"
   void-100: "#10111C"
@@ -62,32 +62,31 @@ components:
 
 **Creative North Star: "One Signal in the Dark"**
 
-The real Forte Institute logo (a black-and-yellow heraldic lion crest) arrived after the initial visual system was built, and it overrode the system rather than the other way around — per this project's own identity-preservation rule, a real brand asset always wins over a speculative palette. The site now runs on exactly one locked accent, yellow, carried by the logo, against two base surfaces: a light header (so the logo's black wordmark reads correctly on its native white background) and a near-black, immersive hero below it.
+The real Forte Institute logo (a black-and-yellow heraldic lion crest) arrived after the initial visual system was built, and it overrode the system rather than the other way around — per this project's own identity-preservation rule, a real brand asset always wins over a speculative palette. The logo ships in two official variants (a black lockup for light surfaces, a white lockup for dark surfaces), which is what made the header/hero seam resolvable: the header now runs `bg-void` with the white lockup, matching the hero exactly, instead of fighting it on a light background.
 
 This still rejects the generic EdTech SaaS look (no pastel gradients, no stock-photo smiling students, no identical icon+heading+text card grids) and the stuffy traditional-institution look (no serif display type, no formal prospectus layout). The earlier violet/cyan "Glass Observatory" direction (3D glass cluster, aurora gradient) has been fully retired — every trace of that palette was removed from the active header/hero surfaces. (`Footer.tsx` still contains violet/cyan classes; it is currently unused and excluded from this lock until it's reintroduced.)
 
 **Key Characteristics:**
 - One locked accent (yellow) across header and hero — no second accent color competing for attention
-- Light header, dark hero: a deliberate two-surface composition, not a mistake, but the boundary itself is an open question — see Section 6
-- Motion is now real and motivated: word-level text reveal on first paint (`TextEffect`), tactile press feedback on the primary CTA, a custom smooth easing scroll cue (never `animate-bounce` — see Section 6's Named Rule)
+- One unified dark surface (`void`) from the top of the header through the hero — no light/dark seam; the `paper`/`ink` tokens remain defined for any future light surface (a light-mode toggle, a contrast-page) but are not in active use
+- Motion is now real and motivated: word-level text reveal on first paint (`TextEffect`), tactile press feedback on every primary CTA (header and hero), a custom smooth easing scroll cue (never `animate-bounce` — see Section 6's Named Rule)
 - `framer-motion` has been fully migrated to `motion/react`; no legacy import path remains in the codebase
 
 ## 2. Colors
 
-A Restrained-to-Committed strategy: two neutral bases (paper for the header, void for the hero) carry the surface, and yellow is the single signal spent on identity, action, and proof.
+A Restrained strategy: one neutral base (void) carries the entire surface, top to bottom, and yellow is the single signal spent on identity, action, and proof.
 
 ### Primary
-- **Yellow** (#F5C518): the one locked accent. Logo color, eyebrow text, primary CTA fill, focus rings. Used identically in both the light header and the dark hero — this is what visually stitches the two surfaces together despite their different backgrounds.
+- **Yellow** (#F5C518): the one locked accent. Logo color, eyebrow text, primary CTA fill, focus rings.
 - **Yellow Deep** (#B98A00): hover/pressed state for yellow-filled elements, and the darker member of the hero's two glow orbs (for depth without introducing a second hue).
 
-### Neutral — Light Surface (Header)
-- **Paper** (#FFFFFF): header background. Chosen specifically so the logo's black wordmark and white card render as designed, not because it's a "safe default" — see the project's own anti-cream-default principle, which this satisfies by being a deliberate, identity-driven choice, not a reflex.
-- **Ink** (#111111) / **Ink 60** / **Ink 10**: header text, hairline borders, nav links at rest.
+### Neutral — Active Surface
+- **Void** (#0A0B12): header and hero background, the same value in both. No seam at the header/hero boundary.
+- **Mist** (#A8AEC2) / **Mist Bright** (#E7E9F2): body text and headline, header nav links. ~8.9:1 contrast against Void.
+- **Glass / Glass Border**: header's `backdrop-blur` + hairline bottom border, and reserved for any future translucent panel on the hero.
 
-### Neutral — Dark Surface (Hero)
-- **Void** (#0A0B12): hero background.
-- **Mist** (#A8AEC2) / **Mist Bright** (#E7E9F2): hero body text and headline. ~8.9:1 contrast against Void.
-- **Glass / Glass Border**: reserved for any future translucent panel on the dark surface (currently unused on the hero now that the level-picker cards have been removed from this page).
+### Neutral — Defined but Dormant
+- **Paper** (#FFFFFF) / **Ink** (#111111) family: not used on any active surface. Kept defined for a possible future light context (e.g. a light-mode toggle, a print/contrast page) and for the logo's black variant, which is used wherever the brand mark needs to sit on a light background outside this site's current pages.
 
 ### Named Rules
 **The One Accent Rule.** Yellow is the only color carrying meaning (identity, action, focus) anywhere on the header or hero. If a future component wants a second accent, that is a deliberate decision requiring a documented reason, not a default reach.
@@ -110,7 +109,7 @@ Both chosen specifically to avoid the reflex-reject font list (no Space Grotesk,
 
 ## 4. Elevation
 
-The header is the only "lifted" surface currently in use: `bg-paper/90` with `backdrop-blur-xl` and a 1px `ink-10` bottom border, reading as a thin glass bar above the hero without a drop shadow. The hero itself is flat — no cards, no panels, just type and the animated grid background.
+The header is the only "lifted" surface currently in use: `bg-void/90` with `backdrop-blur-xl` and a 1px `glass-border` bottom border, reading as a thin glass bar above the hero without a drop shadow or a color change. The hero itself is flat — no cards, no panels, just type and the animated grid background.
 
 ### Named Rules
 **The Glass-Not-Shadow Rule (carried forward).** Any future "lifted" surface (a reintroduced card, a modal, a dropdown) uses translucency + blur + hairline border, never an opaque panel with a drop shadow.
@@ -120,11 +119,11 @@ The header is the only "lifted" surface currently in use: `bg-paper/90` with `ba
 ### Buttons
 - **Shape:** fully rounded (`rounded-full`)
 - **Primary:** yellow fill, ink text, hover shifts to yellow-deep fill with paper text, `active:scale-[0.97]` for tactile press feedback (header "Register Now", hero "Book a Free Session")
-- **Focus:** `focus-visible:ring-2 ring-yellow` with an offset matched to the button's own background (`ring-offset-paper` in the header, `ring-offset-void` in the hero)
+- **Focus:** `focus-visible:ring-2 ring-yellow ring-offset-2 ring-offset-void` — one consistent offset value now that header and hero share a background
 
 ### Navigation (Header)
-- **Style:** sticky, `bg-paper/90` + `backdrop-blur-xl`, `ink-10` bottom border, height well under the 80px cap
-- **Mobile:** hamburger (44px touch target) opens a full-width `bg-paper/95` drawer with all nav links plus the CTA, each link sized for a 44px+ touch target
+- **Style:** sticky, `bg-void/90` + `backdrop-blur-xl`, `glass-border` bottom border, height well under the 80px cap
+- **Mobile:** hamburger (44px touch target) opens a full-width `bg-void/95` drawer with all nav links plus the CTA, each link sized for a 44px+ touch target
 
 ### Signature Component: Hero Text Reveal
 The eyebrow, headline, and subhead each mount via `TextEffect` (`per="word"`, `preset="fade-in-blur"`), staggered by an increasing `delay` and `speedReveal` per element so the eyebrow finishes before the headline starts and the subhead before the button. The CTA itself fades up on a plain `motion.div` rather than `TextEffect` (it's not text being revealed, it's an element arriving). Every animated element respects `prefers-reduced-motion` — `TextEffect` degrades gracefully since its animation is opacity/blur only, and the CTA's entrance explicitly checks the media query before applying `initial`.
@@ -145,7 +144,4 @@ A mouse-reactive SVG grid (`the-infinite-grid.tsx`) with a radial mask that brig
 - **Don't** use pastel gradients, stock-photo smiling-student imagery, or identical icon+heading+text card grids.
 - **Don't** introduce heavy serif typography or a formal-prospectus layout.
 - **Don't** add a second hue as an accent without a documented reason — see the One Accent Rule.
-
-## Open Question (not yet resolved)
-
-The header is light and the hero is dark — a real visual seam at the boundary, called out explicitly when the header was redesigned and still unresolved. Either the rest of the page should move toward one unified surface (extend light down, or darken the header), or the light/dark split should be embraced as a deliberate two-surface composition with its own transition treatment. Don't "fix" this silently in a future pass — it needs an explicit decision first.
+- **Don't** reintroduce a light header (or any light surface) without using the logo's black variant (`/logo.png`) and re-deriving header text colors from the `ink` family — never put the white logo (`/logo-white.png`) on a light background or vice versa.
