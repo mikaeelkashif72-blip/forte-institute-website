@@ -10,7 +10,6 @@ const navLinks = [
   { href: "/live-classes", label: "Live Classes" },
   { href: "/recorded-classes", label: "Recorded Classes" },
   { href: "/results", label: "Results" },
-  { href: "/about", label: "About" },
 ];
 
 export default function Header() {
@@ -50,7 +49,7 @@ export default function Header() {
             href="/contact"
             className="hidden rounded-full bg-yellow px-5 py-2 text-sm font-bold text-ink transition-colors hover:bg-yellow-deep hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-deep focus-visible:ring-offset-2 focus-visible:ring-offset-paper sm:block"
           >
-            Book Free Trial
+            Register Now
           </Link>
           <button
             type="button"
@@ -97,7 +96,7 @@ export default function Header() {
                 onClick={() => setMenuOpen(false)}
                 className="mt-2 block rounded-full bg-yellow px-4 py-3 text-center text-sm font-bold text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-deep focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
               >
-                Book Free Trial
+                Register Now
               </Link>
             </li>
           </ul>
