@@ -69,12 +69,15 @@ export const InfiniteGrid = () => {
       </div>
 
       <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-6 text-center">
-        <h1 className="text-balance font-heading text-5xl font-bold leading-tight tracking-[-0.01em] text-mist-bright md:text-7xl">
-          Cambridge tuition built for results.
+        <p className="font-heading text-sm font-semibold tracking-wide text-violet-bright md:text-base">
+          Empowering Minds. Shaping Futures.
+        </p>
+        <h1 className="mt-3 text-balance font-heading text-4xl font-bold leading-tight tracking-[-0.01em] text-mist-bright md:text-6xl">
+          Cambridge O Level &amp; A Level tuition, live or recorded.
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-balance text-lg text-mist">
-          Notes, past papers, and structured teaching for every O Level and
-          A Level subject.
+          Notes, past papers, and expert teaching for every subject, taught
+          live or on your own schedule.
         </p>
       </div>
     </div>
