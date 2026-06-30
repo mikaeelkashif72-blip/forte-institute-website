@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { motion, useMotionValue, useMotionTemplate, useAnimationFrame } from "motion/react";
@@ -64,7 +63,7 @@ export const InfiniteGrid = () => {
         <div className="absolute left-[-10%] bottom-[-20%] h-[40%] w-[40%] rounded-full bg-yellow-deep/25 blur-[120px]" />
       </div>
 
-      <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl items-center justify-between gap-12 px-6">
+      <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl items-center px-6">
         <div className="max-w-xl text-left md:max-w-2xl">
           <TextEffect
             as="p"
@@ -111,27 +110,6 @@ export const InfiniteGrid = () => {
           </motion.div>
         </div>
 
-        {/* The crest: contained in its own column with real margin on both
-            sides, not bled off the edge — head and forepaws stay fully in
-            view near the top, legs fade out toward the bottom. Static
-            brand art, not a UI element, so it doesn't move. */}
-        <div
-          aria-hidden="true"
-          className="relative hidden h-full w-[260px] flex-shrink-0 lg:block lg:w-[320px]"
-        >
-          <Image
-            src="/crest-lion.png"
-            alt=""
-            width={900}
-            height={1432}
-            className="absolute left-1/2 top-[4%] h-[120%] w-auto -translate-x-1/2 object-contain object-top opacity-[0.1]"
-            style={{
-              maskImage: "linear-gradient(to bottom, black 70%, transparent 96%)",
-              WebkitMaskImage: "linear-gradient(to bottom, black 70%, transparent 96%)",
-            }}
-            priority
-          />
-        </div>
       </div>
     </div>
   );
