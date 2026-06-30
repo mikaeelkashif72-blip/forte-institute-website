@@ -383,6 +383,13 @@ Outer div: relative h-full w-full overflow-hidden bg-paper, onMouseMove
 
 6. **Subject pages** — O Level and A Level subject listing and detail pages. Data lives in `src/lib/subjects.ts`.
 
+7. **Pre-launch SEO pass** (do near deployment, NOT now) — from the `seo-geo-aeo` audit. Homepage meta + hero copy already carry keywords/location/IGCSE (commit `7d8bf4b`). Still to add, but only once the facts are final, the footer is rebuilt, and the site is deployed to a real domain:
+   - **FAQ section** with question-phrased headings + `FAQPage` JSON-LD (biggest AEO lever)
+   - **Entity-definition line** + `EducationalOrganization` JSON-LD (name, logo, address, social links → Knowledge Panel / AI citation eligibility)
+   - **Footer NAP** (Name, Address, Phone) — powers local search; blocked on the Footer rebuild (task 2)
+   - `sitemap.ts` + `robots.ts` + `opengraph-image.tsx`
+   - Deferred deliberately: schema with placeholder/missing data is worse than none, and rich results only activate on a live crawlable domain. Re-run `anthropic-skills:seo-geo-aeo` against the Vercel URL after launch for the full crawl.
+
 ---
 
 ## Known Gotchas
