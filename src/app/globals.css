@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 body {
-  font-family: var(--font-body), "General Sans", sans-serif;
+  font-family: var(--font-onest), "Onest", "General Sans", sans-serif;
   background-color: #F8F6F0;
   color: #0E1F4B;
 }

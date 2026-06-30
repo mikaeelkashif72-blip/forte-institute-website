@@ -3,7 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatedBackground } from "@/components/core/animated-background";
 
 const navLinks = [
   { href: "/subjects/o-level", label: "O Level" },
@@ -16,6 +18,7 @@ const navLinks = [
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const reducedMotion = useReducedMotion();
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-50 border-b border-glass-border bg-void/90 backdrop-blur-xl">
@@ -34,16 +37,24 @@ export default function Header() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm font-semibold text-mist md:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="rounded-sm transition-colors hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
-            >
-              {link.label}
-            </Link>
-          ))}
+        <nav className="hidden items-center text-sm font-semibold text-mist md:flex">
+          <AnimatedBackground
+            defaultValue={pathname}
+            className="rounded-md bg-white/10"
+            transition={reducedMotion ? { duration: 0 } : { type: "spring", bounce: 0.2, duration: 0.35 }}
+            enableHover
+          >
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                data-id={link.href}
+                className="block px-3 py-1.5 transition-colors duration-200 hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </AnimatedBackground>
         </nav>
 
         <div className="flex items-center gap-3">

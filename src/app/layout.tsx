@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
+import { Onest } from "next/font/google";
 import "./globals.css";
+
+const onest = Onest({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-onest",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Forte Institute | O Level, IGCSE & A Level Tuition in Pakistan",
@@ -14,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={onest.variable}>{children}</body>
     </html>
   );
 }

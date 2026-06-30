@@ -20,7 +20,7 @@ export function SplineHero() {
 
       <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col-reverse items-center gap-6 px-6 py-10 md:flex-row md:gap-12 md:py-0">
         {/* Left: copy (gold eyebrow + cream headline read with strong contrast on void) */}
-        <div className="flex-1 text-left">
+        <div className="flex flex-1 flex-col justify-center text-left">
           <TextEffect
             as="p"
             per="word"
@@ -45,7 +45,7 @@ export function SplineHero() {
             preset="fade"
             delay={0.5}
             speedReveal={2}
-            className="mt-6 max-w-xl text-balance text-lg text-mist"
+            className="mt-6 text-balance text-lg text-mist"
           >
             Forte Institute prepares students across Pakistan for Cambridge O Level,
             IGCSE and A Level exams — with live classes, recorded lessons, notes and
