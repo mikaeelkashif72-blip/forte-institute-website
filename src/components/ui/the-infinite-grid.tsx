@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import Link from "next/link";
+import { MagnetizeButton } from "@/components/ui/magnetize-button";
 import { cn } from "@/lib/utils";
 import { motion, useMotionValue, useMotionTemplate, useAnimationFrame } from "motion/react";
 import { TextEffect } from "@/components/ui/text-effect";
@@ -101,11 +102,10 @@ export const InfiniteGrid = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Link
-              href="/contact"
-              className="inline-block rounded-full bg-yellow px-7 py-3 text-sm font-bold text-ink transition-all hover:bg-yellow-deep hover:text-paper active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-deep focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
-            >
-              Book a Free Session
+            <Link href="/contact" tabIndex={-1}>
+              <MagnetizeButton particleCount={14} attractRadius={50}>
+                Book a Free Session
+              </MagnetizeButton>
             </Link>
           </motion.div>
         </div>
