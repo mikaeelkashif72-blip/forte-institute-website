@@ -14,7 +14,7 @@ export function SplineHero() {
   const reduce = useReducedMotion();
 
   return (
-    <Card className="relative h-full w-full overflow-hidden rounded-none border-0 bg-void">
+    <Card className="relative h-full w-full overflow-visible rounded-none border-0 bg-void">
       {/* warm collegiate glow that drifts in on mount */}
       <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" fill="#E8B72E" />
 
