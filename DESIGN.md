@@ -9,12 +9,13 @@ colors:
   glass-border: "rgba(255, 255, 255, 0.12)"
   mist: "#A8AEC2"
   mist-bright: "#E7E9F2"
-  paper: "#FFFFFF"
-  ink: "#111111"
-  ink-60: "rgba(17, 17, 17, 0.6)"
-  ink-10: "rgba(17, 17, 17, 0.1)"
-  yellow: "#F5C518"
-  yellow-deep: "#B98A00"
+  paper: "#F8F6F0"
+  ink: "#0E1F4B"
+  ink-60: "rgba(14, 31, 75, 0.6)"
+  ink-10: "rgba(14, 31, 75, 0.1)"
+  yellow: "#E8B72E"
+  yellow-deep: "#1B5A6B"
+  navy-pill: "#10204A"
 typography:
   display:
     fontFamily: "Clash Display, sans-serif"
@@ -78,12 +79,13 @@ This still rejects the generic EdTech SaaS look (no pastel gradients, no stock-p
 A Restrained strategy: one neutral base (paper) carries the entire surface, top to bottom, and yellow is the single signal spent on identity, action, and proof.
 
 ### Primary
-- **Yellow** (#F5C518): the one locked accent, reserved for **fills** — logo color, primary CTA background, glow orbs. Not used as a text color on the light surface (see contrast note above).
-- **Yellow Deep** (#B98A00): the accent's text-safe form — eyebrow text, focus rings, hover/pressed state for yellow-filled elements. Also the darker member of the hero's two glow orbs.
+- **Gold** (#E8B72E): the one locked accent, reserved for **fills** — CTA backgrounds, glow orbs, decorative accents. Not used as a text color on the light surface (contrast ~2.1:1 on cream, fails WCAG).
+- **Teal-Navy** (#1B5A6B): the accent's text-safe form — eyebrow text, focus rings, hover/pressed state for gold-filled elements, particle dots. ~4.5:1 on cream.
 
 ### Neutral — Active Surface
-- **Paper** (#FFFFFF): header and hero background, the same value in both. No seam at the header/hero boundary. Matches the logo's native white-card presentation.
-- **Ink** (#111111) / **Ink 60** / **Ink 10**: headline and primary text, secondary text (subhead, nav links at rest), hairline borders. Ink on Paper is ~18:1 contrast.
+- **Cream / Paper** (#F8F6F0): header and hero background, unified top to bottom. Warm off-white with a parchment quality that reinforces the collegiate register.
+- **Navy / Ink** (#0E1F4B): headline and primary text, icons, strokes. Navy on Cream is ~13:1 contrast.
+- **Navy-Pill** (#10204A): reserved for navy-filled button variants and dark pill elements.
 
 ### Neutral — Defined but Dormant
 - **Void** (#0A0B12) / **Mist** (#A8AEC2) / **Mist Bright** (#E7E9F2) / **Glass** family: not used on any active surface. Kept defined for a possible future dark context (a dark-mode toggle) and for the logo's white variant, which is used wherever the brand mark needs to sit on a dark background outside this site's current pages.

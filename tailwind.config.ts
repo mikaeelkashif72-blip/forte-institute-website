@@ -35,16 +35,19 @@ const config: Config = {
           bright: "#67E8F9",
         },
         paper: {
-          DEFAULT: "#FFFFFF",
+          DEFAULT: "#F8F6F0",
         },
         ink: {
-          DEFAULT: "#111111",
-          60: "rgba(17, 17, 17, 0.6)",
-          10: "rgba(17, 17, 17, 0.1)",
+          DEFAULT: "#0E1F4B",
+          60: "rgba(14, 31, 75, 0.6)",
+          10: "rgba(14, 31, 75, 0.1)",
         },
         yellow: {
-          DEFAULT: "#F5C518",
-          deep: "#B98A00",
+          DEFAULT: "#E8B72E",
+          deep: "#1B5A6B",
+        },
+        "navy-pill": {
+          DEFAULT: "#10204A",
         },
       },
       backgroundImage: {
