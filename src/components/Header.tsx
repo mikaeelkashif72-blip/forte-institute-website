@@ -21,7 +21,7 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 bg-void px-4 pt-4 pb-0">
+    <header className="sticky top-0 z-50 bg-void px-4 pt-4 pb-0 relative">
       {/* Floating pill */}
       <div className="mx-auto flex max-w-5xl items-center justify-between rounded-full border border-glass-border bg-white/5 px-4 py-2.5 backdrop-blur-2xl">
         {/* Logo */}
@@ -103,26 +103,31 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile drawer — floats below the pill */}
+      {/* Mobile drawer — springs open from the pill edge downward */}
       <AnimatePresence initial={false}>
         {menuOpen && (
           <motion.nav
             id="mobile-nav"
-            initial={reducedMotion ? { opacity: 0, y: -8 } : { opacity: 0, y: -8, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: -8, scale: 0.97 }}
-            transition={{ duration: reducedMotion ? 0.01 : 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="mx-auto mt-2 max-w-5xl overflow-hidden rounded-2xl border border-glass-border bg-void/95 px-4 backdrop-blur-xl md:hidden"
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.94, y: -12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.94, y: -12 }}
+            transition={
+              reducedMotion
+                ? { duration: 0.01 }
+                : { type: "spring", stiffness: 380, damping: 30 }
+            }
+            style={{ transformOrigin: "top center" }}
+            className="absolute inset-x-4 top-full mt-2 overflow-hidden rounded-2xl border border-glass-border bg-void/95 px-4 backdrop-blur-xl md:hidden"
           >
             <ul className="flex flex-col py-3 text-base font-semibold text-mist">
               {navLinks.map((link, index) => (
                 <motion.li
                   key={link.href}
-                  initial={reducedMotion ? false : { opacity: 0, x: -8 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  initial={reducedMotion ? false : { opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{
-                    duration: 0.2,
-                    delay: reducedMotion ? 0 : 0.04 + index * 0.04,
+                    duration: 0.28,
+                    delay: reducedMotion ? 0 : 0.06 + index * 0.045,
                     ease: [0.16, 1, 0.3, 1],
                   }}
                 >
@@ -136,11 +141,11 @@ export default function Header() {
                 </motion.li>
               ))}
               <motion.li
-                initial={reducedMotion ? false : { opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={reducedMotion ? false : { opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  duration: 0.2,
-                  delay: reducedMotion ? 0 : 0.04 + navLinks.length * 0.04,
+                  duration: 0.28,
+                  delay: reducedMotion ? 0 : 0.06 + navLinks.length * 0.045,
                   ease: [0.16, 1, 0.3, 1],
                 }}
                 className="mt-1 pb-1"
