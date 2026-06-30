@@ -4,13 +4,7 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import {
-  motion,
-  useMotionValue,
-  useMotionTemplate,
-  useTransform,
-  useAnimationFrame,
-} from "motion/react";
+import { motion, useMotionValue, useMotionTemplate, useAnimationFrame } from "motion/react";
 import { TextEffect } from "@/components/ui/text-effect";
 
 function prefersReducedMotion() {
@@ -25,19 +19,11 @@ export const InfiniteGrid = () => {
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  // Normalized -0.5..0.5 from container center, used to drive the crest's
-  // parallax offset independent of viewport size.
-  const normX = useMotionValue(0);
-  const normY = useMotionValue(0);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - left;
-    const y = e.clientY - top;
-    mouseX.set(x);
-    mouseY.set(y);
-    normX.set(x / width - 0.5);
-    normY.set(y / height - 0.5);
+    const { left, top } = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - left);
+    mouseY.set(e.clientY - top);
   };
 
   const gridOffsetX = useMotionValue(0);
@@ -55,12 +41,6 @@ export const InfiniteGrid = () => {
   });
 
   const maskImage = useMotionTemplate`radial-gradient(300px circle at ${mouseX}px ${mouseY}px, black, transparent)`;
-
-  // Midground layer: the crest drifts a little against the cursor — the
-  // foreground text stays put, the background grid/glow is static texture,
-  // so the crest is what actually reads as "between" the two layers.
-  const crestX = useTransform(normX, [-0.5, 0.5], [-18, 18]);
-  const crestY = useTransform(normY, [-0.5, 0.5], [-14, 14]);
 
   return (
     <div
@@ -84,73 +64,73 @@ export const InfiniteGrid = () => {
         <div className="absolute left-[-10%] bottom-[-20%] h-[40%] w-[40%] rounded-full bg-yellow-deep/25 blur-[120px]" />
       </div>
 
-      <div className="relative z-10 mx-auto flex h-full max-w-6xl items-center px-6">
-        <div className="grid w-full items-center gap-12 md:grid-cols-[1.1fr_0.9fr]">
-          <div className="text-left">
-            <TextEffect
-              as="p"
-              per="word"
-              preset="fade-in-blur"
-              className="font-heading text-sm font-bold tracking-wide text-yellow-deep md:text-base"
+      <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl items-center justify-between gap-12 px-6">
+        <div className="max-w-xl text-left md:max-w-2xl">
+          <TextEffect
+            as="p"
+            per="word"
+            preset="fade-in-blur"
+            className="font-heading text-sm font-bold tracking-wide text-yellow-deep md:text-base"
+          >
+            Empowering Minds. Shaping Futures.
+          </TextEffect>
+          <TextEffect
+            as="h1"
+            per="word"
+            preset="fade-in-blur"
+            delay={0.15}
+            speedReveal={1.4}
+            className="mt-4 text-balance font-heading text-5xl font-bold leading-tight tracking-[-0.01em] text-ink md:text-7xl"
+          >
+            Results that speak for themselves.
+          </TextEffect>
+          <TextEffect
+            as="p"
+            per="word"
+            preset="fade"
+            delay={0.5}
+            speedReveal={2}
+            className="mt-6 max-w-xl text-balance text-lg text-ink-60"
+          >
+            Forte Institute prepares students for O and A Level examinations
+            through focused, expert-led instruction, built on rigor, not
+            shortcuts.
+          </TextEffect>
+          <motion.div
+            className="mt-9"
+            initial={prefersReducedMotion() ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <Link
+              href="/contact"
+              className="inline-block rounded-full bg-yellow px-7 py-3 text-sm font-bold text-ink transition-all hover:bg-yellow-deep hover:text-paper active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-deep focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
             >
-              Empowering Minds. Shaping Futures.
-            </TextEffect>
-            <TextEffect
-              as="h1"
-              per="word"
-              preset="fade-in-blur"
-              delay={0.15}
-              speedReveal={1.4}
-              className="mt-4 text-balance font-heading text-5xl font-bold leading-tight tracking-[-0.01em] text-ink md:text-7xl"
-            >
-              Results that speak for themselves.
-            </TextEffect>
-            <TextEffect
-              as="p"
-              per="word"
-              preset="fade"
-              delay={0.5}
-              speedReveal={2}
-              className="mt-6 max-w-xl text-balance text-lg text-ink-60"
-            >
-              Forte Institute prepares students for O and A Level
-              examinations through focused, expert-led instruction, built on
-              rigor, not shortcuts.
-            </TextEffect>
-            <motion.div
-              className="mt-9"
-              initial={prefersReducedMotion() ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <Link
-                href="/contact"
-                className="inline-block rounded-full bg-yellow px-7 py-3 text-sm font-bold text-ink transition-all hover:bg-yellow-deep hover:text-paper active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-deep focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
-              >
-                Book a Free Session
-              </Link>
-            </motion.div>
-          </div>
+              Book a Free Session
+            </Link>
+          </motion.div>
+        </div>
 
-          <div className="relative hidden items-center justify-center md:flex">
-            <motion.div
-              style={prefersReducedMotion() ? undefined : { x: crestX, y: crestY }}
-              initial={prefersReducedMotion() ? false : { opacity: 0, scale: 0.92 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-[280px]"
-            >
-              <Image
-                src="/crest.png"
-                alt=""
-                aria-hidden="true"
-                width={280}
-                height={412}
-                className="h-auto w-full opacity-[0.14]"
-                priority
-              />
-            </motion.div>
-          </div>
+        {/* The crest: contained in its own column with real margin on both
+            sides, not bled off the edge — head and forepaws stay fully in
+            view near the top, legs fade out toward the bottom. Static
+            brand art, not a UI element, so it doesn't move. */}
+        <div
+          aria-hidden="true"
+          className="relative hidden h-full w-[260px] flex-shrink-0 lg:block lg:w-[320px]"
+        >
+          <Image
+            src="/crest-lion.png"
+            alt=""
+            width={900}
+            height={1432}
+            className="absolute left-1/2 top-[4%] h-[120%] w-auto -translate-x-1/2 object-contain object-top opacity-[0.1]"
+            style={{
+              maskImage: "linear-gradient(to bottom, black 70%, transparent 96%)",
+              WebkitMaskImage: "linear-gradient(to bottom, black 70%, transparent 96%)",
+            }}
+            priority
+          />
         </div>
       </div>
     </div>
