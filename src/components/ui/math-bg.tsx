@@ -53,7 +53,7 @@ export function MathBg() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 overflow-hidden select-none"
+        className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none"
       >
         {ROWS.map(([top, duration, dir, indices, opacity], rowIdx) => {
           const text = indices

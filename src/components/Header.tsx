@@ -21,26 +21,29 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-glass-border bg-void/90 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
+    <header className="sticky top-0 z-50 bg-void px-4 pt-4 pb-0">
+      {/* Floating pill */}
+      <div className="mx-auto flex max-w-5xl items-center justify-between rounded-full border border-glass-border bg-white/5 px-4 py-2.5 backdrop-blur-2xl">
+        {/* Logo */}
         <Link
           href="/"
-          className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
+          className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
         >
           <Image
             src="/logo-white.png"
             alt="Forte Institute"
             width={1080}
             height={478}
-            className="h-9 w-auto sm:h-10"
+            className="h-7 w-auto sm:h-8"
             priority
           />
         </Link>
 
+        {/* Desktop nav */}
         <nav className="hidden items-center text-sm font-semibold text-mist md:flex">
           <AnimatedBackground
             defaultValue={pathname}
-            className="rounded-md bg-white/10"
+            className="rounded-full bg-white/10"
             transition={reducedMotion ? { duration: 0 } : { type: "spring", bounce: 0.2, duration: 0.35 }}
             enableHover
           >
@@ -58,22 +61,25 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
+          {/* Desktop CTA */}
           <Link
             href="/contact"
-            className="hidden rounded-full bg-yellow px-5 py-2 text-sm font-bold text-ink transition-all hover:bg-yellow-deep hover:text-paper active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void sm:block"
+            className="hidden rounded-full bg-yellow px-4 py-1.5 text-sm font-bold text-ink transition-all hover:bg-yellow-deep hover:text-paper active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void sm:block"
           >
             Register Now
           </Link>
+
+          {/* Hamburger — mobile only */}
           <button
             type="button"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             onClick={() => setMenuOpen((open) => !open)}
-            className="flex h-11 w-11 items-center justify-center rounded-md border border-glass-border text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void md:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-glass-border text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void md:hidden"
           >
             <span className="sr-only">{menuOpen ? "Close menu" : "Open menu"}</span>
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
               <motion.path
                 strokeLinecap="round"
                 animate={menuOpen ? "open" : "closed"}
@@ -97,50 +103,52 @@ export default function Header() {
         </div>
       </div>
 
+      {/* Mobile drawer — floats below the pill */}
       <AnimatePresence initial={false}>
         {menuOpen && (
           <motion.nav
             id="mobile-nav"
-            initial={reducedMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
-            animate={reducedMotion ? { opacity: 1 } : { height: "auto", opacity: 1 }}
-            exit={reducedMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
-            transition={{ duration: reducedMotion ? 0.01 : 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden border-t border-glass-border bg-void/95 backdrop-blur-xl md:hidden"
+            initial={reducedMotion ? { opacity: 0, y: -8 } : { opacity: 0, y: -8, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: -8, scale: 0.97 }}
+            transition={{ duration: reducedMotion ? 0.01 : 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="mx-auto mt-2 max-w-5xl overflow-hidden rounded-2xl border border-glass-border bg-void/95 px-4 backdrop-blur-xl md:hidden"
           >
-            <ul className="flex flex-col px-6 py-4 text-base font-semibold text-mist">
+            <ul className="flex flex-col py-3 text-base font-semibold text-mist">
               {navLinks.map((link, index) => (
                 <motion.li
                   key={link.href}
-                  initial={reducedMotion ? false : { opacity: 0, y: -8 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={reducedMotion ? false : { opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
                   transition={{
-                    duration: 0.25,
-                    delay: reducedMotion ? 0 : 0.05 + index * 0.04,
+                    duration: 0.2,
+                    delay: reducedMotion ? 0 : 0.04 + index * 0.04,
                     ease: [0.16, 1, 0.3, 1],
                   }}
                 >
                   <Link
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
-                    className="block rounded-sm py-2.5 transition-colors hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
+                    className="block rounded-xl px-3 py-2.5 transition-colors hover:bg-white/5 hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
                   >
                     {link.label}
                   </Link>
                 </motion.li>
               ))}
               <motion.li
-                initial={reducedMotion ? false : { opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={reducedMotion ? false : { opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{
-                  duration: 0.25,
-                  delay: reducedMotion ? 0 : 0.05 + navLinks.length * 0.04,
+                  duration: 0.2,
+                  delay: reducedMotion ? 0 : 0.04 + navLinks.length * 0.04,
                   ease: [0.16, 1, 0.3, 1],
                 }}
+                className="mt-1 pb-1"
               >
                 <Link
                   href="/contact"
                   onClick={() => setMenuOpen(false)}
-                  className="mt-2 block rounded-full bg-yellow px-4 py-3 text-center text-sm font-bold text-ink active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
+                  className="block rounded-full bg-yellow px-4 py-2.5 text-center text-sm font-bold text-ink active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
                 >
                   Register Now
                 </Link>
