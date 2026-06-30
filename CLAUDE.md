@@ -57,6 +57,11 @@ Next.js 14 App Router, TypeScript, Tailwind CSS.
 | `motion` | ^12.42.0 | **Primary animation library** — import as `motion/react` |
 | `framer-motion` | ^12.42.0 | **Still in package.json — do not use.** Legacy alias kept by accident; always import from `motion/react` instead. Remove this entry when next touching `package.json`. |
 | `clsx` + `tailwind-merge` | latest | Used via `cn()` in `src/lib/utils.ts` |
+| `@splinetool/react-spline` | ^4.1.0 | **IN USE** — the 3D hero scene (`splite.tsx` → `spline-hero.tsx`). Lazy-loaded, desktop-only. |
+| `@splinetool/runtime` | ^1.12.98 | Spline runtime + WASM (loaded from unpkg CDN at runtime) |
+| `lucide-react` | latest | Installed for shadcn Button; magnet icon was removed, currently unused |
+| `@radix-ui/react-slot` | latest | `asChild` support in `button.tsx` |
+| `class-variance-authority` | latest | `buttonVariants` in `button.tsx` |
 | `gsap` | ^3.15.0 | Installed, **unused** — aspirational for future scroll-driven sections |
 | `three` | ^0.184.0 | Installed, **unused** |
 | `@react-three/fiber` | ^8.18.0 | Installed, **unused** |
@@ -184,10 +189,12 @@ Three separate approaches to a 3D hero were explored and abandoned:
 - **21st.dev magic components** (`mcp__magic__*`) — trialled for generating animated 3D-adjacent hero components. Output didn't fit the brand register (too generic/SaaS-y).
 - **`/impeccable` skill** — used to audit and polish the hero at various stages; it's what surfaced the asymmetry issue and the crest-containment improvement, not a failed attempt.
 
-**Decision:** 3D on the hero is permanently shelved. The `three`/`@react-three/fiber` packages remain installed for future scroll-driven sections (e.g., a product showcase further down the homepage), not the hero. The current 2D InfiniteGrid approach is client-approved and finalized.
+**Decision (since reversed — see Direction 5):** 3D on the hero was shelved at this point. The `three`/`@react-three/fiber` packages remain installed but unused.
 
-### Current finalized state: Asymmetric 2D hero with contained crest (commit `8130242`)
-Left-aligned text block + fixed-width right column holding the static crest. See the Completed Components section below for the full implementation spec.
+### Direction 5: Spline 3D hero, reinstated and shipped (CURRENT)
+The client later explicitly reversed the no-3D decision and asked for the Spline interactive hero. It is now live (`src/components/ui/spline-hero.tsx`). The earlier performance objection is mitigated by: (1) `Spline` is `lazy()` + `Suspense`-wrapped in `splite.tsx`, (2) the scene column is `hidden md:block` — the heavy WASM runtime never loads layout-blocking on mobile, which was the original objection. The 2D `InfiniteGrid` is no longer rendered on the homepage but the file remains in the repo.
+
+This pivot also flipped the homepage to a **dark theme**: black header (`void`), dark hero (`bg-void`), white logo. The Navy & Gold cream/navy palette still governs the light interior pages; the homepage hero is the one dark surface.
 
 ---
 
@@ -195,7 +202,7 @@ Left-aligned text block + fixed-width right column holding the static crest. See
 
 | Route | Status | Priority | Notes |
 |---|---|---|---|
-| `/` | **COMPLETE** | — | Header + InfiniteGrid hero + scroll cue |
+| `/` | **COMPLETE** | — | Black header + Spline 3D hero (`spline-hero.tsx`). Dark surface. InfiniteGrid retired but file kept. |
 | `/contact` | Scaffold | **High** | Hero CTA + header CTA both link here; unbuilt = broken CTAs |
 | `/subjects/o-level` | Scaffold | Medium | Needs subject list UI; data in `subjects.ts` |
 | `/subjects/a-level` | Scaffold | Medium | Same |
@@ -270,7 +277,9 @@ forte-institute-website/
 
 ### `src/components/Header.tsx` — COMPLETE
 
-Sticky light header. Key details:
+**Now a dark header** (changed with the Spline hero pivot): `bg-void/90 backdrop-blur-xl border-b border-glass-border`, logo `src="/logo-white.png"`, nav links `text-mist` → hover `text-paper`, focus rings `ring-yellow ring-offset-void`. The gold "Register Now" CTA (`bg-yellow text-ink`) is unchanged. The bullets below describe the original light header and are kept for reference — the structure (mobile drawer, hamburger morph, reduced-motion handling) is identical; only the color tokens flipped to the dark set.
+
+Original light-header spec (structure still accurate):
 - `bg-paper/90 backdrop-blur-xl border-b border-ink-10` — glass-bar effect, no shadow
 - Logo: `src="/logo.png"` (black variant), `h-9 w-auto sm:h-10`
 - Nav links: `text-ink-60`, hover `text-ink`, hidden below `md`
@@ -382,7 +391,9 @@ Outer div: relative h-full w-full overflow-hidden bg-paper, onMouseMove
 - **Yellow contrast** — `#F5C518` (yellow) against white is ~1.6:1. It fails WCAG as a text or ring color. Only use it for fills. Use `yellow-deep` (#B98A00, ~3.3:1) wherever the accent becomes a text color, border, or focus ring.
 - **Logo variants** — `logo.png` is the black lockup (for light/paper backgrounds). `logo-white.png` is the white lockup (for any future dark surface). Never put the black logo on a dark background or vice versa.
 - **Footer.tsx is broken** — it references retired dark-palette tokens and is not rendered anywhere. Do not import it until it's redesigned.
-- **3D libraries installed but unused** — `three`, `@react-three/fiber`, `@react-three/drei`, `@react-three/postprocessing`, `gsap` are in `package.json`. They're aspirational for future scroll-driven sections below the hero. Do not add them to the hero — the InfiniteGrid 2D approach is finalized and client-approved.
+- **`void`/`mist`/`glass-border` are ACTIVE again** — previously documented as retired dark tokens. The Spline hero pivot reactivated them for the black header and dark hero surface. They are no longer dormant. `violet`/`cyan`/`void-100`/`void-200` remain unused.
+- **Spline is desktop-only by design** — the scene column in `spline-hero.tsx` is `hidden md:block`. This is deliberate (mobile performance was the original reason 3D was shelved). Do not remove the `hidden md:block` guard. The Spline runtime + WASM stream from `prod.spline.design` and `unpkg.com` at runtime, so the hero needs network on first paint.
+- **`@react-three/*` libraries installed but unused** — `three`, `@react-three/fiber`, `@react-three/drei`, `@react-three/postprocessing`, `gsap` are in `package.json` but unused. The 3D hero uses Spline, not react-three-fiber.
 - **`crest.png` is deleted** — the file was the old lion crop that included the card border. It's gone. The replacement is `crest-lion.png`. Don't reference `crest.png` anywhere.
 - **ESLint: unused `_` destructure** — if destructuring to exclude a prop, use `// eslint-disable-next-line @typescript-eslint/no-unused-vars` on the line above, not a rename trick.
 - **`framer-motion` in package.json** — still listed as a dependency alongside `motion`. Not imported anywhere in the codebase, but its presence could confuse bundler tree-shaking. Remove it from `package.json` when next touching dependencies.

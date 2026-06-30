@@ -22,6 +22,8 @@ interface Particle {
 function MagnetizeButton({
   className,
   particleCount = 12,
+  // Extracted so it is not spread onto the DOM; reserved for future tuning.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   attractRadius = 50,
   children,
   ...props

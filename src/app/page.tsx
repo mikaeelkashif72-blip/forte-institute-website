@@ -1,23 +1,14 @@
 import Header from "@/components/Header";
-import { InfiniteGrid } from "@/components/ui/the-infinite-grid";
+import { SplineHero } from "@/components/ui/spline-hero";
 
 export default function Home() {
   return (
     <>
       <Header />
-      <main className="bg-paper">
-        {/* Section 1: immersive hero — one idea, nothing competing for attention */}
-        <section className="relative min-h-[calc(100vh-73px)]">
-          <div className="absolute inset-0">
-            <InfiniteGrid />
-          </div>
-
-          <div
-            aria-hidden="true"
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-scroll-cue text-xs uppercase tracking-widest text-ink-60 motion-reduce:animate-none"
-          >
-            Scroll
-          </div>
+      <main className="bg-void">
+        {/* Section 1: immersive 3D hero — one idea, nothing competing for attention */}
+        <section className="relative min-h-[640px] h-[calc(100dvh-65px)]">
+          <SplineHero />
         </section>
       </main>
     </>
