@@ -2,18 +2,18 @@
 name: Forte Institute
 description: Cambridge O Level / A Level tuition site — unified light surface, single yellow accent
 colors:
-  void: "#0A0B12"
-  void-100: "#10111C"
-  void-200: "#171928"
+  void: "#0D1147"
+  void-100: "#0A0E38"
+  void-200: "#080B2A"
   glass: "rgba(255, 255, 255, 0.06)"
   glass-border: "rgba(255, 255, 255, 0.12)"
-  mist: "#A8AEC2"
-  mist-bright: "#E7E9F2"
+  mist: "#9BA8D4"
+  mist-bright: "#C8D0EC"
   paper: "#F8F6F0"
   ink: "#0E1F4B"
   ink-60: "rgba(14, 31, 75, 0.6)"
   ink-10: "rgba(14, 31, 75, 0.1)"
-  yellow: "#E8B72E"
+  yellow: "#E8A020"
   yellow-deep: "#1B5A6B"
   navy-pill: "#10204A"
 typography:

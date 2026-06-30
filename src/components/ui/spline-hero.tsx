@@ -7,6 +7,7 @@ import { Spotlight } from "@/components/ui/spotlight-svg";
 import { SplineScene } from "@/components/ui/splite";
 import { MagnetizeButton } from "@/components/ui/magnetize-button";
 import { TextEffect } from "@/components/ui/text-effect";
+import { MathBg } from "@/components/ui/math-bg";
 
 const SPLINE_SCENE = "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode";
 
@@ -15,8 +16,7 @@ export function SplineHero() {
 
   return (
     <Card className="relative h-full w-full overflow-hidden rounded-none border-0 bg-void">
-      {/* warm collegiate glow that drifts in on mount */}
-      <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" fill="#E8B72E" />
+      <MathBg />
 
       <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col-reverse items-center gap-6 px-6 py-10 md:flex-row md:gap-12 md:py-0">
         {/* Left: copy (gold eyebrow + cream headline read with strong contrast on void) */}

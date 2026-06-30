@@ -14,17 +14,17 @@ const config: Config = {
       },
       colors: {
         void: {
-          DEFAULT: "#0A0B12",
-          100: "#10111C",
-          200: "#171928",
+          DEFAULT: "#06091A",
+          100: "#080C22",
+          200: "#0A0F2A",
         },
         glass: {
           DEFAULT: "rgba(255, 255, 255, 0.06)",
           border: "rgba(255, 255, 255, 0.12)",
         },
         mist: {
-          DEFAULT: "#A8AEC2",
-          bright: "#E7E9F2",
+          DEFAULT: "#9BA8D4",
+          bright: "#C8D0EC",
         },
         violet: {
           DEFAULT: "#8B5CF6",
@@ -43,7 +43,7 @@ const config: Config = {
           10: "rgba(14, 31, 75, 0.1)",
         },
         yellow: {
-          DEFAULT: "#E8B72E",
+          DEFAULT: "#E8A020",
           deep: "#1B5A6B",
         },
         "navy-pill": {
