@@ -27,7 +27,7 @@ export function SplineHero() {
             preset="fade-in-blur"
             className="font-heading text-sm font-bold tracking-wide text-yellow md:text-base"
           >
-            Empowering Minds. Shaping Futures.
+            O Level, IGCSE &amp; A Level Tuition in Pakistan
           </TextEffect>
           <TextEffect
             as="h1"
@@ -37,7 +37,7 @@ export function SplineHero() {
             speedReveal={1.4}
             className="mt-4 text-balance font-heading text-5xl font-bold leading-tight tracking-[-0.01em] text-paper md:text-6xl"
           >
-            Results that speak for themselves.
+            O Level &amp; A Level results that speak for themselves.
           </TextEffect>
           <TextEffect
             as="p"
@@ -47,8 +47,9 @@ export function SplineHero() {
             speedReveal={2}
             className="mt-6 max-w-xl text-balance text-lg text-mist"
           >
-            Forte Institute prepares students for O and A Level examinations through
-            focused, expert-led instruction, built on rigor, not shortcuts.
+            Forte Institute prepares students across Pakistan for Cambridge O Level,
+            IGCSE and A Level exams — with live classes, recorded lessons, notes and
+            past papers, taught by expert tutors who focus on rigor, not shortcuts.
           </TextEffect>
           <motion.div
             className="mt-9"

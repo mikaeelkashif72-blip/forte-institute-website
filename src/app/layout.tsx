@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Forte Institute | Cambridge O Level & A Level Tuition",
+  title: "Forte Institute | O Level, IGCSE & A Level Tuition in Pakistan",
   description:
-    "Cambridge O Level and A Level tuition with live classes, recorded lessons, notes, and past papers for every subject.",
+    "Forte Institute offers Cambridge O Level, IGCSE & A Level tuition in Pakistan — live classes, recorded lessons, notes and past papers. Book a free session.",
 };
 
 export default function RootLayout({
