@@ -47,6 +47,39 @@ Next.js 14 App Router, TypeScript, Tailwind CSS.
 
 ---
 
+## Installed Dependencies
+
+### Production
+| Package | Version | Status |
+|---|---|---|
+| `next` | 14.2.35 | Core framework |
+| `react` / `react-dom` | ^18 | — |
+| `motion` | ^12.42.0 | **Primary animation library** — import as `motion/react` |
+| `framer-motion` | ^12.42.0 | **Still in package.json — do not use.** Legacy alias kept by accident; always import from `motion/react` instead. Remove this entry when next touching `package.json`. |
+| `clsx` + `tailwind-merge` | latest | Used via `cn()` in `src/lib/utils.ts` |
+| `gsap` | ^3.15.0 | Installed, **unused** — aspirational for future scroll-driven sections |
+| `three` | ^0.184.0 | Installed, **unused** |
+| `@react-three/fiber` | ^8.18.0 | Installed, **unused** |
+| `@react-three/drei` | ^9.122.0 | Installed, **unused** |
+| `@react-three/postprocessing` | ^2.19.1 | Installed, **unused** |
+| `postprocessing` | ^6.39.1 | Peer dep for above, **unused** |
+
+### Dev
+TypeScript ^5, Tailwind CSS ^3.4.1, ESLint 8 with `eslint-config-next`.
+
+---
+
+## Installed Claude Code Skills
+
+| Skill | Scope | Notes |
+|---|---|---|
+| `impeccable` | **Project-local** — `.claude/skills/impeccable/` | Frontend design/polish skill. Was used during the hero design exploration phase. Now that the hero is finalized, use it for future page builds (contact, footer, subject pages). Invoke with `/impeccable`. |
+| All other skills (design-taste-frontend, code-review, etc.) | **Global** — installed to user's global Claude config | Not project-specific. |
+
+The `21st.dev` magic component MCP server is also connected (`mcp__magic__*` tools). It was tried during hero exploration; it's available for building future UI components.
+
+---
+
 ## Fonts
 
 Two font systems coexist — use the Fontshare ones (they're what's actually rendered):
@@ -58,7 +91,7 @@ Two font systems coexist — use the Fontshare ones (they're what's actually ren
 | Heading CSS var | `--font-heading` | `next/font/google` Space Grotesk in `layout.tsx` (fallback only) |
 | Body CSS var | `--font-body` | `next/font/google` Inter in `layout.tsx` (fallback only) |
 
-`globals.css` sets `h1–h6` to `var(--font-heading), "Clash Display", sans-serif` and `body` to `var(--font-body), "General Sans", sans-serif`. The Fontshare fonts load first so they win in practice.
+`globals.css` sets `h1–h6` to `var(--font-heading), "Clash Display", sans-serif` and `body` to `var(--font-body), "General Sans", sans-serif`. The Fontshare fonts load first so they win in practice. Space Grotesk only renders if Fontshare CDN fails.
 
 **The No-Serif Rule:** No serif typeface anywhere, ever.
 
@@ -131,6 +164,50 @@ Pass `initial={prefersReducedMotion() ? false : { opacity: 0, y: 12 }}` on entra
 
 ---
 
+## Hero: Design History and What Was Tried
+
+The hero went through several distinct directions before landing on the current finalized state. Recording this so the reasoning doesn't get re-litigated.
+
+### Direction 1: Dark "Glass Observatory" (retired)
+Initial hero used `void` (#0A0B12) backgrounds, violet/cyan accents, a glass-morphism card cluster with aurora gradients. Fully scrapped when the real Forte Institute brand assets (black-and-yellow heraldic crest) arrived — the brand identity overruled the speculative palette.
+
+### Direction 2: Centered light hero with crest bled off-screen edge (retired)
+After switching to a light theme, the first iteration bled the crest off the right edge of the viewport. Felt ungrounded/floating rather than placed. Removed.
+
+### Direction 3: Cursor-parallax on the crest (retired)
+The crest had cursor-driven parallax movement. Felt like a UI toy on an identity element. The Static-Brand-Art Rule was written to capture why it was removed: stillness at scale reads as a statement.
+
+### Direction 4: 3D hero element (tried and explicitly rejected for the hero)
+Three separate approaches to a 3D hero were explored and abandoned:
+- **GSAP ScrollTrigger** — attempted to drive a 3D scene with scroll. Not wired up; the hero doesn't scroll in the traditional sense (it's full-viewport), so ScrollTrigger didn't add value here.
+- **Spline** — Spline embeds were trialled as a 3D background. Performance overhead on first paint was unacceptable for a tutoring site targeting mid-range mobile.
+- **21st.dev magic components** (`mcp__magic__*`) — trialled for generating animated 3D-adjacent hero components. Output didn't fit the brand register (too generic/SaaS-y).
+- **`/impeccable` skill** — used to audit and polish the hero at various stages; it's what surfaced the asymmetry issue and the crest-containment improvement, not a failed attempt.
+
+**Decision:** 3D on the hero is permanently shelved. The `three`/`@react-three/fiber` packages remain installed for future scroll-driven sections (e.g., a product showcase further down the homepage), not the hero. The current 2D InfiniteGrid approach is client-approved and finalized.
+
+### Current finalized state: Asymmetric 2D hero with contained crest (commit `8130242`)
+Left-aligned text block + fixed-width right column holding the static crest. See the Completed Components section below for the full implementation spec.
+
+---
+
+## Sitemap and Page Build Status
+
+| Route | Status | Priority | Notes |
+|---|---|---|---|
+| `/` | **COMPLETE** | — | Header + InfiniteGrid hero + scroll cue |
+| `/contact` | Scaffold | **High** | Hero CTA + header CTA both link here; unbuilt = broken CTAs |
+| `/subjects/o-level` | Scaffold | Medium | Needs subject list UI; data in `subjects.ts` |
+| `/subjects/a-level` | Scaffold | Medium | Same |
+| `/subjects/o-level/[subject]` | Scaffold | Medium | Static params wired, page body empty |
+| `/subjects/a-level/[subject]` | Scaffold | Medium | Same |
+| `/recorded-classes` | Scaffold | Medium | Core monetization surface; needs video card UI |
+| `/live-classes` | Scaffold | Medium | Needs booking form |
+| `/results` | Scaffold | Low | Needs results data + display; data goes in `results.ts` |
+| `/about` | Scaffold | Low | — |
+
+---
+
 ## Current File Structure
 
 ```
@@ -176,6 +253,10 @@ forte-institute-website/
 │       ├── programs.ts       # placeholder
 │       ├── results.ts        # placeholder
 │       └── teachers.ts       # placeholder
+├── .claude/
+│   ├── skills/impeccable/    # Project-local Impeccable skill (invoke with /impeccable)
+│   ├── settings.local.json   # Local Claude Code settings (not committed)
+│   └── launch.json           # Dev server launch config for Claude Code preview tools
 ├── CLAUDE.md                 # This file
 ├── DESIGN.md                 # Full design system spec with rationale and named rules
 ├── tailwind.config.ts        # Color tokens, font families
@@ -214,6 +295,12 @@ Nav links defined at top of file as `navLinks` array — edit there to add/remov
 
 The hero component. Asymmetric layout: left-aligned text block + contained right crest column.
 
+**Hero copy (finalized):**
+- Eyebrow: `"Empowering Minds. Shaping Futures."` — yellow-deep, label size
+- Headline (h1): `"Results that speak for themselves."` — ink, display size
+- Subhead: institute description copy — ink-60, lg
+- CTA: `"Book a Free Session"` → `/contact`
+
 **Layout structure:**
 ```
 Outer div: relative h-full w-full overflow-hidden bg-paper, onMouseMove
@@ -222,10 +309,7 @@ Outer div: relative h-full w-full overflow-hidden bg-paper, onMouseMove
   Layer z0-c: two glow orbs (yellow/35 top-right, yellow-deep/25 bottom-left), blur-[120px]
   Layer z10: flex row, max-w-6xl, justify-between gap-12 px-6
     Left: max-w-xl md:max-w-2xl, text-left
-      TextEffect eyebrow: "Empowering Minds. Shaping Futures." — yellow-deep, label size
-      TextEffect h1: "Results that speak for themselves." — ink, display size
-      TextEffect subhead: institute description — ink-60, lg
-      motion.div CTA: "Book a Free Session" → /contact — yellow fill, ink text
+      TextEffect eyebrow → TextEffect h1 → TextEffect subhead → motion.div CTA
     Right: hidden lg:block, w-[260px] lg:w-[320px], relative h-full (flex-shrink-0)
       Image: /crest-lion.png, absolute, top-[4%], h-[120%], -translate-x-1/2
              opacity-[0.1], mask-image fading legs bottom 70%→96%
@@ -235,9 +319,9 @@ Outer div: relative h-full w-full overflow-hidden bg-paper, onMouseMove
 - Lion silhouette isolated from logo.png via Node.js + sharp connected-component analysis (bbox 99,93→286,390) + chroma-key yellow removal (R>200 && G>130 && B<110 → alpha=0) + Lanczos3 upscale to 900px
 - Does NOT include card border or yellow accent dot from original lockup
 - Rendered at opacity 0.1 — art direction, not UI element
-- **Does not move.** Cursor-parallax was tried and explicitly removed by the user.
+- **Does not move.** Cursor-parallax was tried and explicitly removed (see Hero Design History above).
 - Fades out toward bottom via `maskImage: "linear-gradient(to bottom, black 70%, transparent 96%)"`
-- Visible only at `lg` and above — hidden below that breakpoint
+- Visible only at `lg` and above
 
 **Grid animation:**
 - `useAnimationFrame` scrolls grid offset at 0.5px/frame on both axes (infinite scroll illusion)
@@ -261,47 +345,44 @@ Outer div: relative h-full w-full overflow-hidden bg-paper, onMouseMove
 
 ---
 
-## Page Build Status
+## Git History (recent)
 
-| Route | Status | Notes |
-|---|---|---|
-| `/` | **COMPLETE** | Header + hero, scroll cue |
-| `/subjects/o-level` | Scaffold | "Coming soon." — needs subject list UI |
-| `/subjects/a-level` | Scaffold | Same |
-| `/subjects/o-level/[subject]` | Scaffold | Static params wired, page body empty |
-| `/subjects/a-level/[subject]` | Scaffold | Same |
-| `/live-classes` | Scaffold | Needs booking form (future) |
-| `/recorded-classes` | Scaffold | Needs gated video library (future) |
-| `/results` | Scaffold | Needs results data + display |
-| `/about` | Scaffold | Low priority |
-| `/contact` | Scaffold | Needed for CTA links to resolve |
+| Hash | Description |
+|---|---|
+| `8130242` | Contain crest in right column with proper spacing; replace crest asset (`crest-lion.png` — isolated lion only, no card border) |
+| `7d97aeb` | Break centered hero template with asymmetric crest-parallax layout |
+| `4ded3c2` | Flip header and hero to a unified light theme |
+| `3f8d8eb` | Unify header to dark theme and animate mobile menu |
+| `9dce2d3` | Lock hero accent to yellow, add entrance motion, fix bounce easing |
+| `498568f` | Strip home page down to header and hero only |
+| `932d636` | Add motion library and motion-primitives components |
+| `44929fd` | Update hero: brand tagline and single CTA |
 
 ---
 
 ## Outstanding Tasks (in priority order)
 
-1. **Commit uncommitted changes** — working tree has: `DESIGN.md` (modified), `public/crest.png` (deleted — replaced by crest-lion.png), `src/components/ui/the-infinite-grid.tsx` (modified), `public/crest-lion.png` (untracked). These represent the final contained-column crest layout. Run `git add` and commit before touching anything.
+1. **Contact page** — the hero CTA ("Book a Free Session") and header CTA ("Register Now") both link to `/contact`. This page is currently a scaffold. Build a simple contact/booking form. Until this exists, every primary CTA on the site is a dead link.
 
-2. **Contact page** — the hero CTA ("Book a Free Session") and header CTA ("Register Now") both link to `/contact`. This page is currently a scaffold. Build a simple contact/booking form.
+2. **Footer** — `Footer.tsx` exists but uses retired `void`/`mist`/`violet` dark tokens from the scrapped design direction. Either rebuild it with `paper`/`ink`/`yellow` tokens or delete and start fresh. Add YouTube and Instagram social icon links (explicitly requested by user).
 
-3. **Footer** — `Footer.tsx` exists but uses retired `void`/`mist`/`violet` dark tokens from the scrapped design direction. Either rebuild it with `paper`/`ink`/`yellow` tokens or delete and start fresh. Add YouTube and Instagram social icon links (user mentioned this as desired).
+3. **Recorded Classes page** — core monetization surface. Students browse and purchase access to recorded class videos. Needs: subject/level filtering, video cards, purchase gate. Auth (Supabase) and payment (JazzCash/Easypaisa) are future work; for now scaffold the UI.
 
-4. **Recorded Classes page** — core monetization surface. Students browse and purchase access to recorded class videos. Needs: subject/level filtering, video cards, purchase gate. Auth (Supabase) and payment (JazzCash/Easypaisa) are future work; for now scaffold the UI.
+4. **Live Classes page** — booking form for live sessions.
 
-5. **Live Classes page** — booking form for live sessions.
+5. **Results page** — display student results/achievements. Data goes in `src/lib/results.ts`.
 
-6. **Results page** — display student results/achievements. Data goes in `src/lib/results.ts`.
-
-7. **Subject pages** — O Level and A Level subject listing and detail pages. Data lives in `src/lib/subjects.ts`.
+6. **Subject pages** — O Level and A Level subject listing and detail pages. Data lives in `src/lib/subjects.ts`.
 
 ---
 
 ## Known Gotchas
 
-- **`motion/react` not `framer-motion`** — the package is `motion` (v12), imported as `motion/react`. Do not use the old `framer-motion` import path anywhere.
+- **`motion/react` not `framer-motion`** — the package is `motion` (v12), imported as `motion/react`. Do not use the old `framer-motion` import path anywhere. Note: `framer-motion` is still listed in `package.json` as a leftover; it should be removed but hasn't been yet.
 - **Yellow contrast** — `#F5C518` (yellow) against white is ~1.6:1. It fails WCAG as a text or ring color. Only use it for fills. Use `yellow-deep` (#B98A00, ~3.3:1) wherever the accent becomes a text color, border, or focus ring.
 - **Logo variants** — `logo.png` is the black lockup (for light/paper backgrounds). `logo-white.png` is the white lockup (for any future dark surface). Never put the black logo on a dark background or vice versa.
 - **Footer.tsx is broken** — it references retired dark-palette tokens and is not rendered anywhere. Do not import it until it's redesigned.
-- **3D libraries installed but unused** — `three`, `@react-three/fiber`, `@react-three/drei`, `@react-three/postprocessing`, `gsap` are in `package.json`. They're aspirational for future scroll-driven sections. Do not add them to the hero — the InfiniteGrid 2D approach is finalized and the client approved it.
+- **3D libraries installed but unused** — `three`, `@react-three/fiber`, `@react-three/drei`, `@react-three/postprocessing`, `gsap` are in `package.json`. They're aspirational for future scroll-driven sections below the hero. Do not add them to the hero — the InfiniteGrid 2D approach is finalized and client-approved.
 - **`crest.png` is deleted** — the file was the old lion crop that included the card border. It's gone. The replacement is `crest-lion.png`. Don't reference `crest.png` anywhere.
 - **ESLint: unused `_` destructure** — if destructuring to exclude a prop, use `// eslint-disable-next-line @typescript-eslint/no-unused-vars` on the line above, not a rename trick.
+- **`framer-motion` in package.json** — still listed as a dependency alongside `motion`. Not imported anywhere in the codebase, but its presence could confuse bundler tree-shaking. Remove it from `package.json` when next touching dependencies.
