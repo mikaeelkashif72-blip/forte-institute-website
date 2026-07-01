@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import { RecordedClassesGrid } from "@/components/RecordedClassesGrid";
 import { MathBg } from "@/components/ui/math-bg";
+import { WhyForteFeaturesSection } from "@/components/WhyForteFeaturesSection";
 
 export const metadata: Metadata = {
   title: "Recorded Classes | Cambridge O Level & IGCSE | Forte Institute",
@@ -52,6 +53,8 @@ export default function RecordedClassesPage() {
             <RecordedClassesGrid />
           </div>
         </section>
+
+        <WhyForteFeaturesSection level="Recorded Classes" />
       </main>
     </>
   );

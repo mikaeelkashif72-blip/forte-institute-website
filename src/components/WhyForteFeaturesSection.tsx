@@ -19,7 +19,7 @@ const FEATURES = [
 ];
 
 interface Props {
-  level: "O Level" | "A Level";
+  level: "O Level" | "A Level" | "Recorded Classes";
 }
 
 export function WhyForteFeaturesSection({ level }: Props) {
