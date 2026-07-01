@@ -21,18 +21,21 @@ export const levelLabels: Record<Level, string> = {
 };
 
 export const oLevelSubjects: SubjectSummary[] = [
-  { slug: "physics",                name: "Physics",                code: "5054", igcseCode: "0625" },
-  { slug: "chemistry",              name: "Chemistry",              code: "5070", igcseCode: "0620" },
-  { slug: "biology",                name: "Biology",                code: "5090", igcseCode: "0610" },
-  { slug: "mathematics",            name: "Mathematics",            code: "4024", igcseCode: "0580" },
-  { slug: "additional-mathematics", name: "Additional Mathematics", code: "4037", igcseCode: "0606" },
-  { slug: "business-studies",       name: "Business Studies",       code: "7115", igcseCode: "0450" },
-  { slug: "economics",              name: "Economics",              code: "2281", igcseCode: "0455" },
-  { slug: "english",                name: "English",                code: "1123", igcseCode: "0500" },
-  { slug: "computer-science",       name: "Computer Science",       code: "2210", igcseCode: "0478" },
-  { slug: "islamiyat",              name: "Islamiyat",              code: "2058", igcseCode: "0493" },
-  { slug: "pakistan-studies",       name: "Pakistan Studies",       code: "2059", igcseCode: "0448" },
-  { slug: "urdu",                   name: "Urdu (Syllabus A & B)",  code: "3247 / 3248", igcseCode: "0539 / 0540" },
+  { slug: "islamiyat",              name: "Islamiyat",              code: "2058",         igcseCode: "0493"        },
+  { slug: "pakistan-studies",       name: "Pakistan Studies",       code: "2059",         igcseCode: "0448"        },
+  { slug: "urdu",                   name: "Urdu (Syllabus A & B)",  code: "3247 / 3248",  igcseCode: "0539 / 0540" },
+  { slug: "english",                name: "English Language",       code: "1123",         igcseCode: "0500"        },
+  { slug: "mathematics",            name: "Mathematics",            code: "4024",         igcseCode: "0580"        },
+  { slug: "physics",                name: "Physics",                code: "5054",         igcseCode: "0625"        },
+  { slug: "chemistry",              name: "Chemistry",              code: "5070",         igcseCode: "0620"        },
+  { slug: "biology",                name: "Biology",                code: "5090",         igcseCode: "0610"        },
+  { slug: "additional-mathematics", name: "Additional Mathematics", code: "4037",         igcseCode: "0606"        },
+  { slug: "business-studies",       name: "Business Studies",       code: "7115",         igcseCode: "0450"        },
+  { slug: "economics",              name: "Economics",              code: "2281",         igcseCode: "0455"        },
+  { slug: "computer-science",       name: "Computer Science",       code: "2210",         igcseCode: "0478"        },
+  { slug: "environmental-management", name: "Environmental Management", code: "5014",      igcseCode: "0680"        },
+  { slug: "sociology",              name: "Sociology",              code: "2251",         igcseCode: "0495"        },
+  { slug: "accounting",             name: "Accounting",             code: "7707",         igcseCode: "0452"        },
 ];
 
 export const aLevelSubjects: SubjectSummary[] = [

@@ -7,6 +7,9 @@ const FEATURED = [
   { slug: "islamiyat",        name: "Islamiyat",             code: "2058"        },
   { slug: "pakistan-studies", name: "Pakistan Studies",      code: "2059"        },
   { slug: "urdu",             name: "Urdu",                  code: "3247 / 3248" },
+  { slug: "mathematics",      name: "Mathematics",           code: "4024"        },
+  { slug: "english",          name: "English Language",      code: "1123"        },
+  { slug: "physics",          name: "Physics",               code: "5054"        },
 ];
 
 function SubjectCard({
@@ -41,7 +44,7 @@ function SubjectCard({
         {/* CTA */}
         <Link
           href="/contact"
-          className="mt-auto block rounded-xl border border-glass-border bg-white/5 py-2.5 text-center text-sm font-bold text-paper transition-all duration-200 hover:border-yellow hover:bg-yellow hover:text-ink active:scale-[0.97]"
+          className="mt-auto block rounded-xl bg-yellow py-2.5 text-center text-sm font-bold text-ink transition-all duration-200 hover:scale-[1.02] active:scale-[0.97]"
         >
           Register for Class →
         </Link>

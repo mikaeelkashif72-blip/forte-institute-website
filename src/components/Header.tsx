@@ -8,9 +8,9 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { AnimatedBackground } from "@/components/core/animated-background";
 
 const navLinks = [
+  { href: "/",                    label: "Home"              },
   { href: "/subjects/o-level",    label: "O Level"           },
   { href: "/subjects/a-level",    label: "A Level"           },
-  { href: "/live-classes",        label: "Live Classes"      },
   { href: "/recorded-classes",    label: "Recorded Classes"  },
   { href: "/contact",             label: "Contact"           },
 ];
