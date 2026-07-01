@@ -3,6 +3,7 @@ export type Level = "o-level" | "a-level";
 export interface SubjectSummary {
   slug: string;
   name: string;
+  code?: string;
 }
 
 export interface SubjectDetail extends SubjectSummary {
@@ -19,15 +20,18 @@ export const levelLabels: Record<Level, string> = {
 };
 
 export const oLevelSubjects: SubjectSummary[] = [
-  { slug: "physics", name: "Physics" },
-  { slug: "chemistry", name: "Chemistry" },
-  { slug: "biology", name: "Biology" },
-  { slug: "mathematics", name: "Mathematics" },
-  { slug: "additional-mathematics", name: "Additional Mathematics" },
-  { slug: "business-studies", name: "Business Studies" },
-  { slug: "economics", name: "Economics" },
-  { slug: "english", name: "English" },
-  { slug: "computer-science", name: "Computer Science" },
+  { slug: "physics", name: "Physics", code: "5054" },
+  { slug: "chemistry", name: "Chemistry", code: "5070" },
+  { slug: "biology", name: "Biology", code: "5090" },
+  { slug: "mathematics", name: "Mathematics", code: "4024" },
+  { slug: "additional-mathematics", name: "Additional Mathematics", code: "4037" },
+  { slug: "business-studies", name: "Business Studies", code: "7115" },
+  { slug: "economics", name: "Economics", code: "2281" },
+  { slug: "english", name: "English", code: "1123" },
+  { slug: "computer-science", name: "Computer Science", code: "2210" },
+  { slug: "islamiyat", name: "Islamiyat", code: "2058" },
+  { slug: "pakistan-studies", name: "Pakistan Studies", code: "2059" },
+  { slug: "urdu", name: "Urdu (Syllabus A & B)", code: "3247 / 3248" },
 ];
 
 export const aLevelSubjects: SubjectSummary[] = [

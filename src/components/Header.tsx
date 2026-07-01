@@ -23,7 +23,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-void px-4 pt-4 pb-0 relative">
       {/* Floating pill */}
-      <div className="mx-auto flex max-w-5xl items-center justify-between rounded-full border border-glass-border bg-white/5 px-4 py-2.5 backdrop-blur-2xl">
+      <div className="mx-auto flex max-w-6xl items-center justify-between rounded-full border border-glass-border bg-white/5 px-5 py-3 md:px-7 md:py-4 backdrop-blur-2xl">
         {/* Logo */}
         <Link
           href="/"
@@ -44,7 +44,7 @@ export default function Header() {
           <AnimatedBackground
             defaultValue={pathname}
             className="rounded-full bg-white/10"
-            transition={reducedMotion ? { duration: 0 } : { type: "spring", bounce: 0.2, duration: 0.35 }}
+            transition={reducedMotion ? { duration: 0 } : { type: "spring", stiffness: 500, damping: 40, mass: 0.6 }}
             enableHover
           >
             {navLinks.map((link) => (
