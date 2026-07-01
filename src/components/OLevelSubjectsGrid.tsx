@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
-import { Spotlight } from "@/components/core/spotlight";
 import { oLevelSubjects } from "@/lib/subjects";
 
 function SubjectCard({
@@ -23,13 +22,9 @@ function SubjectCard({
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.4, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
-      className="relative overflow-hidden rounded-2xl bg-white/10 p-[1px]"
+      transition={{ duration: 0.3, delay: index * 0.03, ease: [0.16, 1, 0.3, 1] }}
+      className="relative overflow-hidden rounded-2xl bg-white/10 p-[1px] transition-all duration-300 hover:bg-yellow/50 hover:shadow-[0_0_28px_rgba(245,197,24,0.18)]"
     >
-      <Spotlight
-        className="from-yellow via-yellow/60 to-transparent blur-2xl"
-        size={200}
-      />
       <div className="relative flex flex-col gap-4 rounded-[15px] bg-void p-6">
         {/* Subject name + codes */}
         <h2 className="font-heading text-xl font-bold text-paper">

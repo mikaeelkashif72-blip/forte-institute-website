@@ -22,6 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Preconnect to CDNs used by Spline so the TCP handshake is done before JS fires */}
+        <link rel="preconnect" href="https://prod.spline.design" />
+        <link rel="preconnect" href="https://unpkg.com" />
+      </head>
       <body className={onest.variable}>{children}</body>
     </html>
   );

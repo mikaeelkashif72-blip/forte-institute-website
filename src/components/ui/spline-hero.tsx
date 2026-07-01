@@ -37,8 +37,8 @@ export function SplineHero() {
             as="h1"
             per="word"
             preset="fade-in-blur"
-            delay={0.15}
-            speedReveal={1.4}
+            delay={0.08}
+            speedReveal={2.2}
             className="mt-4 text-balance font-heading text-5xl font-bold leading-tight tracking-[-0.01em] text-paper md:text-6xl"
           >
             O Level &amp; A Level results that speak for themselves.
@@ -47,8 +47,8 @@ export function SplineHero() {
             as="p"
             per="word"
             preset="fade"
-            delay={0.5}
-            speedReveal={2}
+            delay={0.3}
+            speedReveal={3}
             className="mt-6 text-balance text-lg text-mist"
           >
             Forte Institute prepares students across Pakistan for Cambridge O Level,
@@ -57,9 +57,9 @@ export function SplineHero() {
           </TextEffect>
           <motion.div
             className="mt-9"
-            initial={reduce ? false : { opacity: 0, y: 12 }}
+            initial={reduce ? false : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ delay: 0.45, duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           >
             <Link
               href="/contact"
@@ -74,7 +74,7 @@ export function SplineHero() {
             className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3"
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ delay: 0.6, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
             {HERO_STATS.map(({ icon: Icon, stat, label }, i) => (
               <div key={i} className="flex items-center gap-2">

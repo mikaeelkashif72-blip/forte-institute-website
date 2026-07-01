@@ -4,10 +4,22 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-onest), "Onest", "General Sans", sans-serif;
   background-color: #F8F6F0;
   color: #0E1F4B;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeSpeed;
+}
+
+/* Promote scroll-animated elements to their own compositor layer */
+[data-motion-animate],
+.math-row {
+  will-change: transform;
 }
 
 h1,

@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import { SplineHero } from "@/components/ui/spline-hero";
 import { OLevelSection } from "@/components/OLevelSection";
+import { ALevelSection } from "@/components/ALevelSection";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
           <SplineHero />
         </section>
         <OLevelSection />
+        <ALevelSection />
       </main>
     </>
   );
