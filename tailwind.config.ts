@@ -44,7 +44,7 @@ const config: Config = {
         },
         yellow: {
           DEFAULT: "#E8A020",
-          deep: "#1B5A6B",
+          deep: "#F5C518",
         },
         "navy-pill": {
           DEFAULT: "#10204A",

@@ -3,9 +3,7 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { Card } from "@/components/ui/card";
-import { Spotlight } from "@/components/ui/spotlight-svg";
 import { SplineScene } from "@/components/ui/splite";
-import { MagnetizeButton } from "@/components/ui/magnetize-button";
 import { TextEffect } from "@/components/ui/text-effect";
 import { MathBg } from "@/components/ui/math-bg";
 
@@ -57,10 +55,11 @@ export function SplineHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Link href="/contact" tabIndex={-1}>
-              <MagnetizeButton particleCount={14} attractRadius={50}>
-                Book a Free Session
-              </MagnetizeButton>
+            <Link
+              href="/contact"
+              className="inline-block rounded-full bg-yellow px-7 py-3.5 text-base font-bold text-ink transition-all duration-200 hover:bg-yellow-deep hover:scale-[1.03] active:scale-[0.97]"
+            >
+              Book a Free Session
             </Link>
           </motion.div>
         </div>

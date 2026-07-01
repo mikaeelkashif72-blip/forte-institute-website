@@ -64,7 +64,7 @@ export default function Header() {
           {/* Desktop CTA */}
           <Link
             href="/contact"
-            className="hidden rounded-full bg-yellow px-4 py-1.5 text-sm font-bold text-ink transition-all hover:bg-yellow-deep hover:text-paper active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void sm:block"
+            className="hidden rounded-full bg-yellow px-4 py-1.5 text-sm font-bold text-ink transition-all hover:bg-yellow-deep active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void sm:block"
           >
             Register Now
           </Link>
