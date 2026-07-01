@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {
@@ -23,9 +23,9 @@ body {
   transform: translateZ(0);
 }
 
-/* Contain paint/layout within sections so scroll doesn't repaint everything */
-section {
-  contain: layout style;
+/* Isolate hero from rest of page paint */
+section:first-of-type {
+  contain: paint;
 }
 
 h1,

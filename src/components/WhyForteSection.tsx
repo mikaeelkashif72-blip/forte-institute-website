@@ -1,0 +1,57 @@
+const REASONS = [
+  {
+    number: "01",
+    title: "Cambridge-Specialist Tutors",
+    body: "Every tutor at Forte Institute teaches exclusively O Level, IGCSE and A Level subjects. No generalists — just deep Cambridge syllabus expertise and examiners who know exactly what top grades require.",
+  },
+  {
+    number: "02",
+    title: "Consistent A* Results",
+    body: "Over 950 A* grades and counting. Our students consistently outperform national averages across Mathematics, Sciences, Business and Humanities at both O Level and A Level.",
+  },
+  {
+    number: "03",
+    title: "In-Class & Online Across Pakistan",
+    body: "Whether you're in Karachi, Lahore, Islamabad or anywhere else, you can join live sessions in-class or online with the same experienced faculty — no compromise on quality.",
+  },
+  {
+    number: "04",
+    title: "Complete Cambridge Resources",
+    body: "Past papers, topic notes, model answers and recorded lessons — everything a Cambridge O Level, IGCSE or A Level student needs to walk into their exam fully prepared.",
+  },
+];
+
+export function WhyForteSection() {
+  return (
+    <section className="border-t border-glass-border py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="mb-16 max-w-2xl">
+          <p className="mb-3 text-sm font-bold tracking-wide text-yellow">
+            Why Forte Institute
+          </p>
+          <h2 className="font-heading text-4xl font-bold leading-tight text-paper md:text-5xl">
+            The best choice for O Level &amp; A Level in Pakistan.
+          </h2>
+          <p className="mt-4 text-base text-mist">
+            Thousands of students across Pakistan trust Forte Institute to prepare
+            them for Cambridge exams — here&apos;s why.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-x-12 gap-y-12 sm:grid-cols-2">
+          {REASONS.map(({ number, title, body }) => (
+            <div key={number} className="flex gap-5">
+              <span className="font-mono text-3xl font-bold leading-none text-yellow/30 select-none">
+                {number}
+              </span>
+              <div>
+                <h3 className="font-heading text-xl font-bold text-paper">{title}</h3>
+                <p className="mt-2 text-base leading-relaxed text-mist">{body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

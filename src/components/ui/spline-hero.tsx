@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { GraduationCap, Award } from "lucide-react";
 import { Card } from "@/components/ui/card";
@@ -19,13 +19,19 @@ const SPLINE_SCENE = "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splineco
 export function SplineHero() {
   const reduce = useReducedMotion();
   const heroRef = useRef<HTMLDivElement>(null);
-  const [splineVisible, setSplineVisible] = useState(true);
 
+  // Pause MathBg CSS animations when hero is off-screen to free up compositor
+  // resources — but keep Spline mounted so the scene doesn't reload on scroll back.
   useEffect(() => {
     const el = heroRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => setSplineVisible(entry.isIntersecting),
+      ([entry]) => {
+        const rows = el.querySelectorAll<HTMLElement>(".math-row");
+        rows.forEach((row) => {
+          row.style.animationPlayState = entry.isIntersecting ? "running" : "paused";
+        });
+      },
       { threshold: 0 }
     );
     observer.observe(el);
@@ -37,7 +43,6 @@ export function SplineHero() {
       <MathBg />
 
       <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col-reverse items-center gap-6 px-6 py-10 md:flex-row md:gap-12 md:py-0">
-        {/* Left: copy (gold eyebrow + cream headline read with strong contrast on void) */}
         <div className="flex flex-1 flex-col justify-center text-left">
           <TextEffect
             as="p"
@@ -87,7 +92,6 @@ export function SplineHero() {
             </Link>
           </motion.div>
 
-          {/* Inline achievement stats */}
           <motion.div
             className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3"
             initial={reduce ? false : { opacity: 0 }}
@@ -107,10 +111,8 @@ export function SplineHero() {
           </motion.div>
         </div>
 
-        {/* Right: interactive 3D scene. Hidden below md — keeps the heavy Spline
-            runtime off mid-range mobile, which is why 3D was shelved before. */}
         <div className="hidden h-full min-h-[420px] flex-1 md:block">
-          {splineVisible && <SplineScene scene={SPLINE_SCENE} className="h-full w-full" />}
+          <SplineScene scene={SPLINE_SCENE} className="h-full w-full" />
         </div>
       </div>
     </Card>

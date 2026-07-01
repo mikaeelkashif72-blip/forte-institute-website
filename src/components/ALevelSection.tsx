@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
 
 const FEATURED = [
   { slug: "mathematics",         name: "Mathematics",        code: "9709" },
@@ -36,13 +35,7 @@ export function ALevelSection() {
   return (
     <section className="pt-10 pb-20 md:pt-12 md:pb-28">
       <div className="mx-auto max-w-6xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-12"
-        >
+        <div className="mb-12">
           <h2 className="font-heading text-4xl font-bold text-paper md:text-5xl">
             A Level Classes
           </h2>
@@ -50,34 +43,22 @@ export function ALevelSection() {
             Specialist A Level tuition for every Cambridge subject — rigorous,
             exam-focused, and taught by tutors who know exactly what top grades require.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-1 gap-4 md:grid-cols-3"
-        >
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {FEATURED.map((subject) => (
             <SubjectCard key={subject.slug} {...subject} />
           ))}
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          className="mt-10 text-center"
-        >
+        <div className="mt-10 text-center">
           <Link
             href="/subjects/a-level"
             className="inline-flex items-center gap-2 rounded-full border border-glass-border px-6 py-2.5 text-sm font-semibold text-mist transition-all duration-200 hover:border-white/30 hover:text-paper"
           >
             Explore All A Level Classes →
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
