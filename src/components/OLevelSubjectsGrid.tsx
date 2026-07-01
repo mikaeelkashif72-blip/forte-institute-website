@@ -9,11 +9,13 @@ function SubjectCard({
   name,
   slug,
   code,
+  igcseCode,
   index,
 }: {
   name: string;
   slug: string;
   code?: string;
+  igcseCode?: string;
   index: number;
 }) {
   return (
@@ -29,15 +31,18 @@ function SubjectCard({
         size={200}
       />
       <div className="relative flex flex-col gap-4 rounded-[15px] bg-void p-6">
-        {/* Subject name + code */}
+        {/* Subject name + codes */}
         <h2 className="font-heading text-xl font-bold text-paper">
           {name}
-          {code && (
-            <span className="ml-2 font-mono text-sm font-normal text-mist">
-              ({code})
-            </span>
-          )}
         </h2>
+        <div className="flex flex-wrap gap-2">
+          {code && (
+            <span className="font-mono text-xs text-mist">O Level: {code}</span>
+          )}
+          {igcseCode && (
+            <span className="font-mono text-xs text-mist/60">· IGCSE: {igcseCode}</span>
+          )}
+        </div>
 
         {/* Format */}
         <p className="text-sm font-semibold text-yellow">In Class &amp; Online</p>
@@ -66,6 +71,7 @@ export function OLevelSubjectsGrid() {
           name={subject.name}
           slug={subject.slug}
           code={subject.code}
+          igcseCode={subject.igcseCode}
           index={i}
         />
       ))}

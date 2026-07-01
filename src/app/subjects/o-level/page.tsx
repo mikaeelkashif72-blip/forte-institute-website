@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import { OLevelSubjectsGrid } from "@/components/OLevelSubjectsGrid";
+import { MathBg } from "@/components/ui/math-bg";
 
 export const metadata: Metadata = {
   title: "O Level Classes in Pakistan | Forte Institute",
@@ -14,8 +15,9 @@ export default function OLevelSubjectsPage() {
       <Header />
       <main className="bg-void min-h-screen">
         {/* Page hero */}
-        <section className="border-b border-glass-border px-6 py-16 md:py-24">
-          <div className="mx-auto max-w-6xl">
+        <section className="relative border-b border-glass-border px-6 py-16 md:py-24">
+          <MathBg />
+          <div className="relative z-10 mx-auto max-w-6xl">
             <p className="mb-3 font-mono text-xs font-semibold uppercase tracking-widest text-yellow">
               Cambridge O Level
             </p>

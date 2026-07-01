@@ -8,11 +8,11 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { AnimatedBackground } from "@/components/core/animated-background";
 
 const navLinks = [
-  { href: "/subjects/o-level", label: "O Level" },
-  { href: "/subjects/a-level", label: "A Level" },
-  { href: "/live-classes", label: "Live Classes" },
-  { href: "/recorded-classes", label: "Recorded Classes" },
-  { href: "/results", label: "Results" },
+  { href: "/subjects/o-level",    label: "O Level"           },
+  { href: "/subjects/a-level",    label: "A Level"           },
+  { href: "/live-classes",        label: "Live Classes"      },
+  { href: "/recorded-classes",    label: "Recorded Classes"  },
+  { href: "/contact",             label: "Contact"           },
 ];
 
 export default function Header() {
@@ -103,7 +103,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile drawer — springs open from the pill edge downward */}
+      {/* Mobile drawer */}
       <AnimatePresence initial={false}>
         {menuOpen && (
           <motion.nav
@@ -111,11 +111,7 @@ export default function Header() {
             initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.94, y: -12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.94, y: -12 }}
-            transition={
-              reducedMotion
-                ? { duration: 0.01 }
-                : { type: "spring", stiffness: 380, damping: 30 }
-            }
+            transition={reducedMotion ? { duration: 0.01 } : { type: "spring", stiffness: 380, damping: 30 }}
             style={{ transformOrigin: "top center" }}
             className="absolute inset-x-4 top-full mt-2 overflow-hidden rounded-2xl border border-glass-border bg-void/95 px-4 backdrop-blur-xl md:hidden"
           >
@@ -125,11 +121,7 @@ export default function Header() {
                   key={link.href}
                   initial={reducedMotion ? false : { opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.28,
-                    delay: reducedMotion ? 0 : 0.06 + index * 0.045,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
+                  transition={{ duration: 0.28, delay: reducedMotion ? 0 : 0.06 + index * 0.045, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <Link
                     href={link.href}
@@ -143,11 +135,7 @@ export default function Header() {
               <motion.li
                 initial={reducedMotion ? false : { opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.28,
-                  delay: reducedMotion ? 0 : 0.06 + navLinks.length * 0.045,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
+                transition={{ duration: 0.28, delay: reducedMotion ? 0 : 0.06 + navLinks.length * 0.045, ease: [0.16, 1, 0.3, 1] }}
                 className="mt-1 pb-1"
               >
                 <Link
