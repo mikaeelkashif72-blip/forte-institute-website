@@ -12,17 +12,9 @@ const FEATURED = [
   { slug: "business-studies",    name: "Business",           code: "9609" },
 ];
 
-function SubjectCard({
-  name, slug, code, index,
-}: { name: string; slug: string; code: string; index: number }) {
+function SubjectCard({ name, slug, code }: { name: string; slug: string; code: string }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.3, delay: index * 0.04, ease: [0.16, 1, 0.3, 1] }}
-      className="relative overflow-hidden rounded-2xl bg-white/10 p-[1px] transition-all duration-150 hover:bg-yellow/50 hover:shadow-[0_0_28px_rgba(245,197,24,0.18)]"
-    >
+    <div className="relative overflow-hidden rounded-2xl bg-white/10 p-[1px] transition-all duration-150 hover:bg-white/40 hover:shadow-[0_0_28px_rgba(255,255,255,0.12)]">
       <div className="relative flex flex-col rounded-[15px] bg-void p-6">
         <h3 className="font-heading text-lg font-bold text-paper">
           {name} <span className="font-mono text-sm font-normal text-mist">({code})</span>
@@ -36,7 +28,7 @@ function SubjectCard({
           Register for Class →
         </Link>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -60,17 +52,23 @@ export function ALevelSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {FEATURED.map((subject, i) => (
-            <SubjectCard key={subject.slug} {...subject} index={i} />
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 gap-4 md:grid-cols-3"
+        >
+          {FEATURED.map((subject) => (
+            <SubjectCard key={subject.slug} {...subject} />
           ))}
-        </div>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.3 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
           className="mt-10 text-center"
         >
           <Link

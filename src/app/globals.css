@@ -20,6 +20,12 @@ body {
 [data-motion-animate],
 .math-row {
   will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Contain paint/layout within sections so scroll doesn't repaint everything */
+section {
+  contain: layout style;
 }
 
 h1,

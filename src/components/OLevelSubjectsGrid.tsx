@@ -23,7 +23,7 @@ function SubjectCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.3, delay: index * 0.03, ease: [0.16, 1, 0.3, 1] }}
-      className="relative overflow-hidden rounded-2xl bg-white/10 p-[1px] transition-all duration-300 hover:bg-yellow/50 hover:shadow-[0_0_28px_rgba(245,197,24,0.18)]"
+      className="relative overflow-hidden rounded-2xl bg-white/10 p-[1px] transition-all duration-300 hover:bg-white/40 hover:shadow-[0_0_28px_rgba(255,255,255,0.12)]"
     >
       <div className="relative flex flex-col gap-4 rounded-[15px] bg-void p-6">
         {/* Subject name + codes */}

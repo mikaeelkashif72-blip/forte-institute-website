@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
+
 const FEATURED = [
   { slug: "islamiyat",        name: "Islamiyat",             code: "2058"        },
   { slug: "pakistan-studies", name: "Pakistan Studies",      code: "2059"        },
@@ -11,30 +12,15 @@ const FEATURED = [
   { slug: "physics",          name: "Physics",               code: "5054"        },
 ];
 
-function SubjectCard({
-  name, slug, code, index,
-}: { name: string; slug: string; code: string; index: number }) {
+function SubjectCard({ name, slug, code }: { name: string; slug: string; code: string }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.3, delay: index * 0.04, ease: [0.16, 1, 0.3, 1] }}
-      className="relative overflow-hidden rounded-2xl bg-white/10 p-[1px] transition-all duration-150 hover:bg-yellow/50 hover:shadow-[0_0_28px_rgba(245,197,24,0.18)]"
-    >
+    <div className="relative overflow-hidden rounded-2xl bg-white/10 p-[1px] transition-all duration-150 hover:bg-white/40 hover:shadow-[0_0_28px_rgba(255,255,255,0.12)]">
       <div className="relative flex flex-col rounded-[15px] bg-void p-6">
-        {/* Subject name + code */}
         <h3 className="font-heading text-lg font-bold text-paper">
           {name} <span className="font-mono text-sm font-normal text-mist">({code})</span>
         </h3>
-
-        {/* Format */}
         <p className="mt-1 text-sm font-semibold text-yellow">In Class &amp; Online</p>
-
-        {/* Divider */}
         <div className="my-4 border-t border-glass-border" />
-
-        {/* CTA */}
         <Link
           href="/contact"
           className="mt-auto block rounded-xl bg-yellow py-2.5 text-center text-sm font-bold text-ink transition-all duration-200 hover:scale-[1.02] active:scale-[0.97]"
@@ -42,7 +28,7 @@ function SubjectCard({
           Register for Class →
         </Link>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -50,8 +36,6 @@ export function OLevelSection() {
   return (
     <section className="border-t border-glass-border pt-20 pb-10 md:pt-28 md:pb-12">
       <div className="mx-auto max-w-6xl px-6">
-
-        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -68,19 +52,23 @@ export function OLevelSection() {
           </p>
         </motion.div>
 
-        {/* 3 featured subject cards */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {FEATURED.map((subject, i) => (
-            <SubjectCard key={subject.slug} {...subject} index={i} />
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 gap-4 md:grid-cols-3"
+        >
+          {FEATURED.map((subject) => (
+            <SubjectCard key={subject.slug} {...subject} />
           ))}
-        </div>
+        </motion.div>
 
-        {/* Explore all */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.3 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
           className="mt-10 text-center"
         >
           <Link
