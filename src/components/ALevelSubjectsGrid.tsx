@@ -39,7 +39,7 @@ function SubjectCard({
         <div className="border-t border-glass-border" />
         <Link
           href="/contact"
-          className="block rounded-xl bg-yellow py-3 text-center text-sm font-bold text-ink transition-all duration-200 hover:scale-[1.02] active:scale-[0.97]"
+          className="block rounded-xl bg-yellow py-3 text-center text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.02] active:scale-[0.97]"
         >
           Register for Class →
         </Link>
