@@ -39,16 +39,18 @@ export const oLevelSubjects: SubjectSummary[] = [
 ];
 
 export const aLevelSubjects: SubjectSummary[] = [
-  { slug: "physics", name: "Physics", code: "9702" },
-  { slug: "chemistry", name: "Chemistry", code: "9701" },
-  { slug: "biology", name: "Biology", code: "9700" },
-  { slug: "mathematics", name: "Mathematics", code: "9709" },
-  { slug: "further-mathematics", name: "Further Mathematics", code: "9231" },
-  { slug: "business-studies", name: "Business", code: "9609" },
-  { slug: "economics", name: "Economics", code: "9708" },
-  { slug: "english", name: "English Language", code: "9093" },
-  { slug: "computer-science", name: "Computer Science", code: "9618" },
-  { slug: "accounting", name: "Accounting", code: "9706" },
+  { slug: "mathematics",         name: "Mathematics",       code: "9709" },
+  { slug: "further-mathematics", name: "Further Mathematics",code: "9231" },
+  { slug: "physics",             name: "Physics",            code: "9702" },
+  { slug: "computer-science",    name: "Computer Science",   code: "9618" },
+  { slug: "chemistry",           name: "Chemistry",          code: "9701" },
+  { slug: "biology",             name: "Biology",            code: "9700" },
+  { slug: "business-studies",    name: "Business",           code: "9609" },
+  { slug: "economics",           name: "Economics",          code: "9708" },
+  { slug: "accounting",          name: "Accounting",         code: "9706" },
+  { slug: "english",             name: "English Language",   code: "9093" },
+  { slug: "psychology",          name: "Psychology",         code: "9698" },
+  { slug: "sociology",           name: "Sociology",          code: "9699" },
 ];
 
 export const subjectsByLevel: Record<Level, SubjectSummary[]> = {
