@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import { ALevelSubjectsGrid } from "@/components/ALevelSubjectsGrid";
+import { WhyForteFeaturesSection } from "@/components/WhyForteFeaturesSection";
 import { MathBg } from "@/components/ui/math-bg";
 
 export const metadata: Metadata = {
@@ -52,6 +53,8 @@ export default function ALevelSubjectsPage() {
             <ALevelSubjectsGrid />
           </div>
         </section>
+
+        <WhyForteFeaturesSection level="A Level" />
       </main>
     </>
   );

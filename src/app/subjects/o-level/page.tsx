@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import { OLevelSubjectsGrid } from "@/components/OLevelSubjectsGrid";
+import { WhyForteFeaturesSection } from "@/components/WhyForteFeaturesSection";
 import { MathBg } from "@/components/ui/math-bg";
 
 export const metadata: Metadata = {
@@ -51,6 +52,8 @@ export default function OLevelSubjectsPage() {
             <OLevelSubjectsGrid />
           </div>
         </section>
+
+        <WhyForteFeaturesSection level="O Level" />
       </main>
     </>
   );
