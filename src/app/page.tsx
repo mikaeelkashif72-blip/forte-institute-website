@@ -4,6 +4,7 @@ import { OLevelSection } from "@/components/OLevelSection";
 import { ALevelSection } from "@/components/ALevelSection";
 import { WhyForteSection } from "@/components/WhyForteSection";
 import { TeacherSpotlight } from "@/components/TeacherSpotlight";
+import { Testimonials } from "@/components/ui/testimonials";
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
         <OLevelSection />
         <ALevelSection />
         <WhyForteSection />
+        <Testimonials />
         <TeacherSpotlight />
       </main>
     </>
