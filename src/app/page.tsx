@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { SplineHero } from "@/components/ui/spline-hero";
 import { OLevelSection } from "@/components/OLevelSection";
 import { ALevelSection } from "@/components/ALevelSection";
@@ -27,6 +28,7 @@ export default function Home() {
         <Testimonials />
         <TeacherSpotlight />
       </main>
+      <Footer />
     </>
   );
 }
