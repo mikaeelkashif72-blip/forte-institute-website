@@ -7,6 +7,22 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { AnimatedBackground } from "@/components/core/animated-background";
 
+function getSessionLabel(): string {
+  const month = new Date().getMonth() + 1; // 1–12
+  const year = new Date().getFullYear();
+  const y = String(year).slice(-2);
+  const nextY = String(year + 1).slice(-2);
+  // Dec–Mar: promote May/Jun registration
+  if (month === 12) return `Register for May/Jun '${nextY}`;
+  if (month >= 1 && month <= 3) return `Register for May/Jun '${y}`;
+  // Jun–Aug: promote Oct/Nov registration
+  if (month >= 6 && month <= 8) return `Register for Oct/Nov '${y}`;
+  // Apr, May, Sep, Oct, Nov: generic
+  return "Register Now";
+}
+
+const SESSION_LABEL = getSessionLabel();
+
 const navLinks = [
   { href: "/",                    label: "Home"              },
   { href: "/subjects/o-level",    label: "O Level"           },
@@ -66,7 +82,7 @@ export default function Header() {
             href="/contact"
             className="hidden rounded-full bg-yellow px-4 py-1.5 text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void sm:block"
           >
-            Register Now
+            {SESSION_LABEL}
           </Link>
 
           {/* Hamburger — mobile only */}
@@ -143,7 +159,7 @@ export default function Header() {
                   onClick={() => setMenuOpen(false)}
                   className="block rounded-full bg-yellow px-4 py-2.5 text-center text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
                 >
-                  Register Now
+                  {SESSION_LABEL}
                 </Link>
               </motion.li>
             </ul>
