@@ -69,9 +69,12 @@ export function TeacherSpotlight() {
     <section className="border-t border-glass-border px-6 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
         <FadeUp>
-          <h2 className="font-heading mb-10 text-3xl font-bold text-paper md:mb-14 md:text-4xl lg:text-5xl">
+          <h2 className="font-heading mb-4 text-3xl font-bold text-paper md:text-4xl lg:text-5xl">
             The people behind the results.
           </h2>
+          <p className="mb-10 max-w-2xl text-base leading-relaxed text-mist md:mb-14">
+            Every tutor at Forte Institute is a Cambridge specialist — not a generalist who covers everything. Our Islamiyat, Pakistan Studies and Urdu teachers bring subject-level depth and a proven track record of A* grades across O Level and IGCSE examinations in Pakistan.
+          </p>
         </FadeUp>
 
         <div className="grid grid-cols-1 items-end gap-4 sm:grid-cols-2 lg:grid-cols-3">

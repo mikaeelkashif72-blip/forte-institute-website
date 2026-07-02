@@ -40,8 +40,8 @@ export function AnimatedBackground({
           <div
             key={id}
             className='relative'
-            onMouseEnter={enableHover ? () => setHoveredId(id) : undefined}
-            onMouseLeave={enableHover ? () => setHoveredId(null) : undefined}
+            onPointerEnter={enableHover ? () => setHoveredId(id) : undefined}
+            onPointerLeave={enableHover ? () => setHoveredId(null) : undefined}
           >
             {isActive && (
               <motion.div
@@ -52,10 +52,6 @@ export function AnimatedBackground({
             )}
             {React.cloneElement(child, {
               className: cn(child.props.className, 'relative z-10'),
-              onClick: () => {
-                setActiveId(id);
-                onValueChange?.(id);
-              },
             })}
           </div>
         );
