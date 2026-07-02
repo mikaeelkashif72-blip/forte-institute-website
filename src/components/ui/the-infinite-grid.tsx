@@ -104,7 +104,7 @@ export const InfiniteGrid = () => {
           >
             <Link href="/contact" tabIndex={-1}>
               <MagnetizeButton particleCount={14} attractRadius={50}>
-                Book a Free Session
+                Register for Class
               </MagnetizeButton>
             </Link>
           </motion.div>

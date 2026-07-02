@@ -86,9 +86,9 @@ export function SplineHero() {
           >
             <Link
               href="/contact"
-              className="inline-block rounded-full bg-yellow px-7 py-3.5 text-base font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97]"
+              className="inline-block rounded-xl bg-yellow px-7 py-3.5 text-base font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97]"
             >
-              Book a Free Session
+              Register for Class
             </Link>
           </motion.div>
 
