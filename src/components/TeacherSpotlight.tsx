@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { motion } from "motion/react";
 import { teachers, type Teacher } from "@/lib/teachers";
+import { FadeUp } from "@/components/ui/fade-up";
 
 const ASPECT = "aspect-[3/4]";
 
@@ -67,9 +68,11 @@ export function TeacherSpotlight() {
   return (
     <section className="border-t border-glass-border px-6 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
-        <h2 className="font-heading mb-10 text-3xl font-bold text-paper md:mb-14 md:text-4xl lg:text-5xl">
-          The people behind the results.
-        </h2>
+        <FadeUp>
+          <h2 className="font-heading mb-10 text-3xl font-bold text-paper md:mb-14 md:text-4xl lg:text-5xl">
+            The people behind the results.
+          </h2>
+        </FadeUp>
 
         <div className="grid grid-cols-1 items-end gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {teachers.map((teacher) => (

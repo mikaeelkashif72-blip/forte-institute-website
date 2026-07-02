@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { FadeUp } from "@/components/ui/fade-up";
 
 const FEATURED = [
   { slug: "islamiyat",        name: "Islamiyat",             code: "2058"        },
@@ -35,7 +36,7 @@ export function OLevelSection() {
   return (
     <section className="border-t border-glass-border pt-20 pb-10 md:pt-28 md:pb-12">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="mb-12">
+        <FadeUp className="mb-12">
           <h2 className="font-heading text-4xl font-bold text-paper md:text-5xl">
             O Level Classes
           </h2>
@@ -43,8 +44,9 @@ export function OLevelSection() {
             Expert-led classes for every Cambridge O Level subject — available in class
             and online, taught by tutors who know exactly what examiners look for.
           </p>
-        </div>
+        </FadeUp>
 
+        <FadeUp delay={0.1}>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {FEATURED.map((subject) => (
             <SubjectCard key={subject.slug} {...subject} />
@@ -59,6 +61,7 @@ export function OLevelSection() {
             Explore All O Level Classes →
           </Link>
         </div>
+        </FadeUp>
       </div>
     </section>
   );

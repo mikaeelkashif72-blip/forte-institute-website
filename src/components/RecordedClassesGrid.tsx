@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FadeUp } from "@/components/ui/fade-up";
 
 const COURSES = [
   {
@@ -70,13 +71,13 @@ function formatPrice(n: number) {
 export function RecordedClassesGrid() {
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
-      {COURSES.map((course) => {
+      {COURSES.map((course, i) => {
         const saving = course.originalPrice - course.price;
         const pct = Math.round((saving / course.originalPrice) * 100);
 
         return (
+          <FadeUp key={course.slug} delay={i * 0.08}>
           <div
-            key={course.slug}
             className="relative overflow-hidden rounded-2xl bg-white/10 p-[1px] transition-all duration-200 hover:-translate-y-1.5 hover:bg-white/40 hover:shadow-[0_0_28px_rgba(255,255,255,0.12)]"
           >
             <div className="flex h-full flex-col rounded-[15px] bg-void p-7">
@@ -132,6 +133,7 @@ export function RecordedClassesGrid() {
               </div>
             </div>
           </div>
+          </FadeUp>
         );
       })}
     </div>

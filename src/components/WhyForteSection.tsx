@@ -1,3 +1,5 @@
+import { FadeUp } from "@/components/ui/fade-up";
+
 const REASONS = [
   {
     number: "01",
@@ -25,7 +27,7 @@ export function WhyForteSection() {
   return (
     <section className="border-t border-glass-border py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="mb-16 max-w-2xl">
+        <FadeUp className="mb-16 max-w-2xl">
           <p className="mb-3 text-sm font-bold tracking-wide text-yellow">
             Why Forte Institute
           </p>
@@ -36,19 +38,21 @@ export function WhyForteSection() {
             Thousands of students across Pakistan trust Forte Institute to prepare
             them for Cambridge exams — here&apos;s why.
           </p>
-        </div>
+        </FadeUp>
 
         <div className="grid grid-cols-1 gap-x-12 gap-y-12 sm:grid-cols-2">
-          {REASONS.map(({ number, title, body }) => (
-            <div key={number} className="flex gap-5">
-              <span className="font-mono text-3xl font-bold leading-none text-yellow/30 select-none">
-                {number}
-              </span>
-              <div>
-                <h3 className="font-heading text-xl font-bold text-paper">{title}</h3>
-                <p className="mt-2 text-base leading-relaxed text-mist">{body}</p>
+          {REASONS.map(({ number, title, body }, i) => (
+            <FadeUp key={number} delay={i * 0.08}>
+              <div className="flex gap-5">
+                <span className="select-none font-mono text-3xl font-bold leading-none text-yellow/30">
+                  {number}
+                </span>
+                <div>
+                  <h3 className="font-heading text-xl font-bold text-paper">{title}</h3>
+                  <p className="mt-2 text-base leading-relaxed text-mist">{body}</p>
+                </div>
               </div>
-            </div>
+            </FadeUp>
           ))}
         </div>
       </div>
