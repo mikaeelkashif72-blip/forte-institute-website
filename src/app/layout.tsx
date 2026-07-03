@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Onest } from "next/font/google";
 import "./globals.css";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 const onest = Onest({
   subsets: ["latin"],
@@ -27,7 +28,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://prod.spline.design" />
         <link rel="preconnect" href="https://unpkg.com" />
       </head>
-      <body className={onest.variable}>{children}</body>
+      <body className={onest.variable}>
+        {children}
+        <WhatsAppButton />
+      </body>
     </html>
   );
 }
