@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { AnimatedBackground } from "@/components/core/animated-background";
+import { useOpenRegistration } from "@/components/RegistrationModalProvider";
 
 function getSessionLabel(): string {
   const month = new Date().getMonth() + 1; // 1–12
@@ -33,6 +34,7 @@ const navLinks = [
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const openRegistration = useOpenRegistration();
   const reducedMotion = useReducedMotion();
   const pathname = usePathname();
 
@@ -78,12 +80,12 @@ export default function Header() {
 
         <div className="flex items-center gap-3">
           {/* Desktop CTA */}
-          <Link
-            href="/contact"
+          <button
+            onClick={() => openRegistration()}
             className="hidden rounded-xl bg-yellow px-4 py-1.5 text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void sm:block"
           >
             {SESSION_LABEL}
-          </Link>
+          </button>
 
           {/* Hamburger — mobile only */}
           <button
@@ -154,18 +156,18 @@ export default function Header() {
                 transition={{ duration: 0.28, delay: reducedMotion ? 0 : 0.06 + navLinks.length * 0.045, ease: [0.16, 1, 0.3, 1] }}
                 className="mt-1 pb-1"
               >
-                <Link
-                  href="/contact"
-                  onClick={() => setMenuOpen(false)}
-                  className="block rounded-xl bg-yellow px-4 py-2.5 text-center text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
+                <button
+                  onClick={() => { setMenuOpen(false); openRegistration(); }}
+                  className="block w-full rounded-xl bg-yellow px-4 py-2.5 text-center text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
                 >
                   {SESSION_LABEL}
-                </Link>
+                </button>
               </motion.li>
             </ul>
           </motion.nav>
         )}
       </AnimatePresence>
+
     </header>
   );
 }

@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useOpenRegistration } from "@/components/RegistrationModalProvider";
 
 const navLinks = [
   { href: "/subjects/o-level",   label: "O Level"           },
@@ -12,6 +15,7 @@ const navLinks = [
 ];
 
 export default function Footer() {
+  const openRegistration = useOpenRegistration();
   return (
     <footer className="border-t border-glass-border bg-void px-6 pt-16 pb-8">
       <div className="mx-auto max-w-6xl">
@@ -142,12 +146,12 @@ export default function Footer() {
             <p className="text-sm leading-relaxed text-mist">
               Ready to start your Cambridge journey? Register for the upcoming session and get access to Pakistan&apos;s best O Level and A Level tutors.
             </p>
-            <Link
-              href="/contact"
+            <button
+              onClick={() => openRegistration()}
               className="mt-5 inline-block rounded-xl bg-yellow px-5 py-2.5 text-sm font-bold text-ink transition-all duration-200 hover:bg-yellow-deep hover:text-paper active:scale-[0.97]"
             >
               Register for Class →
-            </Link>
+            </button>
           </div>
         </div>
 

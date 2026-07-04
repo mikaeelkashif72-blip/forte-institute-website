@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef } from "react";
+import { useOpenRegistration } from "@/components/RegistrationModalProvider";
 import { motion, useReducedMotion } from "motion/react";
 import { GraduationCap, Award } from "lucide-react";
 import { Card } from "@/components/ui/card";
@@ -19,6 +19,7 @@ const SPLINE_SCENE = "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splineco
 export function SplineHero() {
   const reduce = useReducedMotion();
   const heroRef = useRef<HTMLDivElement>(null);
+  const openRegistration = useOpenRegistration();
 
   // Pause MathBg CSS animations when hero is off-screen to free up compositor
   // resources — but keep Spline mounted so the scene doesn't reload on scroll back.
@@ -84,12 +85,12 @@ export function SplineHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45, duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Link
-              href="/contact"
+            <button
+              onClick={() => openRegistration()}
               className="inline-block rounded-xl bg-yellow px-7 py-3.5 text-base font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97]"
             >
               Register for Class
-            </Link>
+            </button>
           </motion.div>
 
           <motion.div

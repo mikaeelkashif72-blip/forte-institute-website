@@ -1,5 +1,7 @@
-import Link from "next/link";
+"use client";
+
 import { FadeUp } from "@/components/ui/fade-up";
+import { useOpenRegistration } from "@/components/RegistrationModalProvider";
 
 const COURSES = [
   {
@@ -69,6 +71,7 @@ function formatPrice(n: number) {
 }
 
 export function RecordedClassesGrid() {
+  const openRegistration = useOpenRegistration();
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
       {COURSES.map((course, i) => {
@@ -124,12 +127,12 @@ export function RecordedClassesGrid() {
                 </div>
 
                 {/* CTA */}
-                <Link
-                  href="/contact"
-                  className="block rounded-xl bg-yellow py-3 text-center text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97]"
+                <button
+                  onClick={() => openRegistration()}
+                  className="block w-full rounded-xl bg-yellow py-3 text-center text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97]"
                 >
                   Enrol Now →
-                </Link>
+                </button>
               </div>
             </div>
           </div>

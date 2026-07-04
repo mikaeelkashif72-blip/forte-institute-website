@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { RecordedClassesGrid } from "@/components/RecordedClassesGrid";
 import { MathBg } from "@/components/ui/math-bg";
 import { WhyForteFeaturesSection } from "@/components/WhyForteFeaturesSection";
@@ -56,6 +57,7 @@ export default function RecordedClassesPage() {
 
         <WhyForteFeaturesSection level="Recorded Classes" />
       </main>
+      <Footer />
     </>
   );
 }

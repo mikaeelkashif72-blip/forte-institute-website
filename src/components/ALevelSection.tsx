@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { FadeUp } from "@/components/ui/fade-up";
+import { useOpenRegistration } from "@/components/RegistrationModalProvider";
 
 const FEATURED = [
   { slug: "mathematics",         name: "Mathematics",        code: "9709" },
@@ -13,6 +14,7 @@ const FEATURED = [
 ];
 
 function SubjectCard({ name, slug, code }: { name: string; slug: string; code: string }) {
+  const openRegistration = useOpenRegistration();
   return (
     <div className="relative overflow-hidden rounded-2xl bg-white/10 p-[1px] transition-all duration-200 hover:-translate-y-1.5 hover:bg-white/40 hover:shadow-[0_0_28px_rgba(255,255,255,0.12)]">
       <div className="relative flex flex-col rounded-[15px] bg-void p-6">
@@ -21,12 +23,12 @@ function SubjectCard({ name, slug, code }: { name: string; slug: string; code: s
         </h3>
         <p className="mt-1 text-sm font-semibold text-yellow">In Class &amp; Online</p>
         <div className="my-4 border-t border-glass-border" />
-        <Link
-          href="/contact"
-          className="mt-auto block rounded-xl bg-yellow py-2.5 text-center text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97]"
+        <button
+          onClick={() => openRegistration()}
+          className="mt-auto block w-full rounded-xl bg-yellow py-2.5 text-center text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97]"
         >
           Register for Class →
-        </Link>
+        </button>
       </div>
     </div>
   );

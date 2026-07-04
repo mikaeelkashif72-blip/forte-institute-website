@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "motion/react";
 import { aLevelSubjects } from "@/lib/subjects";
+import { useOpenRegistration } from "@/components/RegistrationModalProvider";
 
 function SubjectCard({
   name,
@@ -15,6 +15,7 @@ function SubjectCard({
   code?: string;
   index: number;
 }) {
+  const openRegistration = useOpenRegistration();
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -33,12 +34,12 @@ function SubjectCard({
         )}
         <p className="text-sm font-semibold text-yellow">In Class &amp; Online</p>
         <div className="border-t border-glass-border" />
-        <Link
-          href="/contact"
-          className="block rounded-xl bg-yellow py-3 text-center text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97]"
+        <button
+          onClick={() => openRegistration()}
+          className="block w-full rounded-xl bg-yellow py-3 text-center text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97]"
         >
           Register for Class →
-        </Link>
+        </button>
       </div>
     </motion.div>
   );

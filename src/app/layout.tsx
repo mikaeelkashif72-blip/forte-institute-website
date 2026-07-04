@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Onest } from "next/font/google";
 import "./globals.css";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { RegistrationModalProvider } from "@/components/RegistrationModalProvider";
 
 const onest = Onest({
   subsets: ["latin"],
@@ -29,8 +30,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://unpkg.com" />
       </head>
       <body className={onest.variable}>
-        {children}
-        <WhatsAppButton />
+        <RegistrationModalProvider>
+          {children}
+          <WhatsAppButton />
+        </RegistrationModalProvider>
       </body>
     </html>
   );
