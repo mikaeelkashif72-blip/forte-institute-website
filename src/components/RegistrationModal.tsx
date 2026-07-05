@@ -41,7 +41,6 @@ const labelClass =
 
 export function RegistrationModal({ open, onClose }: Props) {
   const [step, setStep] = useState(0);
-  const [dir, setDir] = useState(1);
 
   // Step 1
   const [firstName, setFirstName] = useState("");
@@ -74,7 +73,7 @@ export function RegistrationModal({ open, onClose }: Props) {
 
   useEffect(() => {
     if (open) {
-      setStep(0); setDir(1);
+      setStep(0);
       setFirstName(""); setLastName(""); setEmail("");
       setWhatsapp(""); setParentPhone(""); setSchool("");
       setHearAbout(""); setProgram(""); setSession("");
@@ -82,8 +81,8 @@ export function RegistrationModal({ open, onClose }: Props) {
     }
   }, [open]);
 
-  function goNext() { setDir(1); setStep(1); }
-  function goPrev() { setDir(-1); setStep(0); }
+  function goNext() { setStep(1); }
+  function goPrev() { setStep(0); }
 
   function handleSubmit() {
     const text = encodeURIComponent(
@@ -193,24 +192,18 @@ export function RegistrationModal({ open, onClose }: Props) {
                 </div>
               </div>
 
-              {/* Steps — scrollable content area */}
+              {/* Steps — animated wrapper is separate from scroll container to avoid compositing conflict */}
               <div className="overflow-hidden">
-                <AnimatePresence mode="wait" custom={dir} initial={false}>
+                <AnimatePresence mode="wait" initial={false}>
                   {step === 0 ? (
                     <motion.div
                       key="step1"
-                      custom={dir}
-                      variants={{
-                        enter: (d: number) => ({ x: d * 40, opacity: 0 }),
-                        center: { x: 0, opacity: 1 },
-                        exit: (d: number) => ({ x: d * -40, opacity: 0 }),
-                      }}
-                      initial="enter"
-                      animate="center"
-                      exit="exit"
-                      transition={{ duration: 0.3, ease }}
-                      className="max-h-[52vh] overflow-y-auto px-6 py-6"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.22, ease: [0.25, 0.46, 0.45, 0.94] }}
                     >
+                    <div className="px-6 py-6">
                       <div className="flex flex-col gap-5">
                         {/* Name row — separate labels per input for screen readers */}
                         <div>
@@ -318,22 +311,17 @@ export function RegistrationModal({ open, onClose }: Props) {
                           </select>
                         </div>
                       </div>
+                    </div>
                     </motion.div>
                   ) : (
                     <motion.div
                       key="step2"
-                      custom={dir}
-                      variants={{
-                        enter: (d: number) => ({ x: d * 40, opacity: 0 }),
-                        center: { x: 0, opacity: 1 },
-                        exit: (d: number) => ({ x: d * -40, opacity: 0 }),
-                      }}
-                      initial="enter"
-                      animate="center"
-                      exit="exit"
-                      transition={{ duration: 0.3, ease }}
-                      className="max-h-[52vh] overflow-y-auto px-6 py-6"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.22, ease: [0.25, 0.46, 0.45, 0.94] }}
                     >
+                    <div className="px-6 py-6">
                       <div className="flex flex-col gap-6">
                         {/* Program — real radio inputs, keyboard-navigable */}
                         <fieldset>
@@ -451,6 +439,7 @@ export function RegistrationModal({ open, onClose }: Props) {
                           </span>
                         </label>
                       </div>
+                    </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
