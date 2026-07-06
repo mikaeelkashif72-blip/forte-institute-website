@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useOpenRegistration } from "@/components/RegistrationModalProvider";
 import { motion, useReducedMotion } from "motion/react";
 import { GraduationCap, Award } from "lucide-react";
@@ -21,19 +21,27 @@ export function SplineHero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const openRegistration = useOpenRegistration();
 
-  // Pause MathBg CSS animations when hero is off-screen to free up compositor
-  // resources — but keep Spline mounted so the scene doesn't reload on scroll back.
+  // The Spline WebGL scene runs a continuous render loop on the main thread and
+  // does not fully stop when scrolled off-screen — which drags the frame rate of
+  // the entire page (the O/A Level sections and everything below). To keep the
+  // rest of the page buttery smooth, we UNMOUNT Spline once the hero is scrolled
+  // out of view (freeing the main thread entirely) and remount it on scroll back.
+  // A 200px rootMargin buffer avoids thrashing right at the boundary. The same
+  // observer pauses the MathBg CSS animations while off-screen.
+  const [heroNear, setHeroNear] = useState(true);
   useEffect(() => {
     const el = heroRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
+        const visible = entry.isIntersecting;
         const rows = el.querySelectorAll<HTMLElement>(".math-row");
         rows.forEach((row) => {
-          row.style.animationPlayState = entry.isIntersecting ? "running" : "paused";
+          row.style.animationPlayState = visible ? "running" : "paused";
         });
+        setHeroNear(visible);
       },
-      { threshold: 0 }
+      { threshold: 0, rootMargin: "200px 0px" }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -113,7 +121,7 @@ export function SplineHero() {
         </div>
 
         <div className="hidden h-full min-h-[420px] flex-1 md:block">
-          <SplineScene scene={SPLINE_SCENE} className="h-full w-full" />
+          {heroNear && <SplineScene scene={SPLINE_SCENE} className="h-full w-full" />}
         </div>
       </div>
     </Card>
