@@ -1,10 +1,33 @@
 import { notFound } from "next/navigation";
-import { aLevelSubjects } from "@/lib/subjects";
+import type { Metadata } from "next";
+import { aLevelSubjects, getSubjectDetail } from "@/lib/subjects";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { SubjectDetailPage } from "@/components/SubjectDetailPage";
 
 export function generateStaticParams() {
   return aLevelSubjects.map((subject) => ({ subject: subject.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { subject: string };
+}): Promise<Metadata> {
+  const detail = getSubjectDetail("a-level", params.subject);
+  const summary = aLevelSubjects.find((s) => s.slug === params.subject);
+  if (!summary) return {};
+
+  const name = detail?.name ?? summary.name;
+  const code = summary.code ?? "";
+  const title = `A Level ${name} Tuition in Pakistan (${code}) | Forte Institute`;
+  const description = `Expert Cambridge A Level ${name} tuition in Pakistan — in class and online. Small batches, past paper intensive, consistent A* results. Cambridge syllabus ${code}.`;
+
+  return {
+    title,
+    description,
+    openGraph: { title, description },
+  };
 }
 
 export default function ALevelSubjectDetailPage({
@@ -12,18 +35,16 @@ export default function ALevelSubjectDetailPage({
 }: {
   params: { subject: string };
 }) {
-  const subject = aLevelSubjects.find((s) => s.slug === params.subject);
-  if (!subject) notFound();
+  const summary = aLevelSubjects.find((s) => s.slug === params.subject);
+  if (!summary) notFound();
+
+  const detail = getSubjectDetail("a-level", params.subject);
+  if (!detail) notFound();
 
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-void">
-        <div className="mx-auto max-w-6xl px-6 py-20">
-          <h1 className="font-heading text-4xl font-bold text-paper">{subject.name}</h1>
-          <p className="mt-4 text-mist">Coming soon.</p>
-        </div>
-      </main>
+      <SubjectDetailPage subject={detail} level="a-level" />
       <Footer />
     </>
   );
