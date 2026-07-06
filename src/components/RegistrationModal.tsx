@@ -177,9 +177,13 @@ export function RegistrationModal({ open, onClose }: Props) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 px-4 py-10 backdrop-blur-sm"
+          className="fixed inset-0 z-[100] flex items-center justify-center px-4 py-10"
           onClick={onClose}
         >
+          {/* Dim + blur layer — kept as a sibling (not an ancestor) of the
+              scroll area so backdrop-filter doesn't force main-thread scrolling
+              and make the form scroll laggy. */}
+          <div aria-hidden="true" className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
           <motion.div
             key="modal"
             initial={{ opacity: 0, y: 12, scale: 0.98 }}
@@ -281,7 +285,7 @@ export function RegistrationModal({ open, onClose }: Props) {
             </div>
 
             {/* Step content */}
-            <div className="flex-1 overflow-y-auto overscroll-contain">
+            <div className="flex-1 overflow-y-auto overscroll-contain [transform:translateZ(0)]">
               <AnimatePresence mode="sync" initial={false}>
                 {step === 0 ? (
                   <motion.div
