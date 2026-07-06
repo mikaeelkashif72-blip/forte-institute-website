@@ -196,11 +196,11 @@ export function SubjectDetailPage({ subject, level }: Props) {
           </FadeUp>
 
           <FadeUp delay={0.08}>
-            <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3" role="list">
+            <ul className="columns-1 gap-4 sm:columns-2 lg:columns-3" role="list">
               {subject.topics.map((topic, i) => (
                 <li
                   key={i}
-                  className="flex items-center gap-3 rounded-xl border border-glass-border bg-white/[0.03] px-4 py-3 text-sm text-mist transition-colors duration-150 hover:border-white/20 hover:text-paper"
+                  className="mb-2 flex items-center gap-3 break-inside-avoid rounded-xl border border-glass-border bg-white/[0.03] px-4 py-3 text-sm text-mist transition-colors duration-150 hover:border-white/20 hover:text-paper"
                 >
                   <span className="shrink-0 font-mono text-[10px] font-bold text-yellow/60">
                     {String(i + 1).padStart(2, "0")}
