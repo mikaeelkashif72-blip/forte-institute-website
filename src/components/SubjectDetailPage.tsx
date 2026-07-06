@@ -78,11 +78,6 @@ export function SubjectDetailPage({ subject, level }: Props) {
       {/* ── HERO ── */}
       <section className="relative overflow-hidden border-b border-glass-border px-6 pb-16 pt-14 md:pb-20 md:pt-16">
         <MathBg />
-        {/* Subtle glow */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -top-32 left-1/2 h-[480px] w-[700px] -translate-x-1/2 rounded-full bg-yellow/10 blur-[120px]"
-        />
 
         <div className="relative mx-auto max-w-6xl">
           {/* Breadcrumb */}
