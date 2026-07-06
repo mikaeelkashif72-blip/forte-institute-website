@@ -45,6 +45,7 @@ export default function Header() {
         {/* Logo */}
         <Link
           href="/"
+          onClick={(e) => { if (pathname === "/") { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); } }}
           className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
         >
           <Image
@@ -70,6 +71,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 data-id={link.href}
+                onClick={(e) => { if (link.href === "/" && pathname === "/") { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); } }}
                 className="block px-3 py-1.5 transition-colors duration-200 hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
               >
                 {link.label}
@@ -143,7 +145,7 @@ export default function Header() {
                 >
                   <Link
                     href={link.href}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={(e) => { setMenuOpen(false); if (link.href === "/" && pathname === "/") { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); } }}
                     className="block rounded-xl px-3 py-2.5 transition-colors hover:bg-white/5 hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
                   >
                     {link.label}
