@@ -138,9 +138,6 @@ export function SubjectDetailPage({ subject, level }: Props) {
                 In Class &amp; Online
               </span>
               <span className="rounded-full border border-glass-border bg-white/5 px-3 py-1 text-xs font-semibold text-mist">
-                Pakistan
-              </span>
-              <span className="rounded-full border border-glass-border bg-white/5 px-3 py-1 text-xs font-semibold text-mist">
                 Oct/Nov &amp; May/Jun Sessions
               </span>
             </motion.div>
