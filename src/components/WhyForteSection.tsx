@@ -25,13 +25,13 @@ const REASONS = [
 
 export function WhyForteSection() {
   return (
-    <section className="border-t border-glass-border py-20 md:py-28">
+    <section className="border-t border-glass-border py-16 md:py-28">
       <div className="mx-auto max-w-6xl px-6">
-        <FadeUp className="mb-16 max-w-2xl">
+        <FadeUp className="mb-12 md:mb-16 max-w-2xl">
           <p className="mb-3 text-sm font-bold tracking-wide text-yellow">
             Why Forte Institute
           </p>
-          <h2 className="font-heading text-4xl font-bold leading-tight text-paper md:text-5xl">
+          <h2 className="font-heading text-3xl font-bold leading-tight text-paper sm:text-4xl md:text-5xl">
             The best choice for O Level &amp; A Level in Pakistan.
           </h2>
           <p className="mt-4 text-base text-mist">
@@ -48,7 +48,7 @@ export function WhyForteSection() {
                   {number}
                 </span>
                 <div>
-                  <h3 className="font-heading text-xl font-bold text-paper">{title}</h3>
+                  <h3 className="font-heading text-lg font-bold text-paper sm:text-xl">{title}</h3>
                   <p className="mt-2 text-base leading-relaxed text-mist">{body}</p>
                 </div>
               </div>

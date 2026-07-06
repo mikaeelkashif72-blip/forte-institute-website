@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { motion } from "motion/react";
 import { teachers, type Teacher } from "@/lib/teachers";
 import { FadeUp } from "@/components/ui/fade-up";
 
@@ -21,10 +20,8 @@ function TeacherCard({ teacher }: { teacher: Teacher }) {
   const aspect = ASPECT;
 
   return (
-    <motion.div
-      whileHover={{ y: -6 }}
-      transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-      className={`group relative overflow-hidden rounded-2xl transition-colors duration-200 hover:shadow-[0_0_28px_rgba(255,255,255,0.12)] ${aspect}`}
+    <div
+      className={`group relative overflow-hidden rounded-2xl transition-all duration-200 hover:-translate-y-1.5 hover:shadow-[0_0_28px_rgba(255,255,255,0.12)] ${aspect}`}
     >
       {/* Placeholder bg — visible when photo missing */}
       <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-white/[0.06] via-white/[0.03] to-void">
@@ -60,13 +57,13 @@ function TeacherCard({ teacher }: { teacher: Teacher }) {
         </p>
         <p className="mt-1 text-sm text-mist">{teacher.subject}</p>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
 export function TeacherSpotlight() {
   return (
-    <section className="border-t border-glass-border px-6 py-20 md:py-28">
+    <section className="border-t border-glass-border px-6 py-16 md:py-28">
       <div className="mx-auto max-w-6xl">
         <FadeUp>
           <h2 className="font-heading mb-4 text-3xl font-bold text-paper md:text-4xl lg:text-5xl">

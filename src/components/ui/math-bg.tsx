@@ -59,8 +59,8 @@ export function MathBg() {
           const text = indices
             .map((i) => EQUATIONS[i % EQUATIONS.length])
             .join("     ·     ");
-          // Repeat enough times to fill any viewport, then double for seamless loop
-          const fill = Array(6).fill(text).join("     ·     ");
+          // 3 copies is enough to fill any viewport; double for seamless loop
+          const fill = Array(3).fill(text).join("     ·     ");
           const repeated = `${fill}     ·     ${fill}`;
           const animName = dir === 1 ? "drift-right" : "drift-left";
 

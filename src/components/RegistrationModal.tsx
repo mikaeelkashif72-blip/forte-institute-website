@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { ChevronLeft, ChevronRight, Check, Send } from "lucide-react";
 
 interface Props {
   open: boolean;
@@ -17,27 +18,68 @@ const HEAR_OPTIONS = [
   "Other",
 ];
 
-const PAYMENT_OPTIONS = [
-  { id: "bank", label: "Bank Transfer\n(Online)" },
-  { id: "office", label: "Physical Payment\nat office" },
-  { id: "later", label: "I'll Pay Later" },
-];
-
 const YEAR = new Date().getFullYear();
 const SESSION_OPTIONS = [
-  { id: "octnov", label: `Oct/Nov (${YEAR})` },
-  { id: "mayjun", label: `May/June (${YEAR + 1})` },
+  { id: "octnov", label: `Oct / Nov ${YEAR}` },
+  { id: "mayjun", label: `May / Jun ${YEAR + 1}` },
 ];
 
-const PROGRAM_OPTIONS = ["O Level", "A Level"];
+const PROGRAM_OPTIONS = [
+  { id: "olevel", label: "O Level" },
+  { id: "alevel", label: "A Level" },
+];
+
+const steps = [
+  { id: "personal", title: "Personal Info" },
+  { id: "classes", title: "Classes" },
+];
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-// Shared input style — placeholder at mist/70 for ≥4.5:1 contrast on void bg
-const inputClass =
-  "w-full rounded-xl border border-glass-border bg-white/5 px-4 py-3 text-sm text-paper placeholder:text-mist/70 outline-none transition-colors duration-200 focus:border-yellow/50 focus:bg-white/[0.08]";
-const labelClass =
+// Fast fade — no x-slide to avoid compositing lag
+const fadeVariants = {
+  enter: { opacity: 0 },
+  center: { opacity: 1, transition: { duration: 0.12 } },
+  exit: { opacity: 0, transition: { duration: 0.08 } },
+};
+
+const inputCls =
+  "w-full rounded-xl border border-glass-border bg-white/5 px-4 py-3 text-sm text-paper placeholder:text-mist/70 outline-none transition-colors duration-150 focus:border-yellow/50 focus:bg-white/[0.08]";
+
+const labelCls =
   "mb-1.5 block text-xs font-semibold uppercase tracking-widest text-mist/70";
+
+interface OptionCardProps {
+  selected: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}
+
+function OptionCard({ selected, onClick, children }: OptionCardProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={
+        "w-full flex items-center gap-3 rounded-xl border px-4 py-3 text-left text-sm transition-colors duration-150 " +
+        (selected
+          ? "border-yellow/60 bg-yellow/10 text-paper"
+          : "border-glass-border bg-white/5 text-mist hover:border-white/20 hover:bg-white/[0.07] hover:text-paper")
+      }
+    >
+      <div
+        className={
+          "flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors duration-150 " +
+          (selected ? "border-yellow" : "border-mist/40")
+        }
+        aria-hidden="true"
+      >
+        {selected && <div className="h-2 w-2 rounded-full bg-yellow" />}
+      </div>
+      {children}
+    </button>
+  );
+}
 
 export function RegistrationModal({ open, onClose }: Props) {
   const [step, setStep] = useState(0);
@@ -54,13 +96,14 @@ export function RegistrationModal({ open, onClose }: Props) {
   // Step 2
   const [program, setProgram] = useState("");
   const [session, setSession] = useState("");
-  const [payment, setPayment] = useState("");
+  const [subject, setSubject] = useState("");
   const [agreed, setAgreed] = useState(false);
 
   const handleKey = useCallback(
     (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); },
     [onClose]
   );
+
   useEffect(() => {
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
@@ -77,7 +120,7 @@ export function RegistrationModal({ open, onClose }: Props) {
       setFirstName(""); setLastName(""); setEmail("");
       setWhatsapp(""); setParentPhone(""); setSchool("");
       setHearAbout(""); setProgram(""); setSession("");
-      setPayment(""); setAgreed(false);
+      setSubject(""); setAgreed(false);
     }
   }, [open]);
 
@@ -93,391 +136,334 @@ export function RegistrationModal({ open, onClose }: Props) {
       `*Parent Phone:* ${parentPhone}\n` +
       `*School/Org:* ${school}\n` +
       `*Heard via:* ${hearAbout}\n\n` +
-      `*Program:* ${program}\n` +
-      `*Session:* ${SESSION_OPTIONS.find(s => s.id === session)?.label ?? session}\n` +
-      `*Payment:* ${PAYMENT_OPTIONS.find(p => p.id === payment)?.label.replace("\n", " ") ?? payment}`
+      `*Program:* ${PROGRAM_OPTIONS.find((p) => p.id === program)?.label ?? program}\n` +
+      `*Session:* ${SESSION_OPTIONS.find((s) => s.id === session)?.label ?? session}\n` +
+      `*Subject(s):* ${subject}`
     );
     window.open(`https://wa.me/923253025031?text=${text}`, "_blank");
     onClose();
   }
 
   const step1Valid = firstName && lastName && email && whatsapp && parentPhone && school;
-  const step2Valid = program && session && payment && agreed;
+  const step2Valid = program && session && subject && agreed;
 
   return (
     <AnimatePresence>
       {open && (
-        <>
-          {/* Backdrop + centering wrapper */}
+        <motion.div
+          key="backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.15 }}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 px-4 py-10 backdrop-blur-sm"
+          onClick={onClose}
+        >
           <motion.div
-            key="backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
-            onClick={onClose}
+            key="modal"
+            initial={{ opacity: 0, y: 12, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 8, scale: 0.98 }}
+            transition={{ duration: 0.18, ease }}
+            className="flex w-full max-w-lg flex-col rounded-2xl border border-glass-border bg-void shadow-2xl overflow-hidden max-h-[min(80vh,680px)]"
+            onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal — overflow-hidden clips progress bar within rounded corners */}
-            <motion.div
-              key="modal"
-              initial={{ opacity: 0, y: 24, scale: 0.97 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 16, scale: 0.97 }}
-              transition={{ duration: 0.35, ease }}
-              className="flex w-full max-w-lg flex-col max-h-[90vh] rounded-2xl border border-glass-border bg-void shadow-2xl overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Progress bar */}
-              <div className="relative h-1 w-full shrink-0 bg-white/10">
-                <motion.div
-                  className="absolute inset-y-0 left-0 bg-yellow"
-                  animate={{ width: step === 0 ? "50%" : "100%" }}
-                  transition={{ duration: 0.4, ease }}
-                />
-              </div>
-
-              {/* Header */}
-              <div className="shrink-0 border-b border-glass-border px-6 pt-5 pb-0">
-                <div className="flex items-center justify-between">
+            {/* Header */}
+            <div className="shrink-0 px-6 pt-6 pb-0">
+              <div className="flex items-start justify-between">
+                <div>
                   <h2 className="font-heading text-xl font-bold text-paper">
-                    Student Registration Form
+                    Student Registration
                   </h2>
-                  {/* 44×44px touch target wrapping the visible 28px circle */}
-                  <button
-                    onClick={onClose}
-                    className="-mr-2 flex h-11 w-11 items-center justify-center rounded-full text-mist transition-colors hover:bg-white/10 hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow/50"
-                    aria-label="Close registration form"
-                  >
-                    <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
+                  <p className="mt-0.5 text-xs text-mist/60">
+                    Step {step + 1} of {steps.length} — {steps[step].title}
+                  </p>
                 </div>
-
-                {/* Step tabs */}
-                <div className="mt-4 flex" role="tablist">
-                  <button
-                    role="tab"
-                    aria-selected={step === 0}
-                    className={`relative flex-1 pb-3 text-sm font-semibold transition-colors duration-200 ${
-                      step === 0 ? "text-paper" : "text-mist/50"
-                    }`}
-                    onClick={() => step === 1 && goPrev()}
-                  >
-                    Personal Information
-                    {step === 0 && (
-                      <motion.div
-                        layoutId="tab-indicator"
-                        className="absolute inset-x-0 bottom-0 h-0.5 bg-yellow"
-                      />
-                    )}
-                  </button>
-                  <button
-                    role="tab"
-                    aria-selected={step === 1}
-                    disabled={step === 0}
-                    className={`relative flex-1 pb-3 text-sm font-semibold transition-colors duration-200 ${
-                      step === 1 ? "text-paper" : "text-mist/50"
-                    }`}
-                  >
-                    Classes Selection
-                    {step === 1 && (
-                      <motion.div
-                        layoutId="tab-indicator"
-                        className="absolute inset-x-0 bottom-0 h-0.5 bg-yellow"
-                      />
-                    )}
-                  </button>
-                </div>
+                <button
+                  onClick={onClose}
+                  aria-label="Close registration form"
+                  className="-mt-1 -mr-2 flex h-11 w-11 items-center justify-center rounded-full text-mist transition-colors hover:bg-white/10 hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow/50"
+                >
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
               </div>
 
-              {/* Steps — animated wrapper is separate from scroll container to avoid compositing conflict */}
-              <div className="overflow-hidden">
-                <AnimatePresence mode="wait" initial={false}>
-                  {step === 0 ? (
-                    <motion.div
-                      key="step1"
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -6 }}
-                      transition={{ duration: 0.22, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    >
-                    <div className="px-6 py-6">
-                      <div className="flex flex-col gap-5">
-                        {/* Name row — separate labels per input for screen readers */}
-                        <div>
-                          <p className={labelClass} id="label-name">
-                            Name <span className="text-yellow" aria-label="required">*</span>
-                          </p>
-                          <div className="mt-1.5 grid grid-cols-2 gap-3">
-                            <div>
-                              <label htmlFor="reg-first-name" className="sr-only">First name</label>
-                              <input
-                                id="reg-first-name"
-                                value={firstName}
-                                onChange={e => setFirstName(e.target.value)}
-                                placeholder="First name"
-                                autoComplete="given-name"
-                                className={inputClass}
-                              />
-                            </div>
-                            <div>
-                              <label htmlFor="reg-last-name" className="sr-only">Last name</label>
-                              <input
-                                id="reg-last-name"
-                                value={lastName}
-                                onChange={e => setLastName(e.target.value)}
-                                placeholder="Last name"
-                                autoComplete="family-name"
-                                className={inputClass}
-                              />
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Email */}
-                        <div>
-                          <label htmlFor="reg-email" className={labelClass}>
-                            Email <span className="text-yellow" aria-label="required">*</span>
-                          </label>
-                          <input
-                            id="reg-email"
-                            type="email"
-                            value={email}
-                            onChange={e => setEmail(e.target.value)}
-                            placeholder="you@example.com"
-                            autoComplete="email"
-                            className={inputClass}
-                          />
-                        </div>
-
-                        {/* Phone row */}
-                        <div className="grid grid-cols-2 gap-3">
-                          <div>
-                            <label htmlFor="reg-whatsapp" className={labelClass}>
-                              WhatsApp <span className="text-yellow" aria-label="required">*</span>
-                            </label>
-                            <input
-                              id="reg-whatsapp"
-                              value={whatsapp}
-                              onChange={e => setWhatsapp(e.target.value)}
-                              placeholder="03XXXXXXXXX"
-                              autoComplete="tel"
-                              className={inputClass}
-                            />
-                          </div>
-                          <div>
-                            <label htmlFor="reg-parent-phone" className={labelClass}>
-                              Parent Phone <span className="text-yellow" aria-label="required">*</span>
-                            </label>
-                            <input
-                              id="reg-parent-phone"
-                              value={parentPhone}
-                              onChange={e => setParentPhone(e.target.value)}
-                              placeholder="03XXXXXXXXX"
-                              className={inputClass}
-                            />
-                          </div>
-                        </div>
-
-                        {/* School */}
-                        <div>
-                          <label htmlFor="reg-school" className={labelClass}>
-                            School / Organization <span className="text-yellow" aria-label="required">*</span>
-                          </label>
-                          <input
-                            id="reg-school"
-                            value={school}
-                            onChange={e => setSchool(e.target.value)}
-                            placeholder="e.g. Karachi Grammar School or Private"
-                            className={inputClass}
-                          />
-                        </div>
-
-                        {/* Hear about */}
-                        <div>
-                          <label htmlFor="reg-hear" className={labelClass}>How did you hear about us?</label>
-                          <select
-                            id="reg-hear"
-                            value={hearAbout}
-                            onChange={e => setHearAbout(e.target.value)}
-                            className="w-full rounded-xl border border-glass-border bg-void px-4 py-3 text-sm text-paper outline-none transition-colors duration-200 focus:border-yellow/50"
-                          >
-                            <option value="">Select…</option>
-                            {HEAR_OPTIONS.map(o => (
-                              <option key={o} value={o}>{o}</option>
-                            ))}
-                          </select>
-                        </div>
-                      </div>
+              {/* Progress dots + bar */}
+              <div className="mt-5 mb-4">
+                <div className="flex items-center justify-between mb-3">
+                  {steps.map((s, i) => (
+                    <div key={s.id} className="flex flex-col items-center gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => { if (i < step) setStep(i); }}
+                        disabled={i > step}
+                        aria-label={`Go to step ${i + 1}`}
+                        className={
+                          "h-3 w-3 rounded-full transition-all duration-200 " +
+                          (i < step
+                            ? "bg-yellow cursor-pointer hover:scale-110"
+                            : i === step
+                            ? "bg-yellow ring-4 ring-yellow/20"
+                            : "bg-white/20 cursor-default")
+                        }
+                      />
+                      <span className={
+                        "text-[10px] font-semibold uppercase tracking-widest transition-colors duration-200 " +
+                        (i === step ? "text-yellow" : "text-mist/40")
+                      }>
+                        {s.title}
+                      </span>
                     </div>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="step2"
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -6 }}
-                      transition={{ duration: 0.22, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    >
-                    <div className="px-6 py-6">
-                      <div className="flex flex-col gap-6">
-                        {/* Program — real radio inputs, keyboard-navigable */}
-                        <fieldset>
-                          <legend className={labelClass}>
-                            Program Applying For <span className="text-yellow" aria-label="required">*</span>
-                          </legend>
-                          <div className="mt-2 flex flex-wrap gap-4">
-                            {PROGRAM_OPTIONS.map(p => (
-                              <label key={p} className="flex cursor-pointer items-center gap-2.5">
-                                <input
-                                  type="radio"
-                                  name="program"
-                                  value={p}
-                                  checked={program === p}
-                                  onChange={() => setProgram(p)}
-                                  className="sr-only"
-                                />
-                                <div
-                                  aria-hidden="true"
-                                  className={`flex h-4 w-4 items-center justify-center rounded-full border-2 transition-colors duration-200 ${
-                                    program === p ? "border-yellow" : "border-mist/40"
-                                  }`}
-                                >
-                                  {program === p && <div className="h-2 w-2 rounded-full bg-yellow" />}
-                                </div>
-                                <span className="text-sm text-paper">{p}</span>
-                              </label>
-                            ))}
-                          </div>
-                        </fieldset>
-
-                        {/* Session — real radio inputs */}
-                        <fieldset>
-                          <legend className={labelClass}>
-                            Choose Session <span className="text-yellow" aria-label="required">*</span>
-                          </legend>
-                          <div className="mt-2 flex flex-wrap gap-4">
-                            {SESSION_OPTIONS.map(s => (
-                              <label key={s.id} className="flex cursor-pointer items-center gap-2.5">
-                                <input
-                                  type="radio"
-                                  name="session"
-                                  value={s.id}
-                                  checked={session === s.id}
-                                  onChange={() => setSession(s.id)}
-                                  className="sr-only"
-                                />
-                                <div
-                                  aria-hidden="true"
-                                  className={`flex h-4 w-4 items-center justify-center rounded-full border-2 transition-colors duration-200 ${
-                                    session === s.id ? "border-yellow" : "border-mist/40"
-                                  }`}
-                                >
-                                  {session === s.id && <div className="h-2 w-2 rounded-full bg-yellow" />}
-                                </div>
-                                <span className="text-sm text-paper">{s.label}</span>
-                              </label>
-                            ))}
-                          </div>
-                        </fieldset>
-
-                        {/* Payment method — real radio inputs */}
-                        <fieldset>
-                          <legend className={labelClass}>
-                            Payment Method <span className="text-yellow" aria-label="required">*</span>
-                          </legend>
-                          <div className="mt-2 flex flex-wrap gap-4">
-                            {PAYMENT_OPTIONS.map(p => (
-                              <label key={p.id} className="flex cursor-pointer items-start gap-2.5">
-                                <input
-                                  type="radio"
-                                  name="payment"
-                                  value={p.id}
-                                  checked={payment === p.id}
-                                  onChange={() => setPayment(p.id)}
-                                  className="sr-only"
-                                />
-                                <div
-                                  aria-hidden="true"
-                                  className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors duration-200 ${
-                                    payment === p.id ? "border-yellow" : "border-mist/40"
-                                  }`}
-                                >
-                                  {payment === p.id && <div className="h-2 w-2 rounded-full bg-yellow" />}
-                                </div>
-                                <span className="text-sm text-paper whitespace-pre-line">{p.label}</span>
-                              </label>
-                            ))}
-                          </div>
-                        </fieldset>
-
-                        {/* Agreement */}
-                        <label className="flex cursor-pointer items-start gap-3">
-                          <input
-                            type="checkbox"
-                            checked={agreed}
-                            onChange={e => setAgreed(e.target.checked)}
-                            className="sr-only"
-                          />
-                          <div
-                            aria-hidden="true"
-                            className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-colors duration-200 ${
-                              agreed ? "border-yellow bg-yellow" : "border-mist/40 bg-white/5"
-                            }`}
-                          >
-                            {agreed && (
-                              <svg className="h-2.5 w-2.5 text-ink" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" aria-hidden="true">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                              </svg>
-                            )}
-                          </div>
-                          <span className="text-xs text-mist/70">
-                            I confirm that I have read, understood, and agree to Forte Institute&apos;s Fee &amp; Payments Policy.{" "}
-                            <span className="text-yellow" aria-label="required">*</span>
-                          </span>
-                        </label>
-                      </div>
-                    </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                  ))}
+                </div>
+                <div className="h-1 w-full overflow-hidden rounded-full bg-white/10">
+                  <motion.div
+                    className="h-full bg-yellow"
+                    animate={{ width: step === 0 ? "0%" : "100%" }}
+                    transition={{ duration: 0.2, ease }}
+                  />
+                </div>
               </div>
+            </div>
 
-              {/* Footer buttons */}
-              <div className="shrink-0 flex gap-3 border-t border-glass-border px-6 py-4">
-                {step === 1 && (
-                  <button
-                    onClick={goPrev}
-                    className="flex-1 rounded-xl border border-glass-border py-3 text-sm font-bold text-mist transition-colors duration-200 hover:border-white/30 hover:text-paper"
-                  >
-                    ← Previous
-                  </button>
-                )}
+            {/* Step content */}
+            <div className="flex-1 overflow-y-auto overscroll-contain">
+              <AnimatePresence mode="sync" initial={false}>
                 {step === 0 ? (
-                  <motion.button
-                    whileTap={{ scale: 0.97 }}
-                    onClick={goNext}
-                    disabled={!step1Valid}
-                    className="flex-1 rounded-xl bg-yellow py-3 text-sm font-bold text-ink transition-colors duration-200 hover:bg-yellow-deep hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
+                  <motion.div
+                    key="step1"
+                    variants={fadeVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
                   >
-                    Next →
-                  </motion.button>
+                    <div className="px-6 py-5 flex flex-col gap-5">
+                      {/* Name */}
+                      <div>
+                        <p className={labelCls}>
+                          Name <span className="text-yellow" aria-label="required">*</span>
+                        </p>
+                        <div className="mt-1.5 grid grid-cols-2 gap-3">
+                          <div>
+                            <label htmlFor="reg-first-name" className="sr-only">First name</label>
+                            <input
+                              id="reg-first-name"
+                              value={firstName}
+                              onChange={(e) => setFirstName(e.target.value)}
+                              placeholder="First name"
+                              autoComplete="given-name"
+                              className={inputCls}
+                            />
+                          </div>
+                          <div>
+                            <label htmlFor="reg-last-name" className="sr-only">Last name</label>
+                            <input
+                              id="reg-last-name"
+                              value={lastName}
+                              onChange={(e) => setLastName(e.target.value)}
+                              placeholder="Last name"
+                              autoComplete="family-name"
+                              className={inputCls}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Email */}
+                      <div>
+                        <label htmlFor="reg-email" className={labelCls}>
+                          Email <span className="text-yellow" aria-label="required">*</span>
+                        </label>
+                        <input
+                          id="reg-email"
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="you@example.com"
+                          autoComplete="email"
+                          className={inputCls}
+                        />
+                      </div>
+
+                      {/* Phones */}
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <label htmlFor="reg-whatsapp" className={labelCls}>
+                            WhatsApp <span className="text-yellow" aria-label="required">*</span>
+                          </label>
+                          <input
+                            id="reg-whatsapp"
+                            value={whatsapp}
+                            onChange={(e) => setWhatsapp(e.target.value)}
+                            placeholder="03XXXXXXXXX"
+                            autoComplete="tel"
+                            className={inputCls}
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="reg-parent-phone" className={labelCls}>
+                            Parent Phone <span className="text-yellow" aria-label="required">*</span>
+                          </label>
+                          <input
+                            id="reg-parent-phone"
+                            value={parentPhone}
+                            onChange={(e) => setParentPhone(e.target.value)}
+                            placeholder="03XXXXXXXXX"
+                            className={inputCls}
+                          />
+                        </div>
+                      </div>
+
+                      {/* School */}
+                      <div>
+                        <label htmlFor="reg-school" className={labelCls}>
+                          School / Organization <span className="text-yellow" aria-label="required">*</span>
+                        </label>
+                        <input
+                          id="reg-school"
+                          value={school}
+                          onChange={(e) => setSchool(e.target.value)}
+                          placeholder="e.g. Karachi Grammar School"
+                          className={inputCls}
+                        />
+                      </div>
+
+                      {/* Hear about */}
+                      <div>
+                        <label htmlFor="reg-hear" className={labelCls}>
+                          How did you hear about us?
+                        </label>
+                        <select
+                          id="reg-hear"
+                          value={hearAbout}
+                          onChange={(e) => setHearAbout(e.target.value)}
+                          className="w-full rounded-xl border border-glass-border bg-void px-4 py-3 text-sm text-paper outline-none transition-colors duration-150 focus:border-yellow/50"
+                        >
+                          <option value="">Select…</option>
+                          {HEAR_OPTIONS.map((o) => (
+                            <option key={o} value={o}>{o}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                  </motion.div>
                 ) : (
-                  <motion.button
-                    whileTap={{ scale: 0.97 }}
-                    onClick={handleSubmit}
-                    disabled={!step2Valid}
-                    className="flex-1 rounded-xl bg-yellow py-3 text-sm font-bold text-ink transition-colors duration-200 hover:bg-yellow-deep hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
+                  <motion.div
+                    key="step2"
+                    variants={fadeVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
                   >
-                    Submit Registration
-                  </motion.button>
+                    <div className="px-6 py-5 flex flex-col gap-6">
+                      {/* Program */}
+                      <fieldset>
+                        <legend className={labelCls}>
+                          Program Applying For <span className="text-yellow" aria-label="required">*</span>
+                        </legend>
+                        <div className="mt-2 flex flex-col gap-2">
+                          {PROGRAM_OPTIONS.map((p) => (
+                            <OptionCard
+                              key={p.id}
+                              selected={program === p.id}
+                              onClick={() => setProgram(p.id)}
+                            >
+                              <span className="font-semibold">{p.label}</span>
+                            </OptionCard>
+                          ))}
+                        </div>
+                      </fieldset>
+
+                      {/* Session */}
+                      <fieldset>
+                        <legend className={labelCls}>
+                          Choose Session <span className="text-yellow" aria-label="required">*</span>
+                        </legend>
+                        <div className="mt-2 flex flex-col gap-2">
+                          {SESSION_OPTIONS.map((s) => (
+                            <OptionCard
+                              key={s.id}
+                              selected={session === s.id}
+                              onClick={() => setSession(s.id)}
+                            >
+                              <span className="font-semibold">{s.label}</span>
+                            </OptionCard>
+                          ))}
+                        </div>
+                      </fieldset>
+
+                      {/* Subject */}
+                      <div>
+                        <label htmlFor="reg-subject" className={labelCls}>
+                          Subject(s) <span className="text-yellow" aria-label="required">*</span>
+                        </label>
+                        <input
+                          id="reg-subject"
+                          value={subject}
+                          onChange={(e) => setSubject(e.target.value)}
+                          placeholder="e.g. Mathematics, Physics, Chemistry"
+                          className={inputCls}
+                        />
+                      </div>
+
+                      {/* Agreement */}
+                      <label className="flex cursor-pointer items-start gap-3">
+                        <input
+                          type="checkbox"
+                          checked={agreed}
+                          onChange={(e) => setAgreed(e.target.checked)}
+                          className="sr-only"
+                        />
+                        <div
+                          aria-hidden="true"
+                          className={
+                            "mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-colors duration-150 " +
+                            (agreed ? "border-yellow bg-yellow" : "border-mist/40 bg-white/5")
+                          }
+                        >
+                          {agreed && <Check className="h-2.5 w-2.5 text-ink" strokeWidth={3} />}
+                        </div>
+                        <span className="text-xs text-mist/70">
+                          I confirm that I have read, understood, and agree to Forte Institute&apos;s Fee &amp; Payments Policy.{" "}
+                          <span className="text-yellow" aria-label="required">*</span>
+                        </span>
+                      </label>
+                    </div>
+                  </motion.div>
                 )}
-              </div>
-            </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Footer */}
+            <div className="shrink-0 flex justify-center border-t border-glass-border px-6 py-4">
+              {step === 0 ? (
+                <motion.button
+                  type="button"
+                  whileTap={{ scale: 0.97 }}
+                  onClick={goNext}
+                  disabled={!step1Valid}
+                  className="flex w-48 items-center justify-center gap-2 rounded-xl bg-yellow py-3 text-sm font-bold text-ink transition-colors duration-150 hover:bg-yellow-deep hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  Next
+                  <ChevronRight className="h-4 w-4" />
+                </motion.button>
+              ) : (
+                <motion.button
+                  type="button"
+                  whileTap={{ scale: 0.97 }}
+                  onClick={handleSubmit}
+                  disabled={!step2Valid}
+                  className="flex w-56 items-center justify-center gap-2 rounded-xl bg-yellow py-3 text-sm font-bold text-ink transition-colors duration-150 hover:bg-yellow-deep hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  Submit via WhatsApp
+                  <Send className="h-4 w-4" />
+                </motion.button>
+              )}
+            </div>
           </motion.div>
-        </>
+        </motion.div>
       )}
     </AnimatePresence>
   );

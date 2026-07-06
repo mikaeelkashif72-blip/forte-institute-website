@@ -36,10 +36,10 @@ function SubjectCard({ name, slug, code }: { name: string; slug: string; code: s
 
 export function ALevelSection() {
   return (
-    <section className="pt-10 pb-20 md:pt-12 md:pb-28">
+    <section className="pt-10 pb-16 md:pt-12 md:pb-28">
       <div className="mx-auto max-w-6xl px-6">
-        <FadeUp className="mb-12">
-          <h2 className="font-heading text-4xl font-bold text-paper md:text-5xl">
+        <FadeUp className="mb-10 md:mb-12">
+          <h2 className="font-heading text-3xl font-bold text-paper sm:text-4xl md:text-5xl">
             A Level Classes
           </h2>
           <p className="mt-3 max-w-xl text-base text-mist">
@@ -49,9 +49,11 @@ export function ALevelSection() {
         </FadeUp>
 
         <FadeUp delay={0.1}>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {FEATURED.map((subject) => (
-            <SubjectCard key={subject.slug} {...subject} />
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+          {FEATURED.map((subject, idx) => (
+            <div key={subject.slug} className={idx >= 3 ? "hidden sm:block" : ""}>
+              <SubjectCard {...subject} />
+            </div>
           ))}
         </div>
 

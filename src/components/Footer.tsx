@@ -17,11 +17,11 @@ const navLinks = [
 export default function Footer() {
   const openRegistration = useOpenRegistration();
   return (
-    <footer className="border-t border-glass-border bg-void px-6 pt-16 pb-8">
+    <footer className="border-t border-glass-border bg-void px-6 pt-12 pb-8">
       <div className="mx-auto max-w-6xl">
 
         {/* Top row */}
-        <div className="flex flex-col gap-10 md:flex-row md:justify-between">
+        <div className="flex flex-col gap-10 sm:flex-row sm:justify-between">
 
           {/* Brand column */}
           <div className="max-w-xs">
@@ -123,40 +123,41 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Nav links */}
-          <nav aria-label="Footer navigation">
-            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-mist/50">Pages</p>
-            <ul className="flex flex-col gap-3">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-mist transition-colors duration-200 hover:text-paper"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          {/* Right column: nav + CTA stacked */}
+          <div className="flex flex-col gap-8 sm:flex-row sm:gap-14">
+            <nav aria-label="Footer navigation">
+              <p className="mb-4 text-xs font-bold uppercase tracking-widest text-mist/50">Pages</p>
+              <ul className="grid grid-cols-2 gap-x-10 gap-y-2.5">
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-mist transition-colors duration-200 hover:text-paper"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
-          {/* CTA block */}
-          <div className="max-w-xs">
-            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-mist/50">Get Started</p>
-            <p className="text-sm leading-relaxed text-mist">
-              Ready to start your Cambridge journey? Register for the upcoming session and get access to Pakistan&apos;s best O Level and A Level tutors.
-            </p>
-            <button
-              onClick={() => openRegistration()}
-              className="mt-5 inline-block rounded-xl bg-yellow px-5 py-2.5 text-sm font-bold text-ink transition-all duration-200 hover:bg-yellow-deep hover:text-paper active:scale-[0.97]"
-            >
-              Register for Class →
-            </button>
+            <div>
+              <p className="mb-4 text-xs font-bold uppercase tracking-widest text-mist/50">Get Started</p>
+              <p className="text-sm leading-relaxed text-mist max-w-[180px]">
+                Register for the upcoming O Level or A Level session.
+              </p>
+              <button
+                onClick={() => openRegistration()}
+                className="mt-4 inline-block rounded-xl bg-yellow px-5 py-2.5 text-sm font-bold text-ink transition-all duration-200 hover:bg-yellow-deep hover:text-paper active:scale-[0.97]"
+              >
+                Register for Class →
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-glass-border pt-6 text-xs text-mist/50 sm:flex-row">
+        <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-glass-border pt-5 text-xs text-mist/50 sm:flex-row">
           <p>&copy; {new Date().getFullYear()} Forte Institute. All rights reserved.</p>
           <p>Cambridge O Level · IGCSE · A Level Tuition in Pakistan</p>
         </div>

@@ -47,33 +47,33 @@ export function SplineHero() {
         <div className="flex flex-1 flex-col justify-center text-left">
           <TextEffect
             as="p"
-            per="word"
-            preset="fade-in-blur"
-            speedReveal={5}
-            speedSegment={2}
+            per="line"
+            preset="fade"
+            speedReveal={4}
+            speedSegment={3}
             className="font-heading text-sm font-bold tracking-wide text-yellow md:text-base"
           >
             O Level, IGCSE & A Level Tuition in Pakistan
           </TextEffect>
           <TextEffect
             as="h1"
-            per="word"
-            preset="fade-in-blur"
-            delay={0.08}
-            speedReveal={5}
-            speedSegment={2}
-            className="mt-4 text-balance font-heading text-5xl font-bold leading-tight tracking-[-0.01em] text-paper md:text-6xl"
+            per="line"
+            preset="fade"
+            delay={0.1}
+            speedReveal={4}
+            speedSegment={3}
+            className="mt-4 text-balance font-heading text-[2rem] font-bold leading-tight tracking-[-0.01em] text-paper sm:text-5xl md:text-6xl"
           >
             O Level & A Level results that speak for themselves.
           </TextEffect>
           <TextEffect
             as="p"
-            per="word"
-            preset="fade-in-blur"
-            delay={0.2}
+            per="line"
+            preset="fade"
+            delay={0.22}
             speedReveal={3}
-            speedSegment={1.5}
-            className="mt-6 text-balance text-lg text-mist"
+            speedSegment={2}
+            className="mt-6 text-balance text-base sm:text-lg text-mist"
           >
             Forte Institute prepares students across Pakistan for Cambridge O Level,
             IGCSE and A Level exams — with live classes, recorded lessons, notes and

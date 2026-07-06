@@ -118,13 +118,13 @@ export function Testimonials() {
   return (
     <section
       aria-labelledby="testimonials-heading"
-      className="border-t border-glass-border py-20 md:py-24"
+      className="border-t border-glass-border py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-6">
         {/* Heading */}
         <FadeUp className="mb-12 max-w-xl">
           <p className="mb-3 text-sm font-bold tracking-wide text-yellow">Student Reviews</p>
-          <h2 id="testimonials-heading" className="font-heading text-4xl font-bold leading-tight text-paper md:text-5xl">
+          <h2 id="testimonials-heading" className="font-heading text-3xl font-bold leading-tight text-paper sm:text-4xl md:text-5xl">
             Thousands of A* grades across Pakistan.
           </h2>
           <p className="mt-4 text-base leading-relaxed text-mist">
@@ -156,23 +156,25 @@ export function Testimonials() {
 
         {/* Cards */}
         <div className="overflow-hidden">
-          <AnimatePresence mode="wait" initial={false} custom={dir}>
+          <AnimatePresence mode="sync" initial={false} custom={dir}>
             <motion.div
               key={index}
               custom={dir}
               variants={{
-                enter: (d: number) => ({ x: d * 60, opacity: 0 }),
+                enter: (d: number) => ({ x: d * 40, opacity: 0 }),
                 center: { x: 0, opacity: 1 },
-                exit: (d: number) => ({ x: d * -60, opacity: 0 }),
+                exit: (d: number) => ({ x: d * -40, opacity: 0 }),
               }}
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
               className="grid grid-cols-1 gap-5 md:grid-cols-3"
             >
               {visible.map((t, i) => (
-                <TestimonialCard key={i} t={t} />
+                <div key={i} className={i > 0 ? "hidden md:block" : ""}>
+                  <TestimonialCard t={t} />
+                </div>
               ))}
             </motion.div>
           </AnimatePresence>
