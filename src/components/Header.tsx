@@ -41,7 +41,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-void px-4 pt-4 pb-0 relative">
       {/* Floating pill */}
-      <div className="mx-auto flex max-w-6xl items-center justify-between rounded-full border border-glass-border bg-white/5 px-5 py-3 md:px-7 md:py-4 backdrop-blur-2xl">
+      <div className="mx-auto flex max-w-6xl items-center justify-between rounded-full border border-glass-border bg-white/5 px-5 py-3 md:px-7 md:py-4">
         {/* Logo */}
         <Link
           href="/"
