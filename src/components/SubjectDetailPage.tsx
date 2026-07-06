@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { useReducedMotion } from "motion/react";
 import { type SubjectDetail, type Level, levelLabels } from "@/lib/subjects";
 import { useOpenRegistration } from "@/components/RegistrationModalProvider";
+import { MathBg } from "@/components/ui/math-bg";
 
 const EXPECT_ITEMS = [
   {
@@ -76,6 +77,7 @@ export function SubjectDetailPage({ subject, level }: Props) {
     <main className="min-h-screen bg-void">
       {/* ── HERO ── */}
       <section className="relative overflow-hidden border-b border-glass-border px-6 pb-16 pt-14 md:pb-20 md:pt-16">
+        <MathBg />
         {/* Subtle glow */}
         <div
           aria-hidden="true"
