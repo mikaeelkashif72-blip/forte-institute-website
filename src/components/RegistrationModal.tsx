@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ChevronLeft, ChevronRight, Check, Send } from "lucide-react";
+import { ChevronRight, Check, Send, Loader2, MailCheck } from "lucide-react";
 
 interface Props {
   open: boolean;
@@ -99,6 +99,11 @@ export function RegistrationModal({ open, onClose }: Props) {
   const [subject, setSubject] = useState("");
   const [agreed, setAgreed] = useState(false);
 
+  // Submission state
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
   const handleKey = useCallback(
     (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); },
     [onClose]
@@ -121,27 +126,43 @@ export function RegistrationModal({ open, onClose }: Props) {
       setWhatsapp(""); setParentPhone(""); setSchool("");
       setHearAbout(""); setProgram(""); setSession("");
       setSubject(""); setAgreed(false);
+      setSubmitting(false); setSubmitError(""); setSubmitted(false);
     }
   }, [open]);
 
   function goNext() { setStep(1); }
   function goPrev() { setStep(0); }
 
-  function handleSubmit() {
-    const text = encodeURIComponent(
-      `*New Registration — Forte Institute*\n\n` +
-      `*Name:* ${firstName} ${lastName}\n` +
-      `*Email:* ${email}\n` +
-      `*WhatsApp:* ${whatsapp}\n` +
-      `*Parent Phone:* ${parentPhone}\n` +
-      `*School/Org:* ${school}\n` +
-      `*Heard via:* ${hearAbout}\n\n` +
-      `*Program:* ${PROGRAM_OPTIONS.find((p) => p.id === program)?.label ?? program}\n` +
-      `*Session:* ${SESSION_OPTIONS.find((s) => s.id === session)?.label ?? session}\n` +
-      `*Subject(s):* ${subject}`
-    );
-    window.open(`https://wa.me/923253025031?text=${text}`, "_blank");
-    onClose();
+  async function handleSubmit() {
+    setSubmitting(true);
+    setSubmitError("");
+    try {
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          whatsapp,
+          parentPhone,
+          school,
+          hearAbout,
+          program: PROGRAM_OPTIONS.find((p) => p.id === program)?.label ?? program,
+          session: SESSION_OPTIONS.find((s) => s.id === session)?.label ?? session,
+          subject,
+        }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Something went wrong. Please try again.");
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   const step1Valid = firstName && lastName && email && whatsapp && parentPhone && school;
@@ -165,9 +186,40 @@ export function RegistrationModal({ open, onClose }: Props) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.98 }}
             transition={{ duration: 0.18, ease }}
-            className="flex w-full max-w-lg flex-col rounded-2xl border border-glass-border bg-void shadow-2xl overflow-hidden max-h-[min(80vh,680px)]"
+            className="relative flex w-full max-w-lg flex-col rounded-2xl border border-glass-border bg-void shadow-2xl overflow-hidden max-h-[min(80vh,680px)]"
             onClick={(e) => e.stopPropagation()}
           >
+            {submitted ? (
+              <div className="flex flex-col items-center px-8 py-14 text-center">
+                <button
+                  onClick={onClose}
+                  aria-label="Close registration form"
+                  className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full text-mist transition-colors hover:bg-white/10 hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow/50"
+                >
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-yellow/10">
+                  <MailCheck className="h-7 w-7 text-yellow" strokeWidth={1.75} />
+                </div>
+                <h2 className="font-heading mt-5 text-xl font-bold text-paper">
+                  Thank you, {firstName}!
+                </h2>
+                <p className="mt-2 max-w-sm text-sm leading-relaxed text-mist">
+                  Your registration has been sent. We&apos;ve emailed a confirmation to{" "}
+                  <span className="text-paper">{email}</span> — our team will reach out on WhatsApp within 24 hours.
+                </p>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="mt-8 rounded-xl bg-yellow px-6 py-3 text-sm font-bold text-ink transition-colors duration-150 hover:bg-yellow-deep hover:text-paper"
+                >
+                  Done
+                </button>
+              </div>
+            ) : (
+            <>
             {/* Header */}
             <div className="shrink-0 px-6 pt-6 pb-0">
               <div className="flex items-start justify-between">
@@ -437,7 +489,10 @@ export function RegistrationModal({ open, onClose }: Props) {
             </div>
 
             {/* Footer */}
-            <div className="shrink-0 flex justify-center border-t border-glass-border px-6 py-4">
+            <div className="shrink-0 flex flex-col items-center gap-2 border-t border-glass-border px-6 py-4">
+              {submitError && (
+                <p className="text-xs font-medium text-red-400">{submitError}</p>
+              )}
               {step === 0 ? (
                 <motion.button
                   type="button"
@@ -454,14 +509,25 @@ export function RegistrationModal({ open, onClose }: Props) {
                   type="button"
                   whileTap={{ scale: 0.97 }}
                   onClick={handleSubmit}
-                  disabled={!step2Valid}
+                  disabled={!step2Valid || submitting}
                   className="flex w-56 items-center justify-center gap-2 rounded-xl bg-yellow py-3 text-sm font-bold text-ink transition-colors duration-150 hover:bg-yellow-deep hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
                 >
-                  Submit via WhatsApp
-                  <Send className="h-4 w-4" />
+                  {submitting ? (
+                    <>
+                      Sending
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    </>
+                  ) : (
+                    <>
+                      Submit Registration
+                      <Send className="h-4 w-4" />
+                    </>
+                  )}
                 </motion.button>
               )}
             </div>
+            </>
+            )}
           </motion.div>
         </motion.div>
       )}
