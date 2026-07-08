@@ -73,7 +73,7 @@ const TOTAL = testimonials.length;
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <div className="flex-1 min-w-0 rounded-2xl border border-glass-border bg-white/5 p-6 transition-colors duration-200 hover:border-white/20 hover:bg-white/[0.08]">
+    <div className="flex h-full min-h-[280px] min-w-0 flex-col rounded-2xl border border-glass-border bg-white/5 p-6 transition-colors duration-200 hover:border-white/20 hover:bg-white/[0.08]">
       <blockquote className="m-0 p-0 flex flex-col h-full">
         <span className="mb-2 block font-heading text-xl font-bold leading-none text-yellow/60" aria-hidden="true">"</span>
         <p className="text-sm leading-relaxed text-mist flex-1">{t.text}</p>
@@ -103,12 +103,12 @@ export function Testimonials() {
   const prev = () => go((index - 1 + TOTAL) % TOTAL);
   const next = () => go((index + 1) % TOTAL);
 
-  // Auto-advance every 4s
+  // Auto-advance every 5.5s (enough time to read a review before it moves)
   useEffect(() => {
     const id = setInterval(() => {
       setDir(1);
       setIndex((i) => (i + 1) % TOTAL);
-    }, 4000);
+    }, 5500);
     return () => clearInterval(id);
   }, []);
 
@@ -171,7 +171,7 @@ export function Testimonials() {
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="col-start-1 row-start-1 grid grid-cols-1 gap-5 md:grid-cols-3"
             >
               {visible.map((t, i) => (
