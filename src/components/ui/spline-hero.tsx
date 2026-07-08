@@ -47,6 +47,20 @@ export function SplineHero() {
     return () => observer.disconnect();
   }, []);
 
+  // The Spline scene column is CSS-hidden on mobile (`hidden md:block`), but CSS
+  // display:none does NOT stop React from mounting it — the WebGL runtime would
+  // still download and run its render loop on phones, tanking mobile FPS and
+  // burning mobile data. Gate the actual mount on a desktop media query so Spline
+  // never loads on mobile at all. Defaults to false so SSR/mobile skip it.
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
   return (
     <Card ref={heroRef} className="relative h-full w-full overflow-hidden rounded-none border-0 bg-void">
       <MathBg />
@@ -113,7 +127,7 @@ export function SplineHero() {
                 <span className="text-sm font-semibold text-paper">{stat}</span>
                 <span className="text-sm text-mist">{label}</span>
                 {i < HERO_STATS.length - 1 && (
-                  <span className="ml-2 text-glass-border text-mist/30 select-none">|</span>
+                  <span className="ml-2 hidden text-glass-border text-mist/30 select-none sm:inline">|</span>
                 )}
               </div>
             ))}
@@ -121,7 +135,7 @@ export function SplineHero() {
         </div>
 
         <div className="hidden h-full min-h-[420px] flex-1 md:block">
-          {heroNear && <SplineScene scene={SPLINE_SCENE} className="h-full w-full" />}
+          {isDesktop && heroNear && <SplineScene scene={SPLINE_SCENE} className="h-full w-full" />}
         </div>
       </div>
     </Card>
