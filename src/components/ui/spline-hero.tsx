@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { Application } from "@splinetool/runtime";
 import { useOpenRegistration } from "@/components/RegistrationModalProvider";
 import { motion, useReducedMotion } from "motion/react";
 import { GraduationCap, Award } from "lucide-react";
@@ -23,29 +24,43 @@ export function SplineHero() {
 
   // The Spline WebGL scene runs a continuous render loop on the main thread and
   // does not fully stop when scrolled off-screen — which drags the frame rate of
-  // the entire page (the O/A Level sections and everything below). To keep the
-  // rest of the page buttery smooth, we UNMOUNT Spline once the hero is scrolled
-  // out of view (freeing the main thread entirely) and remount it on scroll back.
-  // A 200px rootMargin buffer avoids thrashing right at the boundary. The same
-  // observer pauses the MathBg CSS animations while off-screen.
-  const [heroNear, setHeroNear] = useState(true);
+  // the entire page (the O/A Level sections and everything below). Rather than
+  // unmounting it (which forces a full reload on scroll-back), we keep the scene
+  // mounted and PAUSE its render loop when the hero leaves the viewport via the
+  // Spline app's stop()/play() (stop() calls setAnimationLoop(null), fully
+  // freeing the main thread → 60fps below the fold). The scene loads exactly once
+  // and never reloads. The same observer pauses the MathBg CSS animations.
+  const splineApp = useRef<Application | null>(null);
+  const heroVisible = useRef(true);
   useEffect(() => {
     const el = heroRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         const visible = entry.isIntersecting;
+        heroVisible.current = visible;
         const rows = el.querySelectorAll<HTMLElement>(".math-row");
         rows.forEach((row) => {
           row.style.animationPlayState = visible ? "running" : "paused";
         });
-        setHeroNear(visible);
+        const app = splineApp.current;
+        if (app) {
+          if (visible) app.play();
+          else app.stop();
+        }
       },
       { threshold: 0, rootMargin: "200px 0px" }
     );
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  // If the scene finishes loading while the hero is already scrolled off-screen,
+  // pause it immediately so it never renders unseen.
+  const handleSplineLoad = (app: Application) => {
+    splineApp.current = app;
+    if (!heroVisible.current) app.stop();
+  };
 
   // The Spline scene column is CSS-hidden on mobile (`hidden md:block`), but CSS
   // display:none does NOT stop React from mounting it — the WebGL runtime would
@@ -135,7 +150,7 @@ export function SplineHero() {
         </div>
 
         <div className="hidden h-full min-h-[420px] flex-1 md:block">
-          {isDesktop && heroNear && <SplineScene scene={SPLINE_SCENE} className="h-full w-full" />}
+          {isDesktop && <SplineScene scene={SPLINE_SCENE} className="h-full w-full" onLoad={handleSplineLoad} />}
         </div>
       </div>
     </Card>
