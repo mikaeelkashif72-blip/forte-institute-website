@@ -154,8 +154,11 @@ export function Testimonials() {
           </a>
         </FadeUp>
 
-        {/* Cards */}
-        <div className="overflow-hidden">
+        {/* Cards — a single-cell grid so the outgoing and incoming sets occupy
+            the SAME cell and cross-fade/slide over each other, instead of
+            stacking vertically in normal flow (which caused the height-jump
+            glitch on transition). */}
+        <div className="grid overflow-hidden">
           <AnimatePresence mode="sync" initial={false} custom={dir}>
             <motion.div
               key={index}
@@ -169,7 +172,7 @@ export function Testimonials() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="grid grid-cols-1 gap-5 md:grid-cols-3"
+              className="col-start-1 row-start-1 grid grid-cols-1 gap-5 md:grid-cols-3"
             >
               {visible.map((t, i) => (
                 <div key={i} className={i > 0 ? "hidden md:block" : ""}>
