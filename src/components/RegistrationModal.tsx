@@ -131,7 +131,6 @@ export function RegistrationModal({ open, onClose }: Props) {
   }, [open]);
 
   function goNext() { setStep(1); }
-  function goPrev() { setStep(0); }
 
   async function handleSubmit() {
     setSubmitting(true);

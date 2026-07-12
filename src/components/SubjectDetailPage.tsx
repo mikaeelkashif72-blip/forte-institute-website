@@ -188,7 +188,7 @@ export function SubjectDetailPage({ subject, level }: Props) {
         <div className="mx-auto max-w-6xl">
           <FadeUp>
             <h2 className="font-heading mb-2 text-2xl font-bold text-paper sm:text-3xl">
-              What You'll Study
+              What You&apos;ll Study
             </h2>
             <p className="mb-10 text-sm text-mist/70">
               Full Cambridge {levelLabel} {subject.name} syllabus — every topic covered.

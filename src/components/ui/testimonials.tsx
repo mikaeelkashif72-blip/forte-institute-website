@@ -68,14 +68,13 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-const VISIBLE = 3;
 const TOTAL = testimonials.length;
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
     <div className="flex h-full min-h-[280px] min-w-0 flex-col rounded-2xl border border-glass-border bg-white/5 p-6 transition-colors duration-200 hover:border-white/20 hover:bg-white/[0.08]">
       <blockquote className="m-0 p-0 flex flex-col h-full">
-        <span className="mb-2 block font-heading text-xl font-bold leading-none text-yellow/60" aria-hidden="true">"</span>
+        <span className="mb-2 block font-heading text-xl font-bold leading-none text-yellow/60" aria-hidden="true">&ldquo;</span>
         <p className="text-sm leading-relaxed text-mist flex-1">{t.text}</p>
         <footer className="mt-4 flex items-center gap-3">
           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-yellow/10 ring-1 ring-yellow/20">

@@ -13,7 +13,6 @@ interface AnimatedBackgroundProps {
   className?: string;
   transition?: Transition;
   enableHover?: boolean;
-  onValueChange?: (value: string) => void;
 }
 
 export function AnimatedBackground({
@@ -22,9 +21,10 @@ export function AnimatedBackground({
   className,
   transition,
   enableHover = false,
-  onValueChange,
 }: AnimatedBackgroundProps) {
-  const [activeId, setActiveId] = useState<string | null>(defaultValue ?? null);
+  // activeId follows defaultValue (e.g. the current pathname) directly, so the
+  // active indicator updates on navigation without needing local state.
+  const activeId = defaultValue ?? null;
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const uid = useId();
 
