@@ -7,15 +7,54 @@ import { FadeUp } from "@/components/ui/fade-up";
 
 const ASPECT = "aspect-[3/4]";
 
-function TeacherCard({ teacher }: { teacher: Teacher }) {
-  const [imgError, setImgError] = useState(false);
-  const initials = teacher.name
+function useInitials(name: string) {
+  return name
     .split(" ")
     .filter((w) => /^[A-Za-z]/.test(w))
     .map((w) => w[0])
     .join("")
     .slice(0, 2)
     .toUpperCase();
+}
+
+// Compact horizontal row for mobile — a full-width 3:4 portrait card per
+// teacher was oversized for a phone screen (huge card, lots of scroll for
+// just 3 people). A small-photo + name/subject row is the native mobile
+// pattern here and lets all three teachers sit in view with minimal scroll.
+function TeacherRow({ teacher }: { teacher: Teacher }) {
+  const [imgError, setImgError] = useState(false);
+  const initials = useInitials(teacher.name);
+
+  return (
+    <div className="flex items-center gap-4 rounded-xl border border-glass-border bg-white/[0.03] p-3 transition-colors duration-150 active:bg-white/[0.06]">
+      <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full bg-gradient-to-b from-white/[0.08] to-void">
+        {imgError ? (
+          <div className="flex h-full w-full items-center justify-center">
+            <span className="font-heading text-sm font-bold text-white/25">{initials}</span>
+          </div>
+        ) : (
+          <Image
+            src={teacher.photo}
+            alt={`${teacher.name} — ${teacher.subject} tutor at Forte Institute`}
+            fill
+            sizes="56px"
+            className="object-cover"
+            onError={() => setImgError(true)}
+          />
+        )}
+        <div className="pointer-events-none absolute inset-0 rounded-full bg-yellow/[0.07] mix-blend-overlay ring-1 ring-white/10" />
+      </div>
+      <div className="min-w-0">
+        <p className="truncate font-heading text-sm font-bold text-paper">{teacher.name}</p>
+        <p className="mt-0.5 truncate text-xs text-mist">{teacher.subject}</p>
+      </div>
+    </div>
+  );
+}
+
+function TeacherCard({ teacher }: { teacher: Teacher }) {
+  const [imgError, setImgError] = useState(false);
+  const initials = useInitials(teacher.name);
 
   const aspect = ASPECT;
 
@@ -74,7 +113,15 @@ export function TeacherSpotlight() {
           </p>
         </FadeUp>
 
-        <div className="grid grid-cols-1 items-end gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Mobile: compact rows */}
+        <div className="flex flex-col gap-2.5 sm:hidden">
+          {teachers.map((teacher) => (
+            <TeacherRow key={teacher.name} teacher={teacher} />
+          ))}
+        </div>
+
+        {/* Tablet/desktop: portrait card grid */}
+        <div className="hidden sm:grid sm:grid-cols-2 sm:items-end sm:gap-4 lg:grid-cols-3">
           {teachers.map((teacher) => (
             <TeacherCard key={teacher.name} teacher={teacher} />
           ))}
