@@ -17,6 +17,54 @@ const HERO_STATS = [
 
 const SPLINE_SCENE = "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode";
 
+// Target frame rate for the Spline scene. Rendering the robot at 30fps (instead
+// of 60) halves its per-frame main-thread + GPU cost, leaving headroom so nav
+// hover and page scroll stay smooth while the hero is on screen.
+const SPLINE_FPS = 30;
+
+// Reaches into the Spline runtime to (1) cap the render resolution to 1x DPR —
+// on retina screens the scene otherwise renders 4x+ the pixels, the single
+// biggest GPU cost — and (2) throttle the renderer's animation loop to ~30fps.
+// All accesses are wrapped in try/catch and degrade gracefully if the runtime's
+// internals change. Must be re-applied after app.play(), which resets the loop.
+function tuneSpline(app: Application) {
+  try {
+    const internal = app as unknown as {
+      dpr?: number;
+      render?: (t: number) => void;
+      _resize?: () => void;
+      _getPixelRatio?: () => number;
+      _renderer?: {
+        setPixelRatio: (n: number) => void;
+        setAnimationLoop: (cb: ((t: number) => void) | null) => void;
+      };
+    };
+    // 1) Cap resolution to 1x. Override the app's pixel-ratio source so that
+    //    resizes (ResizeObserver) keep it capped instead of snapping back to
+    //    the device's native DPR, then apply immediately.
+    internal._getPixelRatio = () => 1;
+    internal.dpr = 1;
+    internal._renderer?.setPixelRatio(1);
+    internal._resize?.();
+    // 2) Throttle the render loop to ~SPLINE_FPS so the scene stops consuming
+    //    every frame, leaving headroom for smooth hover and scroll.
+    const renderer = internal._renderer;
+    const render = internal.render?.bind(app);
+    if (renderer && render) {
+      const minInterval = 1000 / SPLINE_FPS;
+      let last = 0;
+      renderer.setAnimationLoop((t: number) => {
+        if (t - last >= minInterval) {
+          last = t;
+          render(t);
+        }
+      });
+    }
+  } catch {
+    /* runtime internals unavailable — fall back to default rendering */
+  }
+}
+
 export function SplineHero() {
   const reduce = useReducedMotion();
   const heroRef = useRef<HTMLDivElement>(null);
@@ -45,7 +93,7 @@ export function SplineHero() {
         });
         const app = splineApp.current;
         if (app) {
-          if (visible) app.play();
+          if (visible) { app.play(); tuneSpline(app); }
           else app.stop();
         }
       },
@@ -59,6 +107,7 @@ export function SplineHero() {
   // pause it immediately so it never renders unseen.
   const handleSplineLoad = (app: Application) => {
     splineApp.current = app;
+    tuneSpline(app);
     if (!heroVisible.current) app.stop();
   };
 
