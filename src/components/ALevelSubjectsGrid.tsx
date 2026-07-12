@@ -24,7 +24,7 @@ function SubjectCard({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -6 }}
+      whileHover={{ y: -6, transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] } }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.3, delay: index * 0.03, ease: [0.16, 1, 0.3, 1] }}
       onClick={() => router.push(href)}
