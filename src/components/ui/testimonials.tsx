@@ -117,7 +117,7 @@ export function Testimonials() {
   return (
     <section
       aria-labelledby="testimonials-heading"
-      className="border-t border-glass-border py-16 md:py-24"
+      className="border-t border-glass-border py-20 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-6">
         {/* Heading */}

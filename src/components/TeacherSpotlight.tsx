@@ -102,7 +102,7 @@ function TeacherCard({ teacher }: { teacher: Teacher }) {
 
 export function TeacherSpotlight() {
   return (
-    <section className="border-t border-glass-border px-6 py-16 md:py-28">
+    <section className="border-t border-glass-border px-6 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
         <FadeUp>
           <h2 className="font-heading mb-4 text-3xl font-bold text-paper md:text-4xl lg:text-5xl">
