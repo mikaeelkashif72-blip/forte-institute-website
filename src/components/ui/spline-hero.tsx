@@ -17,30 +17,6 @@ const HERO_STATS = [
 
 const SPLINE_SCENE = "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode";
 
-// Cap the Spline renderer to 1x device-pixel-ratio. On high-DPI/retina screens
-// the scene otherwise renders 4x+ the pixels, which is the dominant GPU cost and
-// what makes scroll, nav hover and cursor tracking stutter while the hero is on
-// screen. This does NOT touch the render frame rate, so the robot stays fully
-// responsive to the cursor (unlike a framerate throttle, which felt sluggish).
-// Overriding _getPixelRatio keeps the cap in place across ResizeObserver resizes.
-// Must be re-applied after app.play(); all access is wrapped in try/catch.
-function capSplineResolution(app: Application) {
-  try {
-    const internal = app as unknown as {
-      dpr?: number;
-      _resize?: () => void;
-      _getPixelRatio?: () => number;
-      _renderer?: { setPixelRatio: (n: number) => void };
-    };
-    internal._getPixelRatio = () => 1;
-    internal.dpr = 1;
-    internal._renderer?.setPixelRatio(1);
-    internal._resize?.();
-  } catch {
-    /* runtime internals unavailable — fall back to default rendering */
-  }
-}
-
 export function SplineHero() {
   const reduce = useReducedMotion();
   const heroRef = useRef<HTMLDivElement>(null);
@@ -69,7 +45,7 @@ export function SplineHero() {
         });
         const app = splineApp.current;
         if (app) {
-          if (visible) { app.play(); capSplineResolution(app); }
+          if (visible) app.play();
           else app.stop();
         }
       },
@@ -83,7 +59,6 @@ export function SplineHero() {
   // pause it immediately so it never renders unseen.
   const handleSplineLoad = (app: Application) => {
     splineApp.current = app;
-    capSplineResolution(app);
     if (!heroVisible.current) app.stop();
   };
 
