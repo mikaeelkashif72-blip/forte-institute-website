@@ -18,7 +18,9 @@ function SubjectCard({ name, slug, code }: { name: string; slug: string; code: s
   const href = `/subjects/o-level/${slug}`;
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl bg-white/10 p-[1px] transition-all duration-200 hover:-translate-y-1.5 hover:bg-white/40 hover:shadow-[0_0_28px_rgba(255,255,255,0.12)] focus-within:ring-2 focus-within:ring-yellow focus-within:ring-offset-2 focus-within:ring-offset-void">
+    <div className="group relative overflow-hidden rounded-2xl bg-white/10 p-[1px] transition-transform duration-200 [transform:translateZ(0)] hover:-translate-y-1.5 focus-within:ring-2 focus-within:ring-yellow focus-within:ring-offset-2 focus-within:ring-offset-void">
+      {/* Hover glow + border brighten — pre-painted, only opacity animates (compositor-only, no repaint) */}
+      <div className="pointer-events-none absolute inset-0 rounded-2xl bg-white/40 opacity-0 shadow-[0_0_28px_rgba(255,255,255,0.12)] transition-opacity duration-200 group-hover:opacity-100" />
       <div className="relative flex flex-col rounded-[15px] bg-void p-6">
         <h3 className="font-heading text-lg font-bold text-paper">
           {name} <span className="font-mono text-sm font-normal text-mist">({code})</span>
