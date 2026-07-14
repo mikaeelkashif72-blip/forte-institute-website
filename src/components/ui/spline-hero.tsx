@@ -58,6 +58,13 @@ export function SplineHero() {
   // If the scene finishes loading while the hero is already scrolled off-screen,
   // pause it immediately so it never renders unseen.
   const handleSplineLoad = (app: Application) => {
+    // By default Spline only re-renders "on demand" (renderOnDemand: true),
+    // which can add a frame or two of latency between a cursor move and the
+    // scene visually reacting. renderOnDemand is a public, documented
+    // Application property (unlike the private _-prefixed internals), so
+    // disabling it to force continuous rendering is a supported way to make
+    // the robot track the cursor with zero perceptible delay.
+    app.renderOnDemand = false;
     splineApp.current = app;
     if (!heroVisible.current) app.stop();
   };
