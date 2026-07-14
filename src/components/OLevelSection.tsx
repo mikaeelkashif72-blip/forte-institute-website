@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { FadeUp } from "@/components/ui/fade-up";
 import { useOpenRegistration } from "@/components/RegistrationModalProvider";
 
@@ -16,26 +15,25 @@ const FEATURED = [
 
 function SubjectCard({ name, slug, code }: { name: string; slug: string; code: string }) {
   const openRegistration = useOpenRegistration();
-  const router = useRouter();
   const href = `/subjects/o-level/${slug}`;
 
   return (
-    <div
-      onClick={() => router.push(href)}
-      role="link"
-      tabIndex={0}
-      onKeyDown={(e) => { if (e.key === "Enter") router.push(href); }}
-      className="relative cursor-pointer overflow-hidden rounded-2xl bg-white/10 p-[1px] transition-all duration-200 hover:-translate-y-1.5 hover:bg-white/40 hover:shadow-[0_0_28px_rgba(255,255,255,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
-    >
+    <div className="group relative overflow-hidden rounded-2xl bg-white/10 p-[1px] transition-all duration-200 hover:-translate-y-1.5 hover:bg-white/40 hover:shadow-[0_0_28px_rgba(255,255,255,0.12)] focus-within:ring-2 focus-within:ring-yellow focus-within:ring-offset-2 focus-within:ring-offset-void">
       <div className="relative flex flex-col rounded-[15px] bg-void p-6">
         <h3 className="font-heading text-lg font-bold text-paper">
           {name} <span className="font-mono text-sm font-normal text-mist">({code})</span>
         </h3>
         <p className="mt-1 text-sm font-semibold text-yellow">In Class &amp; Online</p>
         <div className="my-4 border-t border-glass-border" />
+        {/* Stretched link — navigates on the first tap/click across the whole card */}
+        <Link
+          href={href}
+          aria-label={`View ${name} details`}
+          className="absolute inset-0 z-0 rounded-2xl focus:outline-none"
+        />
         <button
-          onClick={(e) => { e.stopPropagation(); openRegistration(); }}
-          className="mt-auto block w-full rounded-xl bg-yellow py-2.5 text-center text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97]"
+          onClick={() => openRegistration()}
+          className="relative z-10 mt-auto block w-full rounded-xl bg-yellow py-2.5 text-center text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97]"
         >
           Register for Class →
         </button>
