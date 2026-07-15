@@ -22,32 +22,25 @@ export function SplineHero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const openRegistration = useOpenRegistration();
 
-  // The Spline WebGL scene runs a continuous render loop on the main thread and
-  // does not fully stop when scrolled off-screen — which drags the frame rate of
-  // the entire page (the O/A Level sections and everything below). Rather than
-  // unmounting it (which forces a full reload on scroll-back), we keep the scene
-  // mounted and PAUSE its render loop when the hero leaves the viewport via the
-  // Spline app's stop()/play() (stop() calls setAnimationLoop(null), fully
-  // freeing the main thread → 60fps below the fold). The scene loads exactly once
-  // and never reloads. The same observer pauses the MathBg CSS animations.
+  // Earlier this used app.stop()/app.play() to pause the Spline render loop
+  // when scrolled off-screen (a below-the-fold performance win). But stop()
+  // pauses the Spline event manager and play() resumes it, which appears to
+  // reset some of the scene's event-driven state — visually indistinguishable
+  // from a reload even though the canvas/WASM/scene data never actually
+  // re-fetch. Since a true "never looks like it reloaded" experience matters
+  // more here than the off-screen frame-rate saving, the scene now just keeps
+  // running continuously regardless of scroll position — it mounts once and
+  // is never paused, resumed, or touched again.
   const splineApp = useRef<Application | null>(null);
-  const heroVisible = useRef(true);
   useEffect(() => {
     const el = heroRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const visible = entry.isIntersecting;
-        heroVisible.current = visible;
         const rows = el.querySelectorAll<HTMLElement>(".math-row");
         rows.forEach((row) => {
-          row.style.animationPlayState = visible ? "running" : "paused";
+          row.style.animationPlayState = entry.isIntersecting ? "running" : "paused";
         });
-        const app = splineApp.current;
-        if (app) {
-          if (visible) app.play();
-          else app.stop();
-        }
       },
       { threshold: 0, rootMargin: "200px 0px" }
     );
@@ -55,8 +48,6 @@ export function SplineHero() {
     return () => observer.disconnect();
   }, []);
 
-  // If the scene finishes loading while the hero is already scrolled off-screen,
-  // pause it immediately so it never renders unseen.
   const handleSplineLoad = (app: Application) => {
     // By default Spline only re-renders "on demand" (renderOnDemand: true),
     // which can add a frame or two of latency between a cursor move and the
@@ -66,7 +57,6 @@ export function SplineHero() {
     // the robot track the cursor with zero perceptible delay.
     app.renderOnDemand = false;
     splineApp.current = app;
-    if (!heroVisible.current) app.stop();
   };
 
   // The Spline scene column is CSS-hidden on mobile (`hidden md:block`), but CSS
