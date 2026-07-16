@@ -7,6 +7,13 @@ import { FadeUp } from "@/components/ui/fade-up";
 
 const ASPECT = "aspect-[3/4]";
 
+// Pastel rotation for photo-missing placeholders/avatars, cycling per teacher index.
+const PASTELS = [
+  { bg: "bg-gold", deep: "text-gold-deep" },
+  { bg: "bg-sky", deep: "text-sky-deep" },
+  { bg: "bg-violet", deep: "text-violet-deep" },
+];
+
 function useInitials(name: string) {
   return name
     .split(" ")
@@ -21,16 +28,17 @@ function useInitials(name: string) {
 // teacher was oversized for a phone screen (huge card, lots of scroll for
 // just 3 people). A small-photo + name/subject row is the native mobile
 // pattern here and lets all three teachers sit in view with minimal scroll.
-function TeacherRow({ teacher }: { teacher: Teacher }) {
+function TeacherRow({ teacher, index }: { teacher: Teacher; index: number }) {
   const [imgError, setImgError] = useState(false);
   const initials = useInitials(teacher.name);
+  const pastel = PASTELS[index % PASTELS.length];
 
   return (
-    <div className="flex items-center gap-4 rounded-xl border border-glass-border bg-white/[0.03] p-3 transition-colors duration-150 active:bg-white/[0.06]">
-      <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full bg-gradient-to-b from-white/[0.08] to-void">
+    <div className="flex items-center gap-4 rounded-xl border border-ink-10 bg-white p-3 transition-colors duration-150 active:bg-cream">
+      <div className={`relative h-14 w-14 shrink-0 overflow-hidden rounded-full ${pastel.bg}`}>
         {imgError ? (
           <div className="flex h-full w-full items-center justify-center">
-            <span className="font-heading text-sm font-bold text-white/25">{initials}</span>
+            <span className={`font-heading text-sm font-bold ${pastel.deep}`}>{initials}</span>
           </div>
         ) : (
           <Image
@@ -42,30 +50,30 @@ function TeacherRow({ teacher }: { teacher: Teacher }) {
             onError={() => setImgError(true)}
           />
         )}
-        <div className="pointer-events-none absolute inset-0 rounded-full bg-yellow/[0.07] mix-blend-overlay ring-1 ring-white/10" />
       </div>
       <div className="min-w-0">
-        <p className="truncate font-heading text-sm font-bold text-paper">{teacher.name}</p>
-        <p className="mt-0.5 truncate text-xs text-mist">{teacher.subject}</p>
+        <p className="truncate font-heading text-sm font-bold text-ink">{teacher.name}</p>
+        <p className="mt-0.5 truncate text-xs text-ink-60">{teacher.subject}</p>
       </div>
     </div>
   );
 }
 
-function TeacherCard({ teacher }: { teacher: Teacher }) {
+function TeacherCard({ teacher, index }: { teacher: Teacher; index: number }) {
   const [imgError, setImgError] = useState(false);
   const initials = useInitials(teacher.name);
+  const pastel = PASTELS[index % PASTELS.length];
 
   const aspect = ASPECT;
 
   return (
     <div
-      className={`group relative overflow-hidden rounded-2xl transition-all duration-200 hover:-translate-y-1.5 hover:shadow-[0_0_28px_rgba(255,255,255,0.12)] ${aspect}`}
+      className={`group relative overflow-hidden rounded-2xl transition-all duration-200 hover:-translate-y-1.5 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)] ${aspect}`}
     >
       {/* Placeholder bg — visible when photo missing */}
-      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-white/[0.06] via-white/[0.03] to-void">
+      <div className={`absolute inset-0 flex items-center justify-center ${pastel.bg}`}>
         {imgError && (
-          <span className="font-heading text-5xl font-bold text-white/15">
+          <span className={`font-heading text-5xl font-bold ${pastel.deep}`}>
             {initials}
           </span>
         )}
@@ -83,18 +91,12 @@ function TeacherCard({ teacher }: { teacher: Teacher }) {
         />
       )}
 
-      {/* Brand tint — ties faces to the yellow palette */}
-      <div className="pointer-events-none absolute inset-0 bg-yellow/[0.07] mix-blend-overlay" />
-
-      {/* Hover glow ring */}
-      <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-white/10 transition-all duration-300 group-hover:ring-yellow/35 group-hover:shadow-[inset_0_0_0_1px_rgba(245,197,24,0.35),0_0_36px_rgba(245,197,24,0.12)]" />
-
-      {/* Bottom gradient + name */}
+      {/* Bottom gradient + name — photos are dark, so the scrim + white text stays */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent px-5 pb-6 pt-20">
-        <p className="font-heading text-lg font-bold leading-tight text-paper">
+        <p className="font-heading text-lg font-bold leading-tight text-white">
           {teacher.name}
         </p>
-        <p className="mt-1 text-sm text-mist">{teacher.subject}</p>
+        <p className="mt-1 text-sm text-white/70">{teacher.subject}</p>
       </div>
     </div>
   );
@@ -102,28 +104,28 @@ function TeacherCard({ teacher }: { teacher: Teacher }) {
 
 export function TeacherSpotlight() {
   return (
-    <section className="border-t border-glass-border px-6 py-20 md:py-28">
+    <section className="bg-cream px-6 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
         <FadeUp>
-          <h2 className="font-heading mb-4 text-3xl font-bold text-paper md:text-4xl lg:text-5xl">
+          <h2 className="font-heading mb-4 text-3xl font-bold text-ink md:text-4xl lg:text-5xl">
             The people behind the results.
           </h2>
-          <p className="mb-10 max-w-2xl text-base leading-relaxed text-mist md:mb-14">
+          <p className="mb-10 max-w-2xl text-base leading-relaxed text-ink-60 md:mb-14">
             Every tutor at Forte Institute is a Cambridge specialist — not a generalist who covers everything. Our Islamiyat, Pakistan Studies and Urdu teachers bring subject-level depth and a proven track record of A* grades across O Level and IGCSE examinations in Pakistan.
           </p>
         </FadeUp>
 
         {/* Mobile: compact rows */}
         <div className="flex flex-col gap-2.5 sm:hidden">
-          {teachers.map((teacher) => (
-            <TeacherRow key={teacher.name} teacher={teacher} />
+          {teachers.map((teacher, i) => (
+            <TeacherRow key={teacher.name} teacher={teacher} index={i} />
           ))}
         </div>
 
         {/* Tablet/desktop: portrait card grid */}
         <div className="hidden sm:grid sm:grid-cols-2 sm:items-end sm:gap-4 lg:grid-cols-3">
-          {teachers.map((teacher) => (
-            <TeacherCard key={teacher.name} teacher={teacher} />
+          {teachers.map((teacher, i) => (
+            <TeacherCard key={teacher.name} teacher={teacher} index={i} />
           ))}
         </div>
       </div>

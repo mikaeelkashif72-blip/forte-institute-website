@@ -74,7 +74,7 @@ export function SplineHero() {
   }, []);
 
   return (
-    <Card ref={heroRef} className="relative h-full w-full overflow-hidden rounded-none border-0 bg-void">
+    <Card ref={heroRef} className="relative h-full w-full overflow-hidden rounded-none border-0 bg-cream">
       <MathBg />
 
       <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col-reverse items-center gap-6 px-6 py-10 md:flex-row md:gap-12 md:py-0">
@@ -85,7 +85,7 @@ export function SplineHero() {
             preset="fade"
             speedReveal={4}
             speedSegment={3}
-            className="font-heading text-sm font-bold tracking-wide text-yellow md:text-base"
+            className="font-heading text-sm font-bold tracking-wide text-gold-deep md:text-base"
           >
             O Level, IGCSE & A Level Tuition in Pakistan
           </TextEffect>
@@ -96,7 +96,7 @@ export function SplineHero() {
             delay={0.1}
             speedReveal={4}
             speedSegment={3}
-            className="mt-4 text-balance font-heading text-[2rem] font-bold leading-tight tracking-[-0.01em] text-paper sm:text-5xl md:text-6xl"
+            className="mt-4 text-balance font-heading text-[2rem] font-bold leading-tight tracking-[-0.01em] text-ink sm:text-5xl md:text-6xl"
           >
             O Level & A Level results that speak for themselves.
           </TextEffect>
@@ -107,7 +107,7 @@ export function SplineHero() {
             delay={0.22}
             speedReveal={3}
             speedSegment={2}
-            className="mt-6 text-balance text-base sm:text-lg text-mist"
+            className="mt-6 text-balance text-base sm:text-lg text-ink-60"
           >
             Forte Institute prepares students across Pakistan for Cambridge O Level,
             IGCSE and A Level exams — with live classes, recorded lessons, notes and
@@ -121,7 +121,7 @@ export function SplineHero() {
           >
             <button
               onClick={() => openRegistration()}
-              className="inline-block rounded-xl bg-yellow px-7 py-3.5 text-base font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97]"
+              className="inline-block rounded-xl bg-ink px-7 py-3.5 text-base font-bold text-cream transition-all duration-200 hover:bg-ink/90 hover:scale-[1.03] active:scale-[0.97]"
             >
               Register for Class
             </button>
@@ -135,11 +135,11 @@ export function SplineHero() {
           >
             {HERO_STATS.map(({ icon: Icon, stat, label }, i) => (
               <div key={i} className="flex items-center gap-2">
-                <Icon className="h-4 w-4 shrink-0 text-yellow" strokeWidth={2} />
-                <span className="text-sm font-semibold text-paper">{stat}</span>
-                <span className="text-sm text-mist">{label}</span>
+                <Icon className="h-4 w-4 shrink-0 text-gold-deep" strokeWidth={2} />
+                <span className="text-sm font-semibold text-ink">{stat}</span>
+                <span className="text-sm text-ink-60">{label}</span>
                 {i < HERO_STATS.length - 1 && (
-                  <span className="ml-2 hidden text-glass-border text-mist/30 select-none sm:inline">|</span>
+                  <span className="ml-2 hidden text-ink/20 select-none sm:inline">|</span>
                 )}
               </div>
             ))}

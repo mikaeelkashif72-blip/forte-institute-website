@@ -39,17 +39,17 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 bg-void px-4 pt-4 pb-0 relative">
+    <header className="sticky top-0 z-50 bg-cream px-4 pt-4 pb-0 relative">
       {/* Floating pill */}
-      <div className="mx-auto flex max-w-6xl items-center justify-between rounded-full border border-glass-border bg-white/5 px-5 py-3 md:px-7 md:py-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between rounded-full border border-ink-10 bg-ink/5 px-5 py-3 md:px-7 md:py-4">
         {/* Logo */}
         <Link
           href="/"
           onClick={(e) => { if (pathname === "/") { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); } }}
-          className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
+          className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
         >
           <Image
-            src="/logo-white.png"
+            src="/logo.png"
             alt="Forte Institute"
             width={1080}
             height={478}
@@ -59,10 +59,10 @@ export default function Header() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center text-sm font-semibold text-mist md:flex">
+        <nav className="hidden items-center text-sm font-semibold text-ink-60 md:flex">
           <AnimatedBackground
             defaultValue={pathname}
-            className="rounded-full bg-white/10"
+            className="rounded-full bg-ink/10"
             transition={reducedMotion ? { duration: 0 } : { type: "spring", stiffness: 500, damping: 40, mass: 0.6 }}
             enableHover
           >
@@ -72,7 +72,7 @@ export default function Header() {
                 href={link.href}
                 data-id={link.href}
                 onClick={(e) => { if (link.href === "/" && pathname === "/") { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); } }}
-                className="block px-3 py-1.5 transition-colors duration-200 hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
+                className="block px-3 py-1.5 transition-colors duration-200 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
               >
                 {link.label}
               </Link>
@@ -84,7 +84,7 @@ export default function Header() {
           {/* Desktop CTA */}
           <button
             onClick={() => openRegistration()}
-            className="hidden rounded-xl bg-yellow px-4 py-1.5 text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void sm:block"
+            className="hidden rounded-xl bg-yellow px-4 py-1.5 text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-cream sm:block"
           >
             {SESSION_LABEL}
           </button>
@@ -96,7 +96,7 @@ export default function Header() {
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             onClick={() => setMenuOpen((open) => !open)}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-glass-border text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void md:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-ink-10 text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-cream md:hidden"
           >
             <span className="sr-only">{menuOpen ? "Close menu" : "Open menu"}</span>
             <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
@@ -133,9 +133,9 @@ export default function Header() {
             exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.94, y: -12 }}
             transition={reducedMotion ? { duration: 0.01 } : { type: "spring", stiffness: 380, damping: 30 }}
             style={{ transformOrigin: "top center" }}
-            className="absolute inset-x-4 top-full mt-2 overflow-hidden rounded-2xl border border-glass-border bg-void/95 px-4 backdrop-blur-xl md:hidden"
+            className="absolute inset-x-4 top-full mt-2 overflow-hidden rounded-2xl border border-ink-10 bg-cream/95 px-4 backdrop-blur-xl md:hidden"
           >
-            <ul className="flex flex-col py-3 text-base font-semibold text-mist">
+            <ul className="flex flex-col py-3 text-base font-semibold text-ink-60">
               {navLinks.map((link, index) => (
                 <motion.li
                   key={link.href}
@@ -146,7 +146,7 @@ export default function Header() {
                   <Link
                     href={link.href}
                     onClick={(e) => { setMenuOpen(false); if (link.href === "/" && pathname === "/") { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); } }}
-                    className="block rounded-xl px-3 py-2.5 transition-colors hover:bg-white/5 hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
+                    className="block rounded-xl px-3 py-2.5 transition-colors hover:bg-ink/5 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
                   >
                     {link.label}
                   </Link>
@@ -160,7 +160,7 @@ export default function Header() {
               >
                 <button
                   onClick={() => { setMenuOpen(false); openRegistration(); }}
-                  className="block w-full rounded-xl bg-yellow px-4 py-2.5 text-center text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-void"
+                  className="block w-full rounded-xl bg-yellow px-4 py-2.5 text-center text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
                 >
                   {SESSION_LABEL}
                 </button>

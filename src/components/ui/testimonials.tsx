@@ -72,17 +72,17 @@ const TOTAL = testimonials.length;
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <div className="flex h-full min-h-[280px] min-w-0 flex-col rounded-2xl border border-glass-border bg-white/5 p-6 transition-colors duration-200 hover:border-white/20 hover:bg-white/[0.08]">
+    <div className="flex h-full min-h-[280px] min-w-0 flex-col rounded-2xl border border-ink-10 bg-white p-6 transition-shadow duration-200 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)]">
       <blockquote className="m-0 p-0 flex flex-col h-full">
-        <span className="mb-2 block font-heading text-xl font-bold leading-none text-yellow/60" aria-hidden="true">&ldquo;</span>
-        <p className="text-sm leading-relaxed text-mist flex-1">{t.text}</p>
+        <span className="mb-2 block font-heading text-xl font-bold leading-none text-coral-deep/50" aria-hidden="true">&ldquo;</span>
+        <p className="text-sm leading-relaxed text-ink/80 flex-1">{t.text}</p>
         <footer className="mt-4 flex items-center gap-3">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-yellow/10 ring-1 ring-yellow/20">
-            <span className="font-heading text-xs font-bold text-yellow">{t.initials}</span>
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-coral">
+            <span className="font-heading text-xs font-bold text-coral-deep">{t.initials}</span>
           </div>
           <div className="flex flex-col">
-            <cite className="font-heading text-sm font-bold not-italic text-paper">{t.name}</cite>
-            <span className="mt-0.5 text-xs text-mist/70">{t.role}</span>
+            <cite className="font-heading text-sm font-bold not-italic text-ink">{t.name}</cite>
+            <span className="mt-0.5 text-xs text-ink-60">{t.role}</span>
           </div>
         </footer>
       </blockquote>
@@ -117,23 +117,23 @@ export function Testimonials() {
   return (
     <section
       aria-labelledby="testimonials-heading"
-      className="border-t border-glass-border py-20 md:py-24"
+      className="bg-coral py-20 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-6">
         {/* Heading */}
         <FadeUp className="mb-12 max-w-xl">
-          <p className="mb-3 text-sm font-bold tracking-wide text-yellow">Student Reviews</p>
-          <h2 id="testimonials-heading" className="font-heading text-3xl font-bold leading-tight text-paper sm:text-4xl md:text-5xl">
+          <p className="mb-3 text-sm font-bold tracking-wide text-coral-deep">Student Reviews</p>
+          <h2 id="testimonials-heading" className="font-heading text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl">
             Thousands of A* grades across Pakistan.
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-mist">
+          <p className="mt-4 text-base leading-relaxed text-ink/70">
             O Level, IGCSE and A Level students from Karachi, Lahore and across Pakistan share what they say about studying at Forte Institute.
           </p>
           <a
             href="https://share.google/CN3nEGt8iF3Y0T4dB"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-2.5 rounded-xl border border-glass-border bg-white/5 px-4 py-2.5 transition-colors duration-200 hover:border-white/20 hover:bg-white/10"
+            className="mt-6 inline-flex items-center gap-2.5 rounded-xl border border-ink-10 bg-white px-4 py-2.5 transition-shadow duration-200 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)]"
             aria-label="See Forte Institute reviews on Google"
           >
             <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
@@ -142,12 +142,12 @@ export function Testimonials() {
               <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
               <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
             </svg>
-            <span className="flex items-center gap-1.5 text-sm font-semibold text-paper">
-              <span className="text-yellow">★★★★★</span>
+            <span className="flex items-center gap-1.5 text-sm font-semibold text-ink">
+              <span className="text-gold-deep">★★★★★</span>
               <span>5.0</span>
-              <span className="text-mist font-normal">on Google</span>
+              <span className="text-ink-60 font-normal">on Google</span>
             </span>
-            <svg className="h-3.5 w-3.5 text-mist" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+            <svg className="h-3.5 w-3.5 text-ink-60" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
           </a>
@@ -192,7 +192,7 @@ export function Testimonials() {
                 onClick={() => go(i)}
                 aria-label={`Go to review ${i + 1}`}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
-                  i === index ? "w-6 bg-yellow" : "w-1.5 bg-white/20 hover:bg-white/40"
+                  i === index ? "w-6 bg-ink" : "w-1.5 bg-ink/20 hover:bg-ink/40"
                 }`}
               />
             ))}
@@ -203,7 +203,7 @@ export function Testimonials() {
             <button
               onClick={prev}
               aria-label="Previous reviews"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-glass-border text-mist transition-colors duration-200 hover:border-white/30 hover:text-paper"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-ink-10 text-ink-60 transition-colors duration-200 hover:border-ink/30 hover:text-ink"
             >
               <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -212,7 +212,7 @@ export function Testimonials() {
             <button
               onClick={next}
               aria-label="Next reviews"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-glass-border text-mist transition-colors duration-200 hover:border-white/30 hover:text-paper"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-ink-10 text-ink-60 transition-colors duration-200 hover:border-ink/30 hover:text-ink"
             >
               <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />

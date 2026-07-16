@@ -3,6 +3,12 @@
 // Ambient background: real Cambridge O/A Level equations drifting as faint
 // watermarks. Each row moves at a unique speed for a parallax depth effect.
 // Fully disabled under prefers-reduced-motion (rows render static instead).
+//
+// Color was `#ffffff` for the dark `void` hero background. The hero is now
+// on the light `cream` (#FAF4EC) surface, so white-on-near-white would be
+// invisible — switched to the `ink` navy (#0E1F4B) and opacities bumped
+// (roughly x1.4) since a dark tint at very low alpha reads fainter against a
+// light surface than a light tint at the same alpha reads against a dark one.
 
 const EQUATIONS = [
   "x = (−b ± √(b² − 4ac)) / 2a",
@@ -24,14 +30,14 @@ const EQUATIONS = [
 
 // Each row: [topPercent, durationSeconds, direction, equationIndices, opacity]
 const ROWS: [number, number, 1 | -1, number[], number][] = [
-  [6,   260, 1,  [0, 4, 8,  12], 0.09],
-  [16,  340, -1, [1, 5, 9,  13], 0.07],
-  [26,  300, 1,  [2, 6, 10, 14], 0.08],
-  [38,  380, -1, [3, 7, 11,  0], 0.06],
-  [50,  240, 1,  [4, 8, 12,  1], 0.09],
-  [62,  320, -1, [5, 9, 13,  2], 0.07],
-  [74,  360, 1,  [6, 10, 14, 3], 0.07],
-  [86,  280, -1, [7, 11, 0,  4], 0.08],
+  [6,   260, 1,  [0, 4, 8,  12], 0.13],
+  [16,  340, -1, [1, 5, 9,  13], 0.10],
+  [26,  300, 1,  [2, 6, 10, 14], 0.11],
+  [38,  380, -1, [3, 7, 11,  0], 0.08],
+  [50,  240, 1,  [4, 8, 12,  1], 0.13],
+  [62,  320, -1, [5, 9, 13,  2], 0.10],
+  [74,  360, 1,  [6, 10, 14, 3], 0.10],
+  [86,  280, -1, [7, 11, 0,  4], 0.11],
 ];
 
 export function MathBg() {
@@ -74,7 +80,7 @@ export function MathBg() {
                 fontFamily: "'Courier New', Courier, monospace",
                 fontSize: "0.8rem",
                 letterSpacing: "0.04em",
-                color: "#ffffff",
+                color: "#0E1F4B",
                 animation: `${animName} ${duration}s linear infinite`,
               }}
             >

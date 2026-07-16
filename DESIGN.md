@@ -16,6 +16,18 @@ colors:
   yellow: "#E8A020"
   yellow-deep: "#1B5A6B"
   navy-pill: "#10204A"
+  # --- Bright/pastel theme tokens (added; see Section 2a) ---
+  cream: "#FAF4EC"
+  gold: "#F7E6C3"
+  gold-deep: "#714100"
+  sky: "#CAEEFF"
+  sky-deep: "#004270"
+  violet: "#E9DEFF"
+  violet-deep: "#522288"
+  sage: "#C8E8CD"
+  sage-deep: "#09471F"
+  coral: "#FED6DA"
+  coral-deep: "#8B173A"
 typography:
   display:
     fontFamily: "Clash Display, sans-serif"
@@ -93,6 +105,33 @@ A Restrained strategy: one neutral base (paper) carries the entire surface, top 
 ### Named Rules
 **The One Accent Rule.** Yellow (in its fill or text-safe form) is the only color carrying meaning (identity, action, focus) anywhere on the header or hero. If a future component wants a second accent, that is a deliberate decision requiring a documented reason, not a default reach.
 **The Fill-Not-Text Rule.** `yellow` (#F5C518) is for backgrounds/fills only. Any time the brand accent needs to be a text color, line, or icon stroke against a light background, use `yellow-deep` instead — the base yellow fails contrast as text on Paper.
+
+## 2a. Bright/Pastel Theme Tokens (in progress — additive migration)
+
+**Status:** client-approved pivot away from the dark "void" homepage theme toward a bright, cream-based, multi-pastel theme (reference: altacademy.org). This is a **migration in progress** — the tokens below are additive. The dark tokens (`void`, `mist`, `glass`, `cyan`) documented above and in CLAUDE.md remain fully active and must not be removed until every page that references them has been migrated. As of this write-up, only the Header and homepage hero have flipped to the new tokens; every section below the hero (Why Forte, Testimonials, Teachers, Footer, and all secondary pages) is still on the dark theme and looks unchanged.
+
+**Base surface / text:**
+- `cream` (`#FAF4EC`) — the new warm off-white page background, replacing `void` wherever a page migrates. Distinct from the older `paper` (`#F8F6F0`) token, which stays untouched since many components still reference it.
+- `ink` (`#0E1F4B`) — already existed as the primary dark text color (a deep navy, not literal black); reused as-is for the new theme rather than introducing a colliding second "ink" with a different hue, since 27+ files already reference `ink`/`ink-60`/`ink-10`. Contrast against `cream`: 14.6:1.
+- `ink-60` (`rgba(14,31,75,0.65)`) — secondary/body text on light surfaces. The alpha was nudged from the pre-existing 0.6 to 0.65 specifically because 0.6 measured 4.25:1 against the new `cream` (fails WCAG AA's 4.5:1 for normal text); 0.65 measures 4.96:1. Same hue, negligible visual change on pages still using the old value.
+- `ink-40` (`rgba(14,31,75,0.4)`) — new, lighter tertiary tone (~2.4:1 against cream). Decorative/large-text use only, not body copy.
+
+**Five pastel surface/deep-text pairs** — each `{name}` is a full pastel section/card background (not just an accent stripe), and `{name}-deep` is a same-hue, saturated, text-safe color for headings/body copy sitting on that pastel surface:
+
+| Role | Surface | Deep (text-safe) | Contrast (deep-on-surface) |
+|---|---|---|---|
+| Gold | `#F7E6C3` | `#714100` | 6.94:1 |
+| Sky | `#CAEEFF` | `#004270` | 8.54:1 |
+| Violet | `#E9DEFF` | `#522288` | 8.42:1 |
+| Sage | `#C8E8CD` | `#09471F` | 8.22:1 |
+| Coral | `#FED6DA` | `#8B173A` | 6.95:1 |
+
+All five pairs clear the 4.5:1 WCAG AA floor for body text with comfortable margin. All values were derived directly from OKLCH (same hue kept between a pastel surface and its deep text partner) and converted to sRGB hex — not eyeballed.
+
+**Deviations from the original brief, and why:**
+- **Gold-deep is not the literal old "yellow-deep" hex.** The brief asked to reuse the existing `yellow-deep` value verbatim. Neither candidate for that value works as text here: CLAUDE.md's documented `#B98A00` measures 2.55:1 against the gold pastel surface and 2.87:1 against cream; the value actually live in `tailwind.config.ts` before this change, `#F5C518`, is worse (1.49:1 against cream). Both fail WCAG AA. Gold-deep was re-derived at the same hue (oklch H=85, matching the gold surface) and darkened to oklch(42% 0.15 85) = `#714100`, which passes both checks with margin.
+- **`violet` was repurposed, not left alone.** The pre-existing `violet` token (`#8B5CF6` / `bright: #A78BFA`) was the retired dark "Glass Observatory" accent. A repo-wide search turned up zero live references to it — even `Footer.tsx`, which CLAUDE.md's notes suggested still used it, had already been migrated to the `void`/`mist`/`glass` set. Since it was dead, `violet` now holds the new pastel surface/deep pair instead of introducing a synonym key. `cyan` had the same retired-and-dead status but isn't needed by the new 5-pair palette, so it was left completely untouched.
+- **`ink` was not redefined with a new near-black value.** The brief's spec (oklch 22% near-black) assumed `ink` didn't already exist as a light-surface token; in fact it's used across 27+ files as a dark navy. Redefining its hue would have visually changed every one of those files, which is out of scope for this pass. The existing navy `ink` already clears 14.6:1 against `cream`, so it was reused unchanged; only the `-60` alpha was nudged (see above) and a new `-40` shade was added.
 
 ## 3. Typography
 

@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="bg-void">
+      <main className="bg-cream">
         <section className="relative min-h-[640px] h-[calc(100dvh-65px)]">
           <SplineHero />
         </section>
