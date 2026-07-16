@@ -65,30 +65,53 @@ interface Props {
   level: Level;
 }
 
+// Level-scoped accent theme: O Level reads sky, A Level reads violet.
+// Written as literal class strings (not template-composed) so Tailwind's
+// content scanner picks them up.
+const LEVEL_THEME = {
+  "o-level": {
+    dot: "bg-sky-deep",
+    text: "text-sky-deep",
+    ring: "focus-within:ring-sky-deep",
+    wash: "bg-sky",
+    washBorder: "border-sky-deep/15",
+    numberDim: "text-sky-deep/60",
+  },
+  "a-level": {
+    dot: "bg-violet-deep",
+    text: "text-violet-deep",
+    ring: "focus-within:ring-violet-deep",
+    wash: "bg-violet",
+    washBorder: "border-violet-deep/15",
+    numberDim: "text-violet-deep/60",
+  },
+} as const;
+
 export function SubjectDetailPage({ subject, level }: Props) {
   const openRegistration = useOpenRegistration();
   const reduce = useReducedMotion();
   const levelLabel = levelLabels[level];
+  const theme = LEVEL_THEME[level];
   const codeDisplay = subject.igcseCode
     ? `${levelLabel} · ${subject.code} / IGCSE ${subject.igcseCode}`
     : `${levelLabel} · ${subject.code}`;
 
   return (
-    <main className="min-h-screen bg-void">
+    <main className="min-h-screen bg-cream">
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden border-b border-glass-border px-6 pb-16 pt-14 md:pb-20 md:pt-16">
+      <section className="relative overflow-hidden border-b border-ink-10 px-6 pb-16 pt-14 md:pb-20 md:pt-16">
         <MathBg />
 
         <div className="relative mx-auto max-w-6xl">
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs text-mist/50">
-            <Link href="/" className="transition-colors hover:text-mist">Home</Link>
+          <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs text-ink-40">
+            <Link href="/" className="transition-colors hover:text-ink-60">Home</Link>
             <span aria-hidden="true">/</span>
-            <Link href={`/subjects/${level}`} className="transition-colors hover:text-mist">
+            <Link href={`/subjects/${level}`} className="transition-colors hover:text-ink-60">
               {levelLabel}
             </Link>
             <span aria-hidden="true">/</span>
-            <span className="text-mist/70">{subject.name}</span>
+            <span className="text-ink-60">{subject.name}</span>
           </nav>
 
           <div className="max-w-2xl">
@@ -97,10 +120,10 @@ export function SubjectDetailPage({ subject, level }: Props) {
               initial={reduce ? false : { opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-4 inline-flex items-center gap-2 rounded-full border border-glass-border bg-white/5 px-3.5 py-1.5"
+              className="mb-4 inline-flex items-center gap-2 rounded-full border border-ink-10 bg-white px-3.5 py-1.5"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-yellow" aria-hidden="true" />
-              <span className="text-xs font-semibold text-mist">{codeDisplay}</span>
+              <span className={`h-1.5 w-1.5 rounded-full ${theme.dot}`} aria-hidden="true" />
+              <span className="text-xs font-semibold text-ink-60">{codeDisplay}</span>
             </motion.div>
 
             {/* Headline */}
@@ -108,10 +131,10 @@ export function SubjectDetailPage({ subject, level }: Props) {
               initial={reduce ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="font-heading text-balance text-4xl font-bold leading-tight text-paper sm:text-5xl md:text-6xl"
+              className="font-heading text-balance text-4xl font-bold leading-tight text-ink sm:text-5xl md:text-6xl"
             >
               Cambridge {levelLabel}{" "}
-              <span className="text-yellow">{subject.name}</span>
+              <span className={theme.text}>{subject.name}</span>
             </motion.h1>
 
             {/* Overview */}
@@ -119,7 +142,7 @@ export function SubjectDetailPage({ subject, level }: Props) {
               initial={reduce ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-5 max-w-xl text-base leading-relaxed text-mist sm:text-lg"
+              className="mt-5 max-w-xl text-base leading-relaxed text-ink-60 sm:text-lg"
             >
               {subject.overview}
             </motion.p>
@@ -131,10 +154,10 @@ export function SubjectDetailPage({ subject, level }: Props) {
               transition={{ duration: 0.4, delay: 0.26, ease: [0.16, 1, 0.3, 1] }}
               className="mt-6 flex flex-wrap items-center gap-2"
             >
-              <span className="rounded-full border border-glass-border bg-white/5 px-3 py-1 text-xs font-semibold text-mist">
+              <span className="rounded-full border border-ink-10 bg-white px-3 py-1 text-xs font-semibold text-ink-60">
                 In Class &amp; Online
               </span>
-              <span className="rounded-full border border-glass-border bg-white/5 px-3 py-1 text-xs font-semibold text-mist">
+              <span className="rounded-full border border-ink-10 bg-white px-3 py-1 text-xs font-semibold text-ink-60">
                 Oct/Nov &amp; May/Jun Sessions
               </span>
             </motion.div>
@@ -148,13 +171,13 @@ export function SubjectDetailPage({ subject, level }: Props) {
             >
               <button
                 onClick={() => openRegistration()}
-                className="rounded-xl bg-yellow px-6 py-3 text-sm font-bold text-ink transition-all duration-200 hover:bg-yellow-deep hover:text-paper active:scale-[0.97]"
+                className="rounded-xl bg-ink px-6 py-3 text-sm font-bold text-cream transition-all duration-200 hover:bg-ink/90 active:scale-[0.97]"
               >
                 Register for Class →
               </button>
               <a
                 href="#topics"
-                className="rounded-xl border border-glass-border px-6 py-3 text-sm font-semibold text-mist transition-colors duration-200 hover:border-white/30 hover:text-paper"
+                className="rounded-xl border border-ink-10 px-6 py-3 text-sm font-semibold text-ink-60 transition-colors duration-200 hover:border-ink/30 hover:text-ink"
               >
                 See Topics
               </a>
@@ -164,18 +187,18 @@ export function SubjectDetailPage({ subject, level }: Props) {
       </section>
 
       {/* ── HIGHLIGHTS ── */}
-      <section className="border-b border-glass-border px-6 py-12 md:py-16">
+      <section className="border-b border-ink-10 px-6 py-12 md:py-16">
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {subject.highlights.map((point, i) => (
               <FadeUp key={i} delay={i * 0.07}>
-                <div className="flex items-start gap-3 rounded-2xl border border-glass-border bg-white/[0.03] p-5">
+                <div className="flex items-start gap-3 rounded-2xl border border-ink-10 bg-white p-5">
                   <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center">
-                    <svg className="h-4 w-4 text-yellow" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                    <svg className={`h-4 w-4 ${theme.text}`} fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                     </svg>
                   </span>
-                  <p className="text-sm leading-relaxed text-mist">{point}</p>
+                  <p className="text-sm leading-relaxed text-ink-60">{point}</p>
                 </div>
               </FadeUp>
             ))}
@@ -184,13 +207,13 @@ export function SubjectDetailPage({ subject, level }: Props) {
       </section>
 
       {/* ── TOPICS ── */}
-      <section id="topics" className="border-b border-glass-border px-6 py-14 md:py-20">
+      <section id="topics" className="border-b border-ink-10 px-6 py-14 md:py-20">
         <div className="mx-auto max-w-6xl">
           <FadeUp>
-            <h2 className="font-heading mb-2 text-2xl font-bold text-paper sm:text-3xl">
+            <h2 className="font-heading mb-2 text-2xl font-bold text-ink sm:text-3xl">
               What You&apos;ll Study
             </h2>
-            <p className="mb-10 text-sm text-mist/70">
+            <p className="mb-10 text-sm text-ink-60">
               Full Cambridge {levelLabel} {subject.name} syllabus — every topic covered.
             </p>
           </FadeUp>
@@ -200,9 +223,9 @@ export function SubjectDetailPage({ subject, level }: Props) {
               {subject.topics.map((topic, i) => (
                 <li
                   key={i}
-                  className="mb-2 flex items-center gap-3 break-inside-avoid rounded-xl border border-glass-border bg-white/[0.03] px-4 py-3 text-sm text-mist transition-colors duration-150 hover:border-white/20 hover:text-paper"
+                  className="mb-2 flex items-center gap-3 break-inside-avoid rounded-xl border border-ink-10 bg-white px-4 py-3 text-sm text-ink-60 transition-colors duration-150 hover:border-ink/30 hover:text-ink"
                 >
-                  <span className="shrink-0 font-mono text-[10px] font-bold text-yellow/60">
+                  <span className={`shrink-0 font-mono text-[10px] font-bold ${theme.numberDim}`}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   {topic}
@@ -214,10 +237,10 @@ export function SubjectDetailPage({ subject, level }: Props) {
       </section>
 
       {/* ── WHAT TO EXPECT ── */}
-      <section className="border-b border-glass-border px-6 py-14 md:py-20">
+      <section className="border-b border-ink-10 px-6 py-14 md:py-20">
         <div className="mx-auto max-w-6xl">
           <FadeUp>
-            <h2 className="font-heading mb-10 text-2xl font-bold text-paper sm:text-3xl">
+            <h2 className="font-heading mb-10 text-2xl font-bold text-ink sm:text-3xl">
               What to Expect at Forte
             </h2>
           </FadeUp>
@@ -226,12 +249,12 @@ export function SubjectDetailPage({ subject, level }: Props) {
             {EXPECT_ITEMS.map((item, i) => (
               <FadeUp key={i} delay={i * 0.08}>
                 <div className="flex flex-col gap-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-yellow/10 text-yellow">
+                  <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${theme.wash} ${theme.text}`}>
                     {item.icon}
                   </div>
                   <div>
-                    <h3 className="font-heading mb-1.5 text-base font-bold text-paper">{item.title}</h3>
-                    <p className="text-sm leading-relaxed text-mist">{item.body}</p>
+                    <h3 className="font-heading mb-1.5 text-base font-bold text-ink">{item.title}</h3>
+                    <p className="text-sm leading-relaxed text-ink-60">{item.body}</p>
                   </div>
                 </div>
               </FadeUp>
@@ -244,16 +267,16 @@ export function SubjectDetailPage({ subject, level }: Props) {
       <section className="px-6 py-16 md:py-20">
         <div className="mx-auto max-w-6xl">
           <FadeUp>
-            <div className="rounded-2xl border border-yellow/20 bg-yellow/[0.06] px-8 py-12 text-center">
-              <p className="font-heading mb-2 text-2xl font-bold text-paper sm:text-3xl">
+            <div className={`rounded-2xl border ${theme.washBorder} ${theme.wash} px-8 py-12 text-center`}>
+              <p className="font-heading mb-2 text-2xl font-bold text-ink sm:text-3xl">
                 Ready to achieve an A* in {levelLabel} {subject.name}?
               </p>
-              <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-mist">
+              <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-ink-60">
                 Oct/Nov &apos;26 registrations are open. Spots are limited — secure yours now.
               </p>
               <button
                 onClick={() => openRegistration()}
-                className="mt-8 rounded-xl bg-yellow px-8 py-3.5 text-sm font-bold text-ink transition-all duration-200 hover:bg-yellow-deep hover:text-paper active:scale-[0.97]"
+                className="mt-8 rounded-xl bg-ink px-8 py-3.5 text-sm font-bold text-cream transition-all duration-200 hover:bg-ink/90 active:scale-[0.97]"
               >
                 Register for Class →
               </button>

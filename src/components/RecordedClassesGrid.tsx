@@ -81,23 +81,23 @@ export function RecordedClassesGrid() {
         return (
           <FadeUp key={course.slug} delay={i * 0.08}>
           <div
-            className="relative overflow-hidden rounded-2xl bg-white/10 p-[1px] transition-all duration-200 hover:-translate-y-1.5 hover:bg-white/40 hover:shadow-[0_0_28px_rgba(255,255,255,0.12)]"
+            className="relative overflow-hidden rounded-2xl border border-ink-10 bg-white transition-all duration-200 hover:-translate-y-1.5 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)]"
           >
-            <div className="flex h-full flex-col rounded-[15px] bg-void p-7">
+            <div className="flex h-full flex-col p-7">
               {/* Discount badge */}
               <div className="mb-5 flex items-start justify-between gap-3">
                 <div>
-                  <p className="font-mono text-xs text-mist">{course.level} · {course.code}</p>
-                  <h2 className="mt-1 font-heading text-2xl font-bold text-paper">
+                  <p className="font-mono text-xs text-ink-60">{course.level} · {course.code}</p>
+                  <h2 className="mt-1 font-heading text-2xl font-bold text-ink">
                     {course.name}
                     {course.syllabus && (
-                      <span className="ml-2 text-lg font-semibold text-mist">
+                      <span className="ml-2 text-lg font-semibold text-ink-60">
                         {course.syllabus}
                       </span>
                     )}
                   </h2>
                 </div>
-                <span className="shrink-0 rounded-full bg-yellow/15 px-3 py-1 text-xs font-bold text-yellow">
+                <span className="shrink-0 rounded-full bg-coral px-3 py-1 text-xs font-bold text-coral-deep">
                   {pct}% OFF
                 </span>
               </div>
@@ -105,23 +105,23 @@ export function RecordedClassesGrid() {
               {/* What's included */}
               <ul className="mb-6 flex flex-col gap-2">
                 {course.includes.map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-sm text-mist">
-                    <span className="mt-0.5 h-4 w-4 shrink-0 text-yellow">✓</span>
+                  <li key={item} className="flex items-start gap-2 text-sm text-ink-60">
+                    <span className="mt-0.5 h-4 w-4 shrink-0 text-gold-deep">✓</span>
                     {item}
                   </li>
                 ))}
               </ul>
 
-              <div className="mt-auto border-t border-glass-border pt-5">
+              <div className="mt-auto border-t border-ink-10 pt-5">
                 {/* Pricing */}
                 <div className="mb-4 flex items-end gap-3">
-                  <span className="font-heading text-3xl font-bold text-paper">
+                  <span className="font-heading text-3xl font-bold text-ink">
                     {formatPrice(course.price)}
                   </span>
-                  <span className="mb-0.5 text-sm text-mist/60 line-through">
+                  <span className="mb-0.5 text-sm text-ink-40 line-through">
                     {formatPrice(course.originalPrice)}
                   </span>
-                  <span className="mb-0.5 text-xs font-semibold text-yellow">
+                  <span className="mb-0.5 text-xs font-semibold text-coral-deep">
                     Save {formatPrice(saving)}
                   </span>
                 </div>
@@ -129,7 +129,7 @@ export function RecordedClassesGrid() {
                 {/* CTA */}
                 <button
                   onClick={() => openRegistration()}
-                  className="block w-full rounded-xl bg-yellow py-3 text-center text-sm font-bold text-ink transition-all duration-200 hover:bg-[#F5C518] hover:scale-[1.03] active:scale-[0.97]"
+                  className="block w-full rounded-xl bg-ink py-3 text-center text-sm font-bold text-cream transition-all duration-200 hover:bg-ink/90 hover:scale-[1.03] active:scale-[0.97]"
                 >
                   Enrol Now →
                 </button>

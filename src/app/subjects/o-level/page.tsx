@@ -15,32 +15,32 @@ export default function OLevelSubjectsPage() {
   return (
     <>
       <Header />
-      <main className="bg-void min-h-screen">
+      <main className="bg-cream min-h-screen">
         {/* Page hero */}
-        <section className="relative border-b border-glass-border px-6 py-16 md:py-24">
+        <section className="relative border-b border-ink-10 px-6 py-16 md:py-24">
           <MathBg />
           <div className="relative z-10 mx-auto max-w-6xl">
-            <p className="mb-3 font-mono text-xs font-semibold uppercase tracking-widest text-yellow">
+            <p className="mb-3 font-mono text-xs font-semibold uppercase tracking-widest text-sky-deep">
               Cambridge O Level
             </p>
-            <h1 className="font-heading text-4xl font-bold text-paper md:text-5xl lg:text-6xl">
+            <h1 className="font-heading text-4xl font-bold text-ink md:text-5xl lg:text-6xl">
               O Level Classes
             </h1>
-            <p className="mt-4 max-w-2xl text-lg text-mist">
+            <p className="mt-4 max-w-2xl text-lg text-ink-60">
               Expert-led O Level tuition across all Cambridge subjects — available in class and online.
               Small batches, past-paper focus, and tutors who know exactly what examiners look for.
             </p>
-            <div className="mt-6 flex flex-wrap gap-4 text-sm text-mist">
+            <div className="mt-6 flex flex-wrap gap-4 text-sm text-ink-60">
               <span className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-yellow" />
+                <span className="h-1.5 w-1.5 rounded-full bg-sky-deep" />
                 In-Class (Karachi)
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-yellow" />
+                <span className="h-1.5 w-1.5 rounded-full bg-sky-deep" />
                 Online via Zoom
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-yellow" />
+                <span className="h-1.5 w-1.5 rounded-full bg-sky-deep" />
                 Oct/Nov &amp; May/Jun sessions
               </span>
             </div>
