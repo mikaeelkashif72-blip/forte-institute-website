@@ -4,6 +4,17 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { FadeUp } from "@/components/ui/fade-up";
 import { useOpenRegistration } from "@/components/RegistrationModalProvider";
+import { getSubjectColor, type SubjectColor } from "@/lib/subjects";
+
+// Literal class strings (not template-composed) so Tailwind's content
+// scanner picks them up.
+const PILL_THEME: Record<SubjectColor, { pill: string; text: string; ring: string }> = {
+  gold: { pill: "bg-gold text-gold-deep", text: "text-gold-deep", ring: "focus-within:ring-gold-deep" },
+  sky: { pill: "bg-sky text-sky-deep", text: "text-sky-deep", ring: "focus-within:ring-sky-deep" },
+  violet: { pill: "bg-violet text-violet-deep", text: "text-violet-deep", ring: "focus-within:ring-violet-deep" },
+  sage: { pill: "bg-sage text-sage-deep", text: "text-sage-deep", ring: "focus-within:ring-sage-deep" },
+  coral: { pill: "bg-coral text-coral-deep", text: "text-coral-deep", ring: "focus-within:ring-coral-deep" },
+};
 
 const FEATURED = [
   { slug: "mathematics",         name: "Mathematics",        code: "9709" },
@@ -17,17 +28,22 @@ const FEATURED = [
 function SubjectCard({ name, slug, code }: { name: string; slug: string; code: string }) {
   const openRegistration = useOpenRegistration();
   const href = `/subjects/a-level/${slug}`;
+  const theme = PILL_THEME[getSubjectColor(slug)];
 
   return (
     <motion.div
       whileHover={{ y: -6, transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] } }}
-      className="group relative overflow-hidden rounded-2xl bg-white border border-ink-10 transition-shadow duration-200 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)] focus-within:ring-2 focus-within:ring-violet-deep focus-within:ring-offset-2 focus-within:ring-offset-violet"
+      className={`group relative overflow-hidden rounded-2xl bg-white border border-ink-10 transition-shadow duration-200 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)] focus-within:ring-2 ${theme.ring} focus-within:ring-offset-2 focus-within:ring-offset-violet`}
     >
       <div className="relative flex flex-col p-6">
+        <span className={`mb-3 inline-flex w-fit items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold ${theme.pill}`}>
+          <span className="h-1.5 w-1.5 rounded-full bg-current" aria-hidden="true" />
+          A Level
+        </span>
         <h3 className="font-heading text-lg font-bold text-ink">
           {name} <span className="font-mono text-sm font-normal text-ink-60">({code})</span>
         </h3>
-        <p className="mt-1 text-sm font-semibold text-violet-deep">In Class &amp; Online</p>
+        <p className={`mt-1 text-sm font-semibold ${theme.text}`}>In Class &amp; Online</p>
         <div className="my-4 border-t border-ink-10" />
         {/* Stretched link — navigates on the first tap/click across the whole card */}
         <Link

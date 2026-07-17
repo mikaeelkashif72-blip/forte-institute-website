@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "motion/react";
 import { useReducedMotion } from "motion/react";
-import { type SubjectDetail, type Level, levelLabels } from "@/lib/subjects";
+import { type SubjectDetail, type Level, type SubjectColor, levelLabels, getSubjectColor } from "@/lib/subjects";
 import { useOpenRegistration } from "@/components/RegistrationModalProvider";
 import { MathBg } from "@/components/ui/math-bg";
 
@@ -65,11 +65,27 @@ interface Props {
   level: Level;
 }
 
-// Level-scoped accent theme: O Level reads sky, A Level reads violet.
-// Written as literal class strings (not template-composed) so Tailwind's
-// content scanner picks them up.
-const LEVEL_THEME = {
-  "o-level": {
+// Per-subject accent theme: each subject carries its own color identity
+// (assigned in src/lib/subjects.ts) regardless of level — e.g. Chemistry is
+// always coral whether it's O Level or A Level. Written as literal class
+// strings (not template-composed) so Tailwind's content scanner picks them up.
+const SUBJECT_THEME: Record<SubjectColor, {
+  dot: string;
+  text: string;
+  ring: string;
+  wash: string;
+  washBorder: string;
+  numberDim: string;
+}> = {
+  gold: {
+    dot: "bg-gold-deep",
+    text: "text-gold-deep",
+    ring: "focus-within:ring-gold-deep",
+    wash: "bg-gold",
+    washBorder: "border-gold-deep/15",
+    numberDim: "text-gold-deep/60",
+  },
+  sky: {
     dot: "bg-sky-deep",
     text: "text-sky-deep",
     ring: "focus-within:ring-sky-deep",
@@ -77,7 +93,7 @@ const LEVEL_THEME = {
     washBorder: "border-sky-deep/15",
     numberDim: "text-sky-deep/60",
   },
-  "a-level": {
+  violet: {
     dot: "bg-violet-deep",
     text: "text-violet-deep",
     ring: "focus-within:ring-violet-deep",
@@ -85,13 +101,29 @@ const LEVEL_THEME = {
     washBorder: "border-violet-deep/15",
     numberDim: "text-violet-deep/60",
   },
-} as const;
+  sage: {
+    dot: "bg-sage-deep",
+    text: "text-sage-deep",
+    ring: "focus-within:ring-sage-deep",
+    wash: "bg-sage",
+    washBorder: "border-sage-deep/15",
+    numberDim: "text-sage-deep/60",
+  },
+  coral: {
+    dot: "bg-coral-deep",
+    text: "text-coral-deep",
+    ring: "focus-within:ring-coral-deep",
+    wash: "bg-coral",
+    washBorder: "border-coral-deep/15",
+    numberDim: "text-coral-deep/60",
+  },
+};
 
 export function SubjectDetailPage({ subject, level }: Props) {
   const openRegistration = useOpenRegistration();
   const reduce = useReducedMotion();
   const levelLabel = levelLabels[level];
-  const theme = LEVEL_THEME[level];
+  const theme = SUBJECT_THEME[getSubjectColor(subject.slug)];
   const codeDisplay = subject.igcseCode
     ? `${levelLabel} · ${subject.code} / IGCSE ${subject.igcseCode}`
     : `${levelLabel} · ${subject.code}`;

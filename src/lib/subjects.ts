@@ -802,3 +802,28 @@ export function getSubjectDetail(level: Level, slug: string): SubjectDetail | nu
   const map = level === "o-level" ? oLevelDetails : aLevelDetails;
   return map[slug] ?? null;
 }
+
+// Per-subject color identity. Each subject (by slug) keeps the SAME color
+// whether it's O Level or A Level — one subject, one identity, carried from
+// the listing pill through to the detail-page hero accent.
+//
+// Assignment method: take the union of every unique slug across both level
+// arrays, sort alphabetically, then cycle the 5 token pairs in a fixed order
+// (gold, sky, violet, sage, coral, gold, ...) down the sorted list. This is
+// deliberately mechanical — no hand-picked pairings — so the distribution of
+// 5 colors across ~17 subjects is unbiased and reproducible.
+export type SubjectColor = "gold" | "sky" | "violet" | "sage" | "coral";
+
+const COLOR_CYCLE: SubjectColor[] = ["gold", "sky", "violet", "sage", "coral"];
+
+const allSubjectSlugs = Array.from(
+  new Set([...oLevelSubjects, ...aLevelSubjects].map((s) => s.slug))
+).sort();
+
+export const subjectColors: Record<string, SubjectColor> = Object.fromEntries(
+  allSubjectSlugs.map((slug, i) => [slug, COLOR_CYCLE[i % COLOR_CYCLE.length]])
+);
+
+export function getSubjectColor(slug: string): SubjectColor {
+  return subjectColors[slug] ?? "gold";
+}
