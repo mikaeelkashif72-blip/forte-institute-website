@@ -41,7 +41,7 @@ export function WhyForteFeaturesSection({ level }: Props) {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {FEATURES.map(({ icon: Icon, title, body }, i) => (
             <FadeUp key={title} delay={i * 0.1}>
-              <div className="flex h-full flex-col rounded-2xl border border-ink-10 bg-white p-7 transition-shadow duration-200 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)]">
+              <div className="flex h-full flex-col rounded-2xl border border-ink-10 bg-white p-7 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)]">
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-gold">
                   <Icon className="h-6 w-6 text-gold-deep" strokeWidth={1.5} />
                 </div>

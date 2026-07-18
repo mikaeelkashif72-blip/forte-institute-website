@@ -33,7 +33,7 @@ function SubjectCard({ name, slug, code }: { name: string; slug: string; code: s
   return (
     <motion.div
       whileHover={{ y: -6, transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] } }}
-      className={`group relative overflow-hidden rounded-2xl bg-white border border-ink-10 transition-shadow duration-200 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)] focus-within:ring-2 ${theme.ring} focus-within:ring-offset-2 focus-within:ring-offset-violet`}
+      className={`group relative overflow-hidden rounded-2xl bg-white border border-ink-10 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)] focus-within:ring-2 ${theme.ring} focus-within:ring-offset-2 focus-within:ring-offset-violet`}
     >
       <div className="relative flex flex-col p-6">
         <span className={`mb-3 inline-flex w-fit items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold ${theme.pill}`}>

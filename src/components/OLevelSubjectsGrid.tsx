@@ -39,7 +39,7 @@ function SubjectCard({
       whileHover={{ y: -6, transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] } }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.3, delay: index * 0.03, ease: [0.16, 1, 0.3, 1] }}
-      className={`group relative overflow-hidden rounded-2xl bg-white border border-ink-10 transition-shadow duration-200 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)] focus-within:ring-2 ${theme.ring} focus-within:ring-offset-2 focus-within:ring-offset-cream`}
+      className={`group relative overflow-hidden rounded-2xl bg-white border border-ink-10 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)] focus-within:ring-2 ${theme.ring} focus-within:ring-offset-2 focus-within:ring-offset-cream`}
     >
       <div className="relative flex flex-col gap-4 p-6">
         {/* Subject color pill */}

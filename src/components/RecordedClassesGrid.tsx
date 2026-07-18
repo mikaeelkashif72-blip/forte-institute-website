@@ -81,7 +81,7 @@ export function RecordedClassesGrid() {
         return (
           <FadeUp key={course.slug} delay={i * 0.08}>
           <div
-            className="relative overflow-hidden rounded-2xl border border-ink-10 bg-white transition-all duration-200 hover:-translate-y-1.5 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)]"
+            className="relative overflow-hidden rounded-2xl border border-ink-10 bg-white transition-transform duration-200 [transform:translateZ(0)] hover:-translate-y-1.5 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)]"
           >
             <div className="flex h-full flex-col p-7">
               {/* Discount badge */}

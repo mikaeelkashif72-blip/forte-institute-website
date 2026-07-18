@@ -72,7 +72,7 @@ const TOTAL = testimonials.length;
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <div className="flex h-full min-h-[280px] min-w-0 flex-col rounded-2xl border border-ink-10 bg-white p-6 transition-shadow duration-200 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)]">
+    <div className="flex h-full min-h-[280px] min-w-0 flex-col rounded-2xl border border-ink-10 bg-white p-6 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)]">
       <blockquote className="m-0 p-0 flex flex-col h-full">
         <span className="mb-2 block font-heading text-xl font-bold leading-none text-coral-deep/50" aria-hidden="true">&ldquo;</span>
         <p className="text-sm leading-relaxed text-ink/80 flex-1">{t.text}</p>
@@ -133,7 +133,7 @@ export function Testimonials() {
             href="https://share.google/CN3nEGt8iF3Y0T4dB"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-2.5 rounded-xl border border-ink-10 bg-white px-4 py-2.5 transition-shadow duration-200 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)]"
+            className="mt-6 inline-flex items-center gap-2.5 rounded-xl border border-ink-10 bg-white px-4 py-2.5 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)]"
             aria-label="See Forte Institute reviews on Google"
           >
             <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24" aria-hidden="true">

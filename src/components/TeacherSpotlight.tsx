@@ -68,7 +68,7 @@ function TeacherCard({ teacher, index }: { teacher: Teacher; index: number }) {
 
   return (
     <div
-      className={`group relative overflow-hidden rounded-2xl transition-all duration-200 hover:-translate-y-1.5 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)] ${aspect}`}
+      className={`group relative overflow-hidden rounded-2xl transition-transform duration-200 [transform:translateZ(0)] hover:-translate-y-1.5 hover:shadow-[0_8px_30px_rgba(14,31,75,0.10)] ${aspect}`}
     >
       {/* Placeholder bg — visible when photo missing */}
       <div className={`absolute inset-0 flex items-center justify-center ${pastel.bg}`}>
