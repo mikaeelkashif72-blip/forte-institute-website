@@ -29,6 +29,7 @@ const navLinks = [
   { href: "/subjects/o-level",    label: "O Level"           },
   { href: "/subjects/a-level",    label: "A Level"           },
   { href: "/recorded-classes",    label: "Recorded Classes"  },
+  { href: "/faq",                 label: "FAQ"                },
   { href: "/contact",             label: "Contact"           },
 ];
 

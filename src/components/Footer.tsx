@@ -11,6 +11,7 @@ const navLinks = [
   { href: "/live-classes",       label: "Live Classes"      },
   { href: "/results",            label: "Results"           },
   { href: "/about",              label: "About"             },
+  { href: "/faq",                label: "FAQ"                },
   { href: "/contact",            label: "Contact"           },
 ];
 
